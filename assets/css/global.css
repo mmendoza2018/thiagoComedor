@@ -1,0 +1,48 @@
+:root{
+    --color-primary : rgba(255, 0, 0, 0.746);
+    --color-secondary : rgba(2, 40, 255, 0.863);
+    --color-gray : #D6D6D6
+}
+/* refactor boostrap colors */
+.bg-white{
+    background-color: white;
+}
+.bg-red-gyt{
+    background-color: var(--color-primary);
+}
+.bg-gray-gyt{
+    background-color: var(--color-gray);
+}
+.bg-blue-gyt{
+    background-color: var(--color-secondary);
+}
+.btn-blue-gyt{
+    background-color: var(--color-secondary);
+    color: white;
+}
+.btn-red-gyt{
+    background-color: var(--color-primary);
+    color: white;
+}
+.btn-gray-gyt{
+    background-color: var(--color-gray);
+    color: black;
+}
+.fondo-global{
+    background-color: #e4e6e7;
+}
+.text-blue-gyt{
+    color: var(--color-secondary);
+}
+.text-red-gyt{
+    color: var(--color-primary);
+}
+/* quitar flechas del input type number */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+.row{
+    --bs-gutter-x: 11px !important;
+}

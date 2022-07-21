@@ -1,0 +1,16 @@
+[09-Oct-2021 13:08:21 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/gytperu/operaciones.gytperu.com/php/generaPDF/reporte/plantilla.php on line 17
+[16-Oct-2021 03:21:33 UTC] PHP Fatal error:  Uncaught Mpdf\MpdfException: Data has already been sent to output (/home/gytperu/operaciones.gytperu.com/php/generaPDF/reporte/plantilla.php at line 17), unable to output PDF file in /home/gytperu/operaciones.gytperu.com/assets/plugins/mpdf/vendor/mpdf/mpdf/src/Mpdf.php:9510
+Stack trace:
+#0 /home/gytperu/operaciones.gytperu.com/php/generaPDF/reporte/index.php(17): Mpdf\Mpdf->Output('REPORTE ORDEN.p...', 'I')
+#1 {main}
+  thrown in /home/gytperu/operaciones.gytperu.com/assets/plugins/mpdf/vendor/mpdf/mpdf/src/Mpdf.php on line 9510
+[16-Oct-2021 03:21:51 UTC] PHP Fatal error:  Uncaught Mpdf\MpdfException: Data has already been sent to output (/home/gytperu/operaciones.gytperu.com/php/generaPDF/reporte/plantilla.php at line 17), unable to output PDF file in /home/gytperu/operaciones.gytperu.com/assets/plugins/mpdf/vendor/mpdf/mpdf/src/Mpdf.php:9510
+Stack trace:
+#0 /home/gytperu/operaciones.gytperu.com/php/generaPDF/reporte/index.php(17): Mpdf\Mpdf->Output('REPORTE ORDEN.p...', 'I')
+#1 {main}
+  thrown in /home/gytperu/operaciones.gytperu.com/assets/plugins/mpdf/vendor/mpdf/mpdf/src/Mpdf.php on line 9510
+[16-Oct-2021 03:22:00 UTC] PHP Fatal error:  Uncaught Mpdf\MpdfException: Data has already been sent to output (/home/gytperu/operaciones.gytperu.com/php/generaPDF/reporte/plantilla.php at line 17), unable to output PDF file in /home/gytperu/operaciones.gytperu.com/assets/plugins/mpdf/vendor/mpdf/mpdf/src/Mpdf.php:9510
+Stack trace:
+#0 /home/gytperu/operaciones.gytperu.com/php/generaPDF/reporte/index.php(17): Mpdf\Mpdf->Output('REPORTE ORDEN.p...', 'I')
+#1 {main}
+  thrown in /home/gytperu/operaciones.gytperu.com/assets/plugins/mpdf/vendor/mpdf/mpdf/src/Mpdf.php on line 9510
