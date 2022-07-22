@@ -2,9 +2,17 @@
 session_start();
 require_once("../conexion.php");
 $idCedeSesion = $_SESSION['datos_trabajador'][0]["cede"];
-$idComensal = $_POST["idComensal"];
-$tipoComida = $_POST["tipoComida"];
+$dniComensal = $_POST["dniComensal"];
+$lecturaRapida = $_POST["lecturaRapida"];
+$resCodigo = mysqli_query($conexion,"SELECT COME_id FROM comensales WHERE COME_dni='$dniComensal'");
+foreach ($resCodigo as $k) { $idComensal = $k["COME_id"]; }
+if ($lecturaRapida =="true") {
+  //ingreso via lector 
+  $tipoComida = 3;
 
+}else{
+  $tipoComida = $_POST["tipoComida"];
+}
 $consulta = "INSERT INTO registros_alimentacion   (COME_id01,	
                                                   CEDE_id01,	
                                                   TIAL_id01)

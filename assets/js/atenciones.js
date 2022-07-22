@@ -135,3 +135,32 @@ document.addEventListener("focusout", (e) => {
     obtenerDatosComensales(e.target)
   }
 })
+
+
+const lecturaRegistroComensales = (formulario) => {
+  event.preventDefault();
+  let data = new FormData(formulario)
+  fetch('php/atenciones/agrega.php', {
+    method:"POST",
+    body:data,
+  })
+  .then(res => res.json())
+  .then(json => {
+    console.log('json', json)
+    if (json) {
+      toastPersonalizada('Comensal registrado','success');
+    }else {
+      toastPersonalizada('Ocurrio algun error','error');
+    }
+    formulario.reset();
+    let lineaLectora = document.getElementById("inputLector").focus();
+  })
+}
+const mostrarLecturaCodigo = () => {
+  let lineaLectora = document.getElementById("lineaLectora");
+  lineaLectora.classList.remove("hide_lector")
+}
+const ocultarLecturaCodigo = () => {
+  let lineaLectora = document.getElementById("lineaLectora");
+  lineaLectora.classList.add("hide_lector")
+}

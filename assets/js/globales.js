@@ -11,12 +11,11 @@ document.addEventListener("DOMContentLoaded", () => {
   validar_campos();
   CambiarIconoSidebar();
   validaNumerosPositivos();
-  cargarContenido("#listaPersonas","contenido","php/ordenes/lista_personas.php")
-  cargarContenido("#btnFormComensales","contenido","php/comensales/principal.php")
-  cargarContenido("#btnAlmuerzos","contenido","php/atenciones/principal.php")
-  cargarContenido("#btnEstadisticas","contenido","php/estadisticas/principal.php")
-  cargarContenido("#btnlectorQr","contenido","php/estadisticas/principal.php")
-  
+  routerVistas("#listaPersonas","contenido","php/ordenes/lista_personas.php")
+  routerVistas("#btnFormComensales","contenido","php/comensales/principal.php")
+  routerVistas("#btnAlmuerzos","contenido","php/atenciones/principal.php")
+  routerVistas("#btnEstadisticas","contenido","php/estadisticas/principal.php")
+  routerVistas("#btnlectorQr","contenido","php/atenciones/lectorQr.php")
   
 })
 
@@ -106,7 +105,7 @@ function verLoader() {
   }
 } */
   /* funcion para cargar contendio via ajax  */
-function cargarContenido(idBoton,contenedor,url) {
+function routerVistas(idBoton,contenedor,url) {
     document.addEventListener("click", (e) => {
       if (e.target.matches(idBoton)) {
         verLoader()
@@ -134,6 +133,13 @@ const cargarContenidoMultiple = (promesas,arrayIdElementoLlegada) => {
   ocultarLoader();
 })
 }
+
+const cargarContenido = (ruta, idLlegada, options={}) => {
+  fetch(ruta, options)
+  .then(res => res.text())
+  .then(html => $(`#${idLlegada}`).html(html))
+}
+
 const obteneridElSeleccionado = (idFormulario, classInput) => {
   //la clase del input formulario debe ser igual al value del list
  let valueSelect = document.getElementById(idFormulario).querySelector(`.${classInput}`).value;
@@ -167,7 +173,6 @@ function confirmacion () {
 //para resetear el formulario
 const validaRespuestasAgregar = (respuesta, ruta,idFormulario=false) => {
   if (respuesta) {
-    
     $("#contenido").load(ruta)
     if (idFormulario!==false) {
       $("#contenido").load(ruta)

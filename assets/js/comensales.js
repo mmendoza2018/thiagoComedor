@@ -74,3 +74,4 @@ const actualizaComensales = (formulario) => {
     alertaCamposVacios();
   }
 };
+
