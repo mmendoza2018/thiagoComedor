@@ -29,7 +29,8 @@
                     <div class="sidebar-submenu" style="display: block;">
                         <ul>
                             <li><a href="#" id="btnFormComensales">Comensales</a></li>
-                            <li><a href="#" id="btnAlmuerzos">Almuerzos</a></li>
+                            <li><a href="#" id="btnRegistroVentas">Registro Ventas</a></li>
+                            <li><a href="#" id="btnlistadoVentas">Listado Ventas</a></li>
                             <li><a href="#" id="btnEstadisticas">Estadisticas</a></li>
                             <li><a href="#" id="btnlectorQr">lector</a></li>
                         </ul>

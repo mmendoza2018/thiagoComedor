@@ -2,7 +2,7 @@
 session_start();
 require_once("../conexion.php");
 $consulta = "SELECT * FROM registros_alimentacion ra
-                INNER JOIN tipos_alimentacion ta ON ra.TIAL_id01=ta.TIAL_id
+                INNER JOIN tipo_alimentos ta ON ra.TIAL_id01=ta.TIAL_id
                 INNER JOIN cedes ce ON ra.CEDE_id01=ce.CEDE_id
                 INNER JOIN comensales co  ON ra.COME_id01=co.COME_id
                 INNER JOIN areas a ON co.AREA_id01=a.AREA_id
@@ -11,7 +11,10 @@ $consulta = "SELECT * FROM registros_alimentacion ra
 
 $conComensales = mysqli_query($conexion, $consulta);
 ?>
-
+<div class="container-fluid bg-white my-1 py-3">
+  <div class="text-center mb-4">
+    <h5 class="my-0">REGISTRO ATENCIONES</h5>
+  </div>
 <div class="table-responsive">
   <table id="tabla_lista_personas" class="table table-striped table-sm">
     <thead>
@@ -45,6 +48,7 @@ $conComensales = mysqli_query($conexion, $consulta);
       <?php endforeach; ?>
     </tbody>
   </table>
+</div>
 </div>
 <script>
   $(document).ready(function() {

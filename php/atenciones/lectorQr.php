@@ -9,7 +9,7 @@
     </label>
     <input type="hidden" name="lecturaRapida" value="true">
       <input type="text" id="inputLector" name="dniComensal" style="width: 1px;" autocomplete="off" class="hide_lector" onfocusout="ocultarLecturaCodigo()" onfocus="mostrarLecturaCodigo()">
-       <button type="submit" class="btn btn-sm btn-success">Enviar</button>
+       <button type="submit" class="hide_lector" style="width: 1px; height: 1px;">Enviar</button>
     </form>
   </div>
   </div>

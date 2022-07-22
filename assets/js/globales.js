@@ -13,10 +13,13 @@ document.addEventListener("DOMContentLoaded", () => {
   validaNumerosPositivos();
   routerVistas("#listaPersonas","contenido","php/ordenes/lista_personas.php")
   routerVistas("#btnFormComensales","contenido","php/comensales/principal.php")
-  routerVistas("#btnAlmuerzos","contenido","php/atenciones/principal.php")
+  routerVistas("#btnRegistroVentas","contenido","php/atenciones/formAgrega.php")
+  routerVistas("#btnlistadoVentas","contenido","php/atenciones/tabla.php")
   routerVistas("#btnEstadisticas","contenido","php/estadisticas/principal.php")
   routerVistas("#btnlectorQr","contenido","php/atenciones/lectorQr.php")
   
+  
+
 })
 
 /* funcion para validar los campos  */

@@ -105,18 +105,11 @@ const actualizaComensales = (formulario) => {
   }
 }; */
 
-const obtenerDatosComensales = async (elemento) => {
-    let Comensal = await obteneridElSeleccionado("formAddAtenciones","dataComensalesAtenciones")
-    if (Comensal===""){
-      alert("Comensal No valido");
-      document.getElementById("empresaRegistroDiario").value="";
-      document.getElementById("areaRegistroDiario").value="";
-      return
-    } 
-
+const obtenerDatosComensales = (elemento) => {
+  let idComensal = elemento.value;
     verLoader()
     let data = new FormData();
-    data.append("idComensal",Comensal)
+    data.append("idComensal",idComensal)
     fetch("php/atenciones/datosComensal.php",{
       method:"POST",
       body:data
@@ -129,13 +122,24 @@ const obtenerDatosComensales = async (elemento) => {
         ocultarLoader();
     })
 }
-
-document.addEventListener("focusout", (e) => {
-  if (e.target.matches("#comensalRegistroDiario")) {
-    obtenerDatosComensales(e.target)
-  }
-})
-
+const guardarTipoAlimento = (elemento) => {
+  let idTipoAlimento = elemento.value;
+  let data = new FormData();
+  data.append('idTipoAlimento',idTipoAlimento)
+  fetch('php/atenciones/sesionTipoAlimento.php', {
+    method:"POST",
+    body:data,
+  })
+  .then(res => res.json())
+  .then(json => {
+    if (json) {
+      cargarContenido('php/atenciones/tablaSesionAlimento.php','tablaSesionAlimentos');
+      toastPersonalizada('Agregado con exito!','success')
+    }else{
+      toastPersonalizada('Ocurrio algun error!','error')
+    }
+  })
+}
 
 const lecturaRegistroComensales = (formulario) => {
   event.preventDefault();
@@ -164,3 +168,32 @@ const ocultarLecturaCodigo = () => {
   let lineaLectora = document.getElementById("lineaLectora");
   lineaLectora.classList.add("hide_lector")
 }
+
+const EliminaTipoAlimentoSesion = (indiceTipoAlimento) => {
+  Swal.fire({
+    title: "¿Esta seguro de quitar este producto?",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "si",
+    cancelButtonText: "Cancelar",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      let data = new FormData();
+      data.append("indiceTipoAlimento", indiceTipoAlimento);
+      fetch('php/atenciones/eliminaTipoAlimento.php', {
+        method: "POST",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((json) => {
+          if (json) {
+            cargarContenido('php/atenciones/tablaSesionAlimento.php','tablaSesionAlimentos');
+            alerta_personalizada("Eliminado correctamente", "success");
+          }else {
+            toastPersonalizada('Ocurrio algun error','error');
+          }
+        });
+    }
+  });
+};
