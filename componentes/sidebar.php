@@ -33,6 +33,7 @@
                             <li><a href="#" id="btnlistadoVentas">Listado Ventas</a></li>
                             <li><a href="#" id="btnEstadisticas">Estadisticas</a></li>
                             <li><a href="#" id="btnlectorQr">lector</a></li>
+                            <li><a href="#" id="btnPrueba">Prueba</a></li>
                         </ul>
                     </div>
                 </li>

@@ -3,6 +3,8 @@ include_once("../conexion.php");
 
 $comensales = mysqli_query($conexion, "SELECT * FROM comensales WHERE COME_estado = 1");
 $tiposComida = mysqli_query($conexion, "SELECT * FROM tipo_alimentos WHERE TIAL_estado = 1");
+$tiposAtencion = mysqli_query($conexion, "SELECT * FROM tipos_atencion WHERE TIAT_estado = 1");
+
 
 ?>
 <link rel="stylesheet" href="assets/plugins/select2/dist/css/select2.min.css">
@@ -14,10 +16,10 @@ $tiposComida = mysqli_query($conexion, "SELECT * FROM tipo_alimentos WHERE TIAL_
   <div class="col-md-9 mx-auto">
     <div class="row">
       <!-- formulario -->
-      <div class="col-sm-6" id="formularioAtenciones">
-        <form id="formAddAtenciones" onsubmit="agregarAtenciones(this)">
+      <div class="col-sm-6 pe-5" id="formularioAtenciones">
+        <form id="formAddAtenciones">
           <label>Comensal (Registrado)</label>
-          <select class="form-select form-select-sm select2Atenciones" onchange="obtenerDatosComensales(this)" name="state">
+          <select class="form-select form-select-sm select2Atenciones" onchange="obtenerDatosComensales(this)" name="idComensal">
           <option></option>
           <?php foreach ($comensales as $x) : ?>
               <option value="<?php echo $x["COME_id"] ?>">
@@ -25,23 +27,28 @@ $tiposComida = mysqli_query($conexion, "SELECT * FROM tipo_alimentos WHERE TIAL_
             </option>
           <?php endforeach; ?>
         </select>
-          <label>Comensal nuevo</label>
-          <input type="text" class="form-control form-control-sm mb-2" id="ComensalNRegistroDiario" readonly data-validate name="empresa">
+          <label>Nombres y apellidos (comensal nuevo)</label>
+          <input type="text" class="form-control form-control-sm mb-2" id="ComensalNRegistroDiario" name="comensalNuevo">
           <label>Empresa</label>
-          <input type="text" class="form-control form-control-sm mb-2" id="empresaRegistroDiario" readonly data-validate name="empresa">
+          <input type="text" class="form-control form-control-sm mb-2" id="empresaRegistroDiario" readonly>
           <label>Área</label>
-          <input type="text" class="form-control form-control-sm mb-2" id="areaRegistroDiario" readonly data-validate name="cargo">
-          <button type="submit" class="btn btn-primary btn-sm float-end mt-3">enviar</button>
+          <input type="text" class="form-control form-control-sm mb-2" id="areaRegistroDiario" readonly>
+          <?php foreach ($tiposAtencion as $x) : ?>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" data-validate_atencion onchange="obtenerListaAlimentos(this)" name="tipoAtencion" 
+              id="tipoAtencion<?php echo $x["TIAT_id"];  ?>" value="<?php echo $x["TIAT_id"]; ?>">
+              <label class="form-check-label" for="tipoAtencion<?php echo $x["TIAT_id"];  ?>">
+                ATENCIÓN <?php echo $x["TIAT_descripcion"] ?>
+              </label>
+            </div>
+          <?php endforeach; ?>
+          <button type="button" class="btn btn-primary btn-sm float-end mt-3" onclick="agregarAtenciones()">enviar</button>
         </form>
       </div>
       <div class="col-sm-6" id="formularioAtenciones">
         Lista Productos
-        <select class="form-select form-select-sm select2Atenciones" onchange="guardarTipoAlimento(this)" name="state">
+        <select class="form-select form-select-sm select2Atenciones" id="selectListaAlimentos" onchange="guardarTipoAlimento(this)" name="state">
           <option></option>
-          <option value="" selected disabled>Seleccione una opción</option>
-            <?php foreach ($tiposComida as $x) : ?>
-              <option value="<?php echo $x["TIAL_id"] ?>"><?php echo $x["TIAL_descripcion"] ?></option>
-            <?php endforeach; ?>
         </select>
         <div id="tablaSesionAlimentos"></div>
       </div>

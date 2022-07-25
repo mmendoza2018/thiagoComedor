@@ -8,7 +8,7 @@
       <div class="container_lector hide_lector" id="lineaLectora"></div>
     </label>
     <input type="hidden" name="lecturaRapida" value="true">
-      <input type="text" id="inputLector" name="dniComensal" style="width: 1px;" autocomplete="off" class="hide_lector" onfocusout="ocultarLecturaCodigo()" onfocus="mostrarLecturaCodigo()">
+      <input type="text" id="inputLector" name="dniComensal" style="width: 1px;" autocomplete="off" class="hide_lector" onfocusout="ocultarLecturaCodigo(this)" onfocus="mostrarLecturaCodigo(this)">
        <button type="submit" class="hide_lector" style="width: 1px; height: 1px;">Enviar</button>
     </form>
   </div>

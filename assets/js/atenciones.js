@@ -1,31 +1,21 @@
-async function agregarAtenciones  (formulario) {
+function agregarAtenciones  () {
   event.preventDefault();
-  let Comensal = await obteneridElSeleccionado("formAddAtenciones","dataComensalesAtenciones")
-    if (Comensal===""){
-      alert("Comensal No valido");
-      document.getElementById("empresaRegistroDiario").value="";
-      document.getElementById("areaRegistroDiario").value="";
-      return
-    } 
   if (validar_campos("formAddAtenciones")) {
+    let formulario = document.getElementById("formAddAtenciones");
     let data = new FormData(formulario);
-    data.append("idComensal",Comensal)
     verLoader();
-    fetch("php/atenciones/agrega.php", {
+    fetch("php/atenciones/agregaGeneral.php", {
       method: "POST",
       body: data,
     })
-      .then((res) => res.text())
+      .then((res) => res.json())
       .then((respuesta) => {
         console.log(respuesta);
-        if (respuesta){
-          cargarContenidoMultiple(
-            [fetch("php/atenciones/principal.php")],
-            ["contenido"]
-          )
-          alertaPersonalizada("Agregado con exito","success");
+        if (respuesta[0]){
+          alertaPersonalizada(respuesta[1],"success");
+          cargarContenido('php/atenciones/formAgrega.php','contenido');
         }else{
-          alertaPersonalizada("Fallo Al agregar","error");
+          alertaPersonalizada(respuesta[1],"error");
         }
         ocultarLoader();
       });
@@ -119,6 +109,7 @@ const obtenerDatosComensales = (elemento) => {
       console.log(json);
         document.getElementById("empresaRegistroDiario").value=json.empresa
         document.getElementById("areaRegistroDiario").value=json.area
+        document.getElementById("ComensalNRegistroDiario").setAttribute("readonly","true")
         ocultarLoader();
     })
 }
@@ -144,29 +135,31 @@ const guardarTipoAlimento = (elemento) => {
 const lecturaRegistroComensales = (formulario) => {
   event.preventDefault();
   let data = new FormData(formulario)
-  fetch('php/atenciones/agrega.php', {
+  fetch('php/atenciones/agregaDiario.php', {
     method:"POST",
     body:data,
   })
   .then(res => res.json())
   .then(json => {
     console.log('json', json)
-    if (json) {
-      toastPersonalizada('Comensal registrado','success');
+    if (json[0]) {
+      toastPersonalizada(json[1],'success');
     }else {
-      toastPersonalizada('Ocurrio algun error','error');
+      alertaPersonalizada(json[1],'error');
     }
     formulario.reset();
     let lineaLectora = document.getElementById("inputLector").focus();
   })
 }
-const mostrarLecturaCodigo = () => {
+const mostrarLecturaCodigo = (elemento) => {
   let lineaLectora = document.getElementById("lineaLectora");
   lineaLectora.classList.remove("hide_lector")
+  elemento.value='';
 }
-const ocultarLecturaCodigo = () => {
+const ocultarLecturaCodigo = (elemento) => {
   let lineaLectora = document.getElementById("lineaLectora");
   lineaLectora.classList.add("hide_lector")
+  elemento.value='';
 }
 
 const EliminaTipoAlimentoSesion = (indiceTipoAlimento) => {
@@ -189,7 +182,7 @@ const EliminaTipoAlimentoSesion = (indiceTipoAlimento) => {
         .then((json) => {
           if (json) {
             cargarContenido('php/atenciones/tablaSesionAlimento.php','tablaSesionAlimentos');
-            alerta_personalizada("Eliminado correctamente", "success");
+            toastPersonalizada("Eliminado correctamente", "success");
           }else {
             toastPersonalizada('Ocurrio algun error','error');
           }
@@ -197,3 +190,12 @@ const EliminaTipoAlimentoSesion = (indiceTipoAlimento) => {
     }
   });
 };
+
+const obtenerListaAlimentos = (elemento) => {
+  let data = new FormData();
+  data.append('idTipoVenta',elemento.value)
+  cargarContenido('php/atenciones/optionsAlimentos.php','selectListaAlimentos',{
+    method:'POST',
+    body:data
+  },true)
+}

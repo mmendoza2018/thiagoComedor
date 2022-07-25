@@ -11,12 +11,13 @@ document.addEventListener("DOMContentLoaded", () => {
   validar_campos();
   CambiarIconoSidebar();
   validaNumerosPositivos();
-  routerVistas("#listaPersonas","contenido","php/ordenes/lista_personas.php")
-  routerVistas("#btnFormComensales","contenido","php/comensales/principal.php")
-  routerVistas("#btnRegistroVentas","contenido","php/atenciones/formAgrega.php")
-  routerVistas("#btnlistadoVentas","contenido","php/atenciones/tabla.php")
-  routerVistas("#btnEstadisticas","contenido","php/estadisticas/principal.php")
-  routerVistas("#btnlectorQr","contenido","php/atenciones/lectorQr.php")
+  routerVistas("#listaPersonas","php/ordenes/lista_personas.php")
+  routerVistas("#btnFormComensales","php/comensales/principal.php")
+  routerVistas("#btnRegistroVentas","php/atenciones/formAgrega.php")
+  routerVistas("#btnlistadoVentas","php/atenciones/tabla.php")
+  routerVistas("#btnEstadisticas","php/estadisticas/principal.php")
+  routerVistas("#btnlectorQr","php/atenciones/lectorQr.php")
+  routerVistas("#btnPrueba","php/atenciones/prueba.php")
   
   
 
@@ -108,7 +109,7 @@ function verLoader() {
   }
 } */
   /* funcion para cargar contendio via ajax  */
-function routerVistas(idBoton,contenedor,url) {
+function routerVistas(idBoton,url) {
     document.addEventListener("click", (e) => {
       if (e.target.matches(idBoton)) {
         verLoader()
@@ -116,7 +117,7 @@ function routerVistas(idBoton,contenedor,url) {
           url: url,
           success: function (response) {
               /* document.getElementById(contenedor).innerHTML=response; */
-              $("#"+contenedor).html(response)
+              $("#contenido").html(response)
               localStorage.setItem("ruta",url);
               ocultarLoader();
           }
@@ -137,10 +138,13 @@ const cargarContenidoMultiple = (promesas,arrayIdElementoLlegada) => {
 })
 }
 
-const cargarContenido = (ruta, idLlegada, options={}) => {
+const cargarContenido = (ruta, idLlegada, options={},mostrarRes=false) => {
   fetch(ruta, options)
   .then(res => res.text())
-  .then(html => $(`#${idLlegada}`).html(html))
+  .then(html => {
+    $(`#${idLlegada}`).html(html)
+    if(mostrarRes) console.log('html', html)
+  })
 }
 
 const obteneridElSeleccionado = (idFormulario, classInput) => {

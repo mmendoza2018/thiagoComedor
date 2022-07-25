@@ -11,7 +11,8 @@ $tipoAlimentosAgregados = [
     "descripcion" => $arrayTipoAlimento["TIAL_descripcion"],
     "marca" => $arrayTipoAlimento["TIAL_marca"],
     "unidad" => $arrayTipoAlimento["TIAL_unidad"],
-    "precio" => $arrayTipoAlimento["TIAL_precio"],
+    "precio" =>  explode(".",$arrayTipoAlimento["TIAL_precio"])[0],
+    "cantidad" => 1,
 ];
 $_SESSION['sesionTipoAlimentos'][] = $tipoAlimentosAgregados;
 
