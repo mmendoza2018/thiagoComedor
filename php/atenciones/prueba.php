@@ -49,7 +49,7 @@ foreach ($resComesal as $x) {
     ]);
   }
 }
-# echo "<pre>"; var_dump($arrayDiasRegistroComensales); echo "<pre>";
+ echo "<pre>"; var_dump($arrayDiasRegistroComensales); echo "<pre>";
 
 /* --------------------------------- */
 
@@ -115,6 +115,7 @@ foreach ($arrayDiasRegistroComensales as $x) {
   }
   $contadorComensales2++;
 }
+//echo count($arrayDiasSelecionados);
 echo "<pre>";
 var_dump($arrayDiasGeneralComensales);
 echo "<pre>";
