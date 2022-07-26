@@ -46,6 +46,17 @@ const obtenerTablasPorCedeIndex = (idCede) => {
     ["contenido"]
   );
 };
+const generaExcel = (ruta) => {
+  let id=3;
+  let descripcionArchivo =''
+    window.open(
+      `${ruta}?id=${id}`,
+      descripcionArchivo,
+      `width=${window.innerWidth * 0.75},
+      height=${ window.innerHeight},
+      margin=0,padding=5,scrollbars=SI,top=80,left=${left}`
+    );
+}
 /* 
 const llenarDatosComensales = (dato) => {
   let [id, nombres, dni, area, empresa] = dato.split("|");

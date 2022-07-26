@@ -1,7 +1,6 @@
 <?php
 require_once("../conexion.php");
-$resComensales = "SELECT COME_id, COME_nombres, AREA_descripcion, COME_dni FROM comensales co 
-                  INNER JOIN areas ar ON co.AREA_id01=ar.AREA_id WHERE COME_estado=1";
+$resComensales = "SELECT COME_id, COME_nombres FROM comensales WHERE COME_estado=1";
 # AND COME_id=199
 $resComesal = mysqli_query($conexion, $resComensales);
 $auxiliar = null;
@@ -12,8 +11,8 @@ foreach ($resComesal as $x) {
   $arrayDiasSalidaPorComensal = [];
   $contadorAlimentos = 0;
   foreach ($resTipoAlimento as $k) {
-    $conSalidas = "SELECT DATE(REAL_fecha) as fechaRegistro, REAL_id,CEDE_descripcion FROM registros_alimentacion ra
-                   INNER JOIN cedes ce ON ra.CEDE_id01=ce.CEDE_id
+    $conSalidas = "SELECT DATE(REAL_fecha) as fechaRegistro, REAL_id,TIAL_descripcion FROM registros_alimentacion ra
+                   LEFT JOIN tipo_alimentos ta ON ra.TIAL_id01=ta.TIAL_id
                    WHERE COME_id01=" . $x["COME_id"] . " AND TIAL_id01=" . $k["TIAL_id"] . " AND REAL_estado=1";
     $resSalidas = mysqli_query($conexion, $conSalidas);
     if (mysqli_num_rows($resSalidas) > 0) {
@@ -21,7 +20,7 @@ foreach ($resComesal as $x) {
       //var_dump($arrayDiasSalidaPorComensal);
       //var_dump($arrayDiasSalidaPorComensal[$contadorAlimentos][$k['TIAL_descripcion']]);
       foreach ($resSalidas as $t) {
-        $cedeSalida = $t['CEDE_descripcion'];
+        //var_dump($arrayDiasSalidaPorComensal[$k['TIAL_id']]);
         array_push($arrayDiasSalidaPorComensal[$contadorAlimentos],  $t['fechaRegistro']);
       }
     } else {
@@ -30,7 +29,7 @@ foreach ($resComesal as $x) {
 
     $contadorAlimentos++;
   }
-/*     echo "<pre>";
+  /*   echo "<pre>";
   var_dump($arrayDiasSalidaPorComensal);
   echo "<pre>"; */
   #var_dump($arrayDiasSalidaPorComensal);
@@ -41,15 +40,13 @@ foreach ($resComesal as $x) {
   $existenRegistrosComensal =  $sumaDesayuno + $sumaAlmuerzo + $sumaCena;
   if ($existenRegistrosComensal > 0) {
     array_push($arrayDiasRegistroComensales, [
+      'id' => $x['COME_id'],
       'nombres' => $x['COME_nombres'],
-      'dni' => $x['COME_dni'],
-      'cargo' => $x['AREA_descripcion'],
-      'cede' => $cedeSalida,
       'diasRegistro' => $arrayDiasSalidaPorComensal,
     ]);
   }
 }
-# echo "<pre>"; var_dump($arrayDiasRegistroComensales); echo "<pre>";
+ #echo "<pre>"; var_dump($arrayDiasRegistroComensales); echo "<pre>";
 
 /* --------------------------------- */
 
@@ -87,17 +84,14 @@ function createDateRangeArray($strDateFrom, $strDateTo, $diasEspanol)
 $arrayDiasGeneralComensales = [];
 $arrayDiasAuxiliar = [];
 $arrayDiasSelecionados = createDateRangeArray('2022-07-01', '2022-07-31', $diasEspanol);
-$contadorComensales2=0;
 foreach ($arrayDiasRegistroComensales as $x) {
-  $contadorDiasSeleccionados=0;
+  $contadorComensales2=0;
   array_push($arrayDiasGeneralComensales, [
     'nombres' => $x['nombres'],
-    'dni' => $x['dni'],
-    'cargo' => $x['cargo'],
-    'cede' => $cedeSalida,
     'diasRegistro' => [],
   ]);
   foreach ($arrayDiasSelecionados as $y) {
+    $contadorDiasSeleccionados=0;
     $contador = 0;  
     foreach ($x['diasRegistro'] as $i) {
 /* echo "<pre>"; var_dump($i); echo "<pre>"; */
@@ -111,16 +105,10 @@ foreach ($arrayDiasRegistroComensales as $x) {
       $contador++;
     }
     array_push($arrayDiasGeneralComensales[$contadorComensales2]['diasRegistro'],$arrayDiasAuxiliar);
-    $contadorDiasSeleccionados++;
   }
+  $contadorDiasSeleccionados++;
   $contadorComensales2++;
 }
 echo "<pre>";
 var_dump($arrayDiasGeneralComensales);
 echo "<pre>";
-foreach ($arrayDiasSelecionados as $f) {
-  echo $f['fecha'];
-}
-for ($column = 1; $column < count($arrayDiasSelecionados); $column++) {
-  echo $arrayDiasSelecionados[$column]['fecha'];
-}

@@ -1,5 +1,6 @@
 <?php
-require_once("../conexion.php");
+require_once("../../conexion.php");
+
 $resComensales = "SELECT COME_id, COME_nombres, AREA_descripcion, COME_dni FROM comensales co 
                   INNER JOIN areas ar ON co.AREA_id01=ar.AREA_id WHERE COME_estado=1";
 # AND COME_id=199
@@ -115,12 +116,6 @@ foreach ($arrayDiasRegistroComensales as $x) {
   }
   $contadorComensales2++;
 }
-echo "<pre>";
+/* echo "<pre>";
 var_dump($arrayDiasGeneralComensales);
-echo "<pre>";
-foreach ($arrayDiasSelecionados as $f) {
-  echo $f['fecha'];
-}
-for ($column = 1; $column < count($arrayDiasSelecionados); $column++) {
-  echo $arrayDiasSelecionados[$column]['fecha'];
-}
+echo "<pre>"; */
