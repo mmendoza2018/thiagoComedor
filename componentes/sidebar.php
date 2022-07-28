@@ -2,7 +2,7 @@
     <div class="sidebar-content">
         <!-- sidebar-brand  -->
         <div class="text-center">
-            <a href="menu.php" id="index" class="my-2 text-center"><img src="assets/img/logo.png" class="mx-auto img-fluid mt-1" alt="gyt"></a>
+            <a href="menu.php" id="index" class="my-2 text-center"><img src="https://1757140519.rsc.cdn77.org/blog/wp-content/uploads/sites/4/2020/09/Seenit.jpg" class="mx-auto img-fluid mt-1" alt="gyt"></a>
         </div>
         <!-- sidebar-header  -->
         <div class="sidebar-item sidebar-header d-flex flex-nowrap">
@@ -33,45 +33,30 @@
                             <li><a href="#" id="btnlistadoVentas">Listado Ventas</a></li>
                             <li><a href="#" id="btnEstadisticas">Estadisticas</a></li>
                             <li><a href="#" id="btnlectorQr">lector</a></li>
-                            <li><a href="#" id="btnPrueba">Prueba</a></li>
+                           <!--  <li><a href="#" id="btnPrueba">Prueba</a></li> -->
                         </ul>
                     </div>
                 </li>
                 <li class="header-menu">
                     <span>Mantenimientos</span>
                 </li>
-                <!-- <li class="sidebar-dropdown">
+                <li class="sidebar-dropdown">
                     <a href="#">
-                        <i class="fas fa-truck-monster"></i>
-                        <span class="menu-text">Equipos</span>
+                    <i class="fas fa-donate"></i>
+                        <span class="menu-text">AJUSTES</span>
+                        <span class="badge badge-pill badge-warning">New</span>
                     </a>
                     <div class="sidebar-submenu">
                         <ul>
-                            <li><a href="#" id="AlertasDocEquipo">Alertas doc. equipos</a></li>
-                            <li class="sidebar-dropdown-child">
-                                <a href="#"><span class="menu-text2">Informacion general</span> </a>
-                                <div class="sidebar-submenu-child" style="display: none;">
-                                    <ul>
-                                    <li><a href="#" id="marca">Marcas</a></li>
-                                    <li><a href="#" id="modelo">Modelos</a></li>
-                                    <li><a href="#" id="familia">Familias</a></li>
-                                    <li><a href="#" id="propietario">Propietarios</a></li>
-                                    <li><a href="#" id="tipoDocEquipo">Tipos documentos</a></li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="sidebar-dropdown-child d-none">
-                                <a href="#" tyle="pointer-events: none; display: inline-block;"><span class="menu-text2">Información mecanica</span> </a>
-                                <div class="sidebar-submenu-child" style="display: none;">
-                                    <ul>
-                                        <li><a href="#" id="tipoSisEquipo">Tipo sistema</a></li>
-                                        <li><a href="#" id="sistemaEquipo">sistema equipo</a></li>
-                                    </ul>
-                                </div>
-                            </li>
+                            <li><a href="#" id="btnFormComedores">Comedores</a></li>
+                            <li><a href="#" id="btnFormEmpresas">Empresas</a></li>
+                            <li><a href="#" id="btnFormHorarios">Horarios</a></li>
+                            <li><a href="#" id="btntipoAlimentos">Alimentos</a></li>
+                            <li><a href="#" id="btntipoAtenciones">TipoAtenciones</a></li>
+                            <li><a href="#" id="btntipoRegistros">TipoRegistros</a></li>
                         </ul>
                     </div>
-                </li> -->
+                </li>
             </ul>
         </div>
         <!-- sidebar-menu  -->

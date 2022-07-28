@@ -24,33 +24,32 @@ foreach ($resComesal as $x) {
   $arrayDiasSalidaPorComensal = [];
   $contadorAlimentos = 0;
   foreach ($resTipoAlimento as $k) {
-    $conSalidas = "SELECT DATE(REAL_fecha) as fechaRegistro, REAL_id,CEDE_descripcion FROM registros_alimentacion ra
+    $conSalidas = "SELECT DATE(REAL_fecha) as fechaRegistro, REAL_id,CEDE_descripcion,REAL_precio_comida FROM registros_alimentacion ra
                    INNER JOIN cedes ce ON ra.CEDE_id01=ce.CEDE_id
                    WHERE COME_id01=" . $x["COME_id"] . " AND TIAL_id01=" . $k["TIAL_id"] . " AND REAL_estado=1";
     $resSalidas = mysqli_query($conexion, $conSalidas);
     if (mysqli_num_rows($resSalidas) > 0) {
-      $arrayDiasSalidaPorComensal[$contadorAlimentos] =  [];
+      $arrayDiasSalidaPorComensal[$contadorAlimentos] =  ["fecha" => [], "precio"=> []];
       //var_dump($arrayDiasSalidaPorComensal);
       //var_dump($arrayDiasSalidaPorComensal[$contadorAlimentos][$k['TIAL_descripcion']]);
       foreach ($resSalidas as $t) {
         $cedeSalida = $t['CEDE_descripcion'];
-        array_push($arrayDiasSalidaPorComensal[$contadorAlimentos],  $t['fechaRegistro']);
+        array_push($arrayDiasSalidaPorComensal[$contadorAlimentos]["fecha"],$t['fechaRegistro']);
+        array_push($arrayDiasSalidaPorComensal[$contadorAlimentos]["precio"],floatval($t['REAL_precio_comida']));
+
       }
     } else {
-      array_push($arrayDiasSalidaPorComensal, []);
+      array_push($arrayDiasSalidaPorComensal, ["fecha" => [], "precio"=> []]);
     }
-
     $contadorAlimentos++;
   }
-/*     echo "<pre>";
-  var_dump($arrayDiasSalidaPorComensal);
-  echo "<pre>"; */
   #var_dump($arrayDiasSalidaPorComensal);
-  $sumaDesayuno = count($arrayDiasSalidaPorComensal[0]);
-  $sumaAlmuerzo = count($arrayDiasSalidaPorComensal[1]);
-  $sumaCena = count($arrayDiasSalidaPorComensal[2]);
+  $sumaDesayuno = count($arrayDiasSalidaPorComensal[0]["fecha"]);
+  $sumaAlmuerzo = count($arrayDiasSalidaPorComensal[1]["fecha"]);
+  $sumaCena = count($arrayDiasSalidaPorComensal[2]["fecha"]);
 
   $existenRegistrosComensal =  $sumaDesayuno + $sumaAlmuerzo + $sumaCena;
+  
   if ($existenRegistrosComensal > 0) {
     array_push($arrayDiasRegistroComensales, [
       'nombres' => $x['COME_nombres'],
@@ -58,11 +57,11 @@ foreach ($resComesal as $x) {
       'cargo' => $x['AREA_descripcion'],
       'cede' => $cedeSalida,
       'diasRegistro' => $arrayDiasSalidaPorComensal,
-    ]);
+    ]); 
   }
 }
-# echo "<pre>"; var_dump($arrayDiasRegistroComensales); echo "<pre>";
-
+/*  echo "<pre>"; var_dump($arrayDiasRegistroComensales); echo "<pre>";
+die(); */
 /* --------------------------------- */
 
 $diasEspanol = array(
@@ -98,7 +97,7 @@ function createDateRangeArray($strDateFrom, $strDateTo, $diasEspanol)
 }
 $arrayDiasGeneralComensales = [];
 $arrayDiasAuxiliar = [];
-$arrayDiasSelecionados = createDateRangeArray('2022-07-15', '2022-07-30', $diasEspanol);
+$arrayDiasSelecionados = createDateRangeArray('2022-07-01', '2022-07-31', $diasEspanol);
 $contadorComensales2=0;
 foreach ($arrayDiasRegistroComensales as $x) {
   $contadorDiasSeleccionados=0;
@@ -112,12 +111,11 @@ foreach ($arrayDiasRegistroComensales as $x) {
   foreach ($arrayDiasSelecionados as $y) {
     $contador = 0;  
     foreach ($x['diasRegistro'] as $i) {
-/* echo "<pre>"; var_dump($i); echo "<pre>"; */
+//echo "<pre>"; var_dump($i); echo "<pre>";
       $arrayDiasAuxiliar[$contador] =  null;
-      if (array_search($y['fecha'], $i) !== false) {
+      if (array_search($y['fecha'], $i["fecha"]) !== false) {
         $arrayDiasAuxiliar[$contador]= 1;
       } else {
-        #array_push($arrayDiasAuxiliar[$contador], 0);
         $arrayDiasAuxiliar[$contador]= 0;
       }
       $contador++;
@@ -127,6 +125,7 @@ foreach ($arrayDiasRegistroComensales as $x) {
   }
   $contadorComensales2++;
 }
+//echo "<pre>"; var_dump($arrayDiasGeneralComensales); echo "<pre>";
 
 /* $whereTrabajador = ($trabajador == NULL) ? "" : "WHERE PER_dni=$trabajador";
 ($estado == NULL)
@@ -178,11 +177,12 @@ $contadorLetras = 0;
 $rowNombres=5;
 $rowFecha=6;
 #$row=10;
+$ultimaColumnData=0;
 
 $rowData=8;
 for ($contadorTrajadores = 0; $contadorTrajadores < count($arrayDiasGeneralComensales); $contadorTrajadores++) {
   $columnData = 7;
-  $sheet->setCellValueByColumnAndRow(2, $rowData, $contadorTrajadores);
+  $sheet->setCellValueByColumnAndRow(2, $rowData, $contadorTrajadores+1);
   $sheet->setCellValueByColumnAndRow(3, $rowData, $arrayDiasGeneralComensales[$contadorTrajadores]['cede']);
   $sheet->setCellValueByColumnAndRow(4, $rowData, $arrayDiasGeneralComensales[$contadorTrajadores]['nombres']);
   $sheet->setCellValueByColumnAndRow(5, $rowData, $arrayDiasGeneralComensales[$contadorTrajadores]['dni']);
@@ -197,6 +197,7 @@ for ($contadorTrajadores = 0; $contadorTrajadores < count($arrayDiasGeneralComen
         $columnData++;
     }
   }
+  $ultimaColumnData = $columnData;
   $rowData++;
 }
 /* $spreadsheet->getActiveSheet()->mergeCells('G7'.':'. 'I7');
@@ -205,6 +206,7 @@ $sheet->setCellValue('G7', 'REPORTE MOVIMIENTOS'); */
 $contAlfabeto = 8;
 $column = 6;
 $ultimaColumnaAfectada = '';
+$posicionUltimaColumnaAfectada = 0;
 //'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
 for ($cont = 0; $cont < count($arrayDiasSelecionados); $cont++) {
   $columnAux=$column;
@@ -213,6 +215,7 @@ for ($cont = 0; $cont < count($arrayDiasSelecionados); $cont++) {
   //creamos las fechas con coslpan 3
   $spreadsheet->getActiveSheet()->mergeCells($abecedario[$column].'6'.':'. $abecedario[$columnAux+2].'6');
   $ultimaColumnaAfectada = $abecedario[$columnAux+2].'6';
+  $posicionUltimaColumnaAfectada = $columnAux+2;
   //insertamos las nombres 
   $sheet->setCellValue($abecedario[$column].'5', $arrayDiasSelecionados[$cont]['nombre']);
   //insertamos las fechas 
@@ -231,6 +234,78 @@ $spreadsheet->getActiveSheet()->getStyle($filaAfectadaColor)->getFill()
     ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
     ->getStartColor()->setARGB('D4D3D3');
 
+
+$posicionSiguienteColumnaAfectada = $posicionUltimaColumnaAfectada+1;
+$arrayDescripcionTabla =['Conteo de Atenciones','Valorización'];
+$ultimaColumnaFinal = '';
+for ($i=0; $i <3; $i++) { 
+
+  $columnAux2=$posicionSiguienteColumnaAfectada;
+  if ($i==2) {
+    $sheet->setCellValue($abecedario[$posicionSiguienteColumnaAfectada].'6', 'TOTAL');
+    $spreadsheet->getActiveSheet()->getColumnDimension($abecedario[$posicionSiguienteColumnaAfectada])->setWidth(20);
+    $ultimaColumnaFinal = $abecedario[$posicionSiguienteColumnaAfectada].'6';
+    break;
+  }
+  //creamos los nombres d'dias  coslpan 3
+  $spreadsheet->getActiveSheet()
+  ->mergeCells($abecedario[$posicionSiguienteColumnaAfectada].'6'.':'. $abecedario[$columnAux2+2].'6');
+
+  $sheet->setCellValue($abecedario[$posicionSiguienteColumnaAfectada].'6', $arrayDescripcionTabla[$i]);
+  //insertamos D,A,C
+  $sheet->setCellValue($abecedario[$posicionSiguienteColumnaAfectada].'7', 'D');
+  $spreadsheet->getActiveSheet()->getColumnDimension($abecedario[$posicionSiguienteColumnaAfectada])->setWidth(10);
+  $sheet->setCellValue($abecedario[$posicionSiguienteColumnaAfectada+1].'7', 'A');
+  $spreadsheet->getActiveSheet()->getColumnDimension($abecedario[$posicionSiguienteColumnaAfectada+1])->setWidth(10);
+  $sheet->setCellValue($abecedario[$posicionSiguienteColumnaAfectada+2].'7', 'C');
+  $spreadsheet->getActiveSheet()->getColumnDimension($abecedario[$posicionSiguienteColumnaAfectada+2])->setWidth(10);
+
+  $posicionSiguienteColumnaAfectada+=3;
+}
+ $filaAfectadaColorFinal = $ultimaColumnaAfectada . ':' .  $ultimaColumnaFinal;
+$spreadsheet->getActiveSheet()->getStyle($filaAfectadaColorFinal)->getFill()
+    ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+    ->getStartColor()->setARGB('D4D3D3');
+
+$sumaTotalGeneral = 0;
+$ultimaColumnaTablaFinal=0;
+$rowData2 =8;
+for ($contadorTrajadores = 0; $contadorTrajadores < count($arrayDiasRegistroComensales); $contadorTrajadores++) {
+  $columnData2 = $ultimaColumnData;
+  $sumaTotalMes = 0;
+  foreach ($arrayDiasRegistroComensales[$contadorTrajadores]['diasRegistro'] as $tipos) {
+    $diasEnElMes = count($tipos["fecha"]);
+    $sumaTotalParcial = array_sum($tipos["precio"]);
+    $sumaTotalMes += array_sum($tipos["precio"]);
+    $sheet->setCellValueByColumnAndRow(
+      $columnData2,
+      $rowData2, 
+      $diasEnElMes);
+      $sheet->setCellValueByColumnAndRow(
+        $columnData2+3,
+        $rowData2, 
+        $sumaTotalParcial);
+        $columnData2++;
+    }
+    $sheet->setCellValueByColumnAndRow(
+      $columnData2+3,
+      $rowData2, 
+      $sumaTotalMes);
+
+      $sumaTotalGeneral += $sumaTotalMes;
+      $ultimaColumnaTablaFinal = $columnData2+3;
+      $ultimaFilaTablaFinal = $rowData2;
+  $rowData2++;
+}
+$totalConIgv =  $sumaTotalGeneral*(18/100);
+
+$sheet->setCellValueByColumnAndRow($ultimaColumnaTablaFinal-1, $ultimaFilaTablaFinal+2, 'Sub. Total');
+$sheet->setCellValueByColumnAndRow($ultimaColumnaTablaFinal-1, $ultimaFilaTablaFinal+3, '18.0% IGV');
+$sheet->setCellValueByColumnAndRow($ultimaColumnaTablaFinal-1, $ultimaFilaTablaFinal+4, 'Total');
+
+$sheet->setCellValueByColumnAndRow($ultimaColumnaTablaFinal, $ultimaFilaTablaFinal+2, $sumaTotalGeneral);
+$sheet->setCellValueByColumnAndRow($ultimaColumnaTablaFinal, $ultimaFilaTablaFinal+3, $totalConIgv);
+$sheet->setCellValueByColumnAndRow($ultimaColumnaTablaFinal, $ultimaFilaTablaFinal+4, $sumaTotalGeneral+$totalConIgv);
 $conexion->close();
 $writer = new Xlsx($spreadsheet);
 

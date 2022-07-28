@@ -53,7 +53,7 @@
     opacity: 0; } }
 
 .sidebar-wrapper {
-  width: 190px;/* modificacion tmaña sidebar */
+  width: 230px;/* modificacion tmaña sidebar */
   height: 100%;
   max-height: 100%;
   position: fixed;
@@ -115,7 +115,7 @@
     text-overflow: ellipsis; }
 
 .sidebar-wrapper .sidebar-header {
-  padding: 10px;
+  padding: 20px;
   overflow: hidden; }
   .sidebar-wrapper .sidebar-header .user-pic {
     width: 60px;
@@ -129,10 +129,10 @@
       width: 100%; }
   .sidebar-wrapper .sidebar-header .user-info {
     overflow: hidden; }
-    /* .sidebar-wrapper .sidebar-header .user-info > span {
+    .sidebar-wrapper .sidebar-header .user-info > span {
       display: block;
       white-space: nowrap;
-      text-overflow: ellipsis; } */
+      text-overflow: ellipsis; }
     .sidebar-wrapper .sidebar-header .user-info .user-role {
       font-size: 12px; }
     .sidebar-wrapper .sidebar-header .user-info .user-status {
@@ -175,7 +175,7 @@
     align-items: center;
     text-decoration: none;
     position: relative;
-    padding: 8px 30px 8px 20px;
+    padding: 6px 30px 6px 20px;
     width: 100%; }
     .sidebar-wrapper .sidebar-menu ul li a:hover > i::before {
       display: inline-block;
@@ -183,9 +183,9 @@
       animation: swing ease-in-out .5s 1 alternate; }
     .sidebar-wrapper .sidebar-menu ul li a i {
       margin-right: 10px;
-      font-size: 12px;
-      width: 35px;
-      height: 35px;
+      font-size: 13px;
+      width: 28px;
+      height: 28px;
       line-height: 35px;
       text-align: center;
       -ms-flex-negative: 0;
@@ -460,13 +460,13 @@ body {
     left: 0px; }
   @media screen and (min-width: 768px) {
     .page-wrapper.toggled .page-content {
-      padding-left: 200px; } } /* modificacion caja contenedora */
+      padding-left: 240px; } } /* modificacion caja contenedora */
   @media screen and (max-width: 768px) {
     .page-wrapper.toggled .page-content .overlay {
       display: block; } }
   @media screen and (min-width: 768px) {
     .page-wrapper.toggled.pinned .page-content {
-      padding-left: 80px; } }
+      padding-left: 7.2%; } }
   .page-wrapper.pinned:not(.sidebar-hovered) .sidebar-wrapper {
     width: 80px; }
     .page-wrapper.pinned:not(.sidebar-hovered) .sidebar-wrapper .sidebar-header {

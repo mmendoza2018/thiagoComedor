@@ -18,6 +18,13 @@ document.addEventListener("DOMContentLoaded", () => {
   routerVistas("#btnEstadisticas","php/estadisticas/principal.php")
   routerVistas("#btnlectorQr","php/atenciones/lectorQr.php")
   routerVistas("#btnPrueba","php/atenciones/prueba.php")
+  /* mantenimientos */
+  routerVistas("#btnFormComedores","php/mantenimientos/comedores/index.php")
+  routerVistas("#btnFormEmpresas","php/mantenimientos/empresas/index.php")
+  routerVistas("#btnFormHorarios","php/mantenimientos/horarios/index.php")
+  routerVistas("#btntipoAlimentos","php/mantenimientos/tipoAlimentos/index.php")
+  routerVistas("#btntipoAtenciones","php/mantenimientos/tipoAtenciones/index.php")  
+  routerVistas("#btntipoRegistros","php/mantenimientos/tipoRegistros/index.php")
   
   
 

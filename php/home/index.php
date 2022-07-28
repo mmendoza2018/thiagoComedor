@@ -13,7 +13,7 @@ $hoy = date("Y-m-d");
           <h5 class="text-uppercase"><?php echo $x["CEDE_descripcion"]  ?></h5>
           <div class="row">
             <?php
-            $consulta = "SELECT TIAL_descripcion,(SELECT COUNT(TIAL_id01) FROM registros_alimentacion WHERE TIAL_id01=TIAL_id AND CEDE_id01='" . $x["CEDE_id"] . "' AND DATE(REAL_fecha)='$hoy') as conteo FROM tipos_alimentacion";
+            $consulta = "SELECT TIAL_descripcion,(SELECT COUNT(TIAL_id01) FROM registros_alimentacion WHERE TIAL_id01=TIAL_id AND CEDE_id01='" . $x["CEDE_id"] . "' AND DATE(REAL_fecha)='$hoy') as conteo FROM tipo_alimentos WHERE TIAL_principal=1";
 
             foreach (mysqli_query($conexion, $consulta) as $y) : ?>
               <div class="col-4">

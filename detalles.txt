@@ -1,0 +1,2 @@
+los tipos de alimentos  almuerzos, desayunos, cenas no pueden adicionarse, el excel no esta comtemplado para esa situacion
+//los precios del los alimentos no pueden cambiar sin que se afecte todos los  
