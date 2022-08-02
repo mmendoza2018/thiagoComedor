@@ -210,3 +210,15 @@ const obtenerListaAlimentos = (elemento) => {
     body:data
   },true)
 }
+const reporteExcel = () => {
+  event.preventDefault();
+  let formulario = document.getElementById("formReporteExcel");
+  let idComensal = formulario.idComensal.value;
+  let fInicio = formulario.fInicio.value;
+  let fFinal = formulario.fFinal.value;
+  let ruta = 'php/generaEXCEL/reporteNormal/index.php'
+    window.open(
+      `${ruta}?id=${idComensal}&fInicio=${fInicio}&fFinal=${fFinal}`,
+      "facturacion",
+    );
+}

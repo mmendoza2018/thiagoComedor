@@ -7,8 +7,6 @@ $tiposAtencion = mysqli_query($conexion, "SELECT * FROM tipos_atencion WHERE TIA
 
 
 ?>
-<link rel="stylesheet" href="assets/plugins/select2/dist/css/select2.min.css">
-<script src="assets/plugins/select2/dist/js/select2.min.js"></script>
 <div class="container-fluid bg-white my-1 py-3">
   <div class="text-center mb-4">
     <h5 class="my-0">REGISTRO ATENCIONES</h5>

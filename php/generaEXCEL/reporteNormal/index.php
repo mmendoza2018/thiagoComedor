@@ -5,15 +5,18 @@ require '../../../assets/plugins/spreadSheet/vendor/autoload.php';
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-$trabajador = @$_GET["trabajador"];
+$idComensal = @$_GET["id"];
 $fInicio = @$_GET["fInicio"];
 $fFinal = @$_GET["fFinal"];
-$estado = @$_GET["estado"];
+//$estado = @$_GET["estado"];
 $idOrden = 1;
-$whereOrden = "";
+$whereComensal = ($idComensal != "") ? "AND COME_id=$idComensal" : "";
+$whereFechas = ($fInicio != "" && $fFinal !="") 
+                ? "AND (REAL_fecha BETWEEN '$fInicio' AND '$fFinal')" 
+                : "";
 
 $resComensales = "SELECT COME_id, COME_nombres, AREA_descripcion, COME_dni FROM comensales co 
-                  INNER JOIN areas ar ON co.AREA_id01=ar.AREA_id WHERE COME_estado=1";
+                  INNER JOIN areas ar ON co.AREA_id01=ar.AREA_id WHERE COME_estado=1 $whereComensal";
 # AND COME_id=199
 $resComesal = mysqli_query($conexion, $resComensales);
 $auxiliar = null;
@@ -26,7 +29,7 @@ foreach ($resComesal as $x) {
   foreach ($resTipoAlimento as $k) {
     $conSalidas = "SELECT DATE(REAL_fecha) as fechaRegistro, REAL_id,CEDE_descripcion,REAL_precio_comida FROM registros_alimentacion ra
                    INNER JOIN cedes ce ON ra.CEDE_id01=ce.CEDE_id
-                   WHERE COME_id01=" . $x["COME_id"] . " AND TIAL_id01=" . $k["TIAL_id"] . " AND REAL_estado=1";
+                   WHERE COME_id01=" . $x["COME_id"] . " AND TIAL_id01=" . $k["TIAL_id"] . " AND REAL_estado=1 $whereFechas";
     $resSalidas = mysqli_query($conexion, $conSalidas);
     if (mysqli_num_rows($resSalidas) > 0) {
       $arrayDiasSalidaPorComensal[$contadorAlimentos] =  ["fecha" => [], "precio"=> []];
@@ -97,7 +100,7 @@ function createDateRangeArray($strDateFrom, $strDateTo, $diasEspanol)
 }
 $arrayDiasGeneralComensales = [];
 $arrayDiasAuxiliar = [];
-$arrayDiasSelecionados = createDateRangeArray('2022-07-01', '2022-07-31', $diasEspanol);
+$arrayDiasSelecionados = createDateRangeArray($fInicio, $fFinal, $diasEspanol);
 $contadorComensales2=0;
 foreach ($arrayDiasRegistroComensales as $x) {
   $contadorDiasSeleccionados=0;
@@ -155,7 +158,7 @@ for ($i = 0; $i < 6; $i++) {
 $spreadsheet->getActiveSheet()->getRowDimension('2')->setRowHeight(20);
 $spreadsheet->getActiveSheet()->mergeCells('H2:R2');
 $sheet = $spreadsheet->getActiveSheet();
-$sheet->setCellValue('H2', 'REPORTE MOVIMIENTOS');
+$sheet->setCellValue('H2', 'REPORTE MOVIMIENTOS'.$fFinal);
 $sheet->setCellValue('B7', '#');
 $sheet->setCellValue('C7', 'Comedor');
 $sheet->setCellValue('D7', 'Dni');
@@ -200,14 +203,11 @@ for ($contadorTrajadores = 0; $contadorTrajadores < count($arrayDiasGeneralComen
   $ultimaColumnData = $columnData;
   $rowData++;
 }
-/* $spreadsheet->getActiveSheet()->mergeCells('G7'.':'. 'I7');
-$sheet = $spreadsheet->getActiveSheet();
-$sheet->setCellValue('G7', 'REPORTE MOVIMIENTOS'); */
+
 $contAlfabeto = 8;
 $column = 6;
 $ultimaColumnaAfectada = '';
 $posicionUltimaColumnaAfectada = 0;
-//'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
 for ($cont = 0; $cont < count($arrayDiasSelecionados); $cont++) {
   $columnAux=$column;
   //creamos los nombres d'dias  coslpan 3
@@ -270,6 +270,8 @@ $spreadsheet->getActiveSheet()->getStyle($filaAfectadaColorFinal)->getFill()
 $sumaTotalGeneral = 0;
 $ultimaColumnaTablaFinal=0;
 $rowData2 =8;
+$ultimaFilaTablaFinal=0;
+if (count($arrayDiasRegistroComensales)>0) {
 for ($contadorTrajadores = 0; $contadorTrajadores < count($arrayDiasRegistroComensales); $contadorTrajadores++) {
   $columnData2 = $ultimaColumnData;
   $sumaTotalMes = 0;
@@ -306,6 +308,7 @@ $sheet->setCellValueByColumnAndRow($ultimaColumnaTablaFinal-1, $ultimaFilaTablaF
 $sheet->setCellValueByColumnAndRow($ultimaColumnaTablaFinal, $ultimaFilaTablaFinal+2, $sumaTotalGeneral);
 $sheet->setCellValueByColumnAndRow($ultimaColumnaTablaFinal, $ultimaFilaTablaFinal+3, $totalConIgv);
 $sheet->setCellValueByColumnAndRow($ultimaColumnaTablaFinal, $ultimaFilaTablaFinal+4, $sumaTotalGeneral+$totalConIgv);
+}
 $conexion->close();
 $writer = new Xlsx($spreadsheet);
 

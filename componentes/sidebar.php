@@ -28,12 +28,12 @@
                     </a>
                     <div class="sidebar-submenu" style="display: block;">
                         <ul>
-                            <li><a href="#" id="btnFormComensales">Comensales</a></li>
                             <li><a href="#" id="btnRegistroVentas">Registro Ventas</a></li>
                             <li><a href="#" id="btnlistadoVentas">Listado Ventas</a></li>
+                            <li><a href="#" id="btnReportes">Reportes</a></li>
                             <li><a href="#" id="btnEstadisticas">Estadisticas</a></li>
                             <li><a href="#" id="btnlectorQr">lector</a></li>
-                           <!--  <li><a href="#" id="btnPrueba">Prueba</a></li> -->
+                            <!--  <li><a href="#" id="btnPrueba">Prueba</a></li> -->
                         </ul>
                     </div>
                 </li>
@@ -42,12 +42,13 @@
                 </li>
                 <li class="sidebar-dropdown">
                     <a href="#">
-                    <i class="fas fa-donate"></i>
+                        <i class="fas fa-donate"></i>
                         <span class="menu-text">AJUSTES</span>
                         <span class="badge badge-pill badge-warning">New</span>
                     </a>
                     <div class="sidebar-submenu">
                         <ul>
+                            <li><a href="#" id="btnFormComensales">Comensales</a></li>
                             <li><a href="#" id="btnFormComedores">Comedores</a></li>
                             <li><a href="#" id="btnFormEmpresas">Empresas</a></li>
                             <li><a href="#" id="btnFormHorarios">Horarios</a></li>
