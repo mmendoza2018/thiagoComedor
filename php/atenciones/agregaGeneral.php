@@ -4,13 +4,20 @@ require_once("../conexion.php");
 date_default_timezone_set("America/Lima");
 $fechaActual = date('Y-m-d');  
 
-if (count($_SESSION['sesionTipoAlimentos'])<=0) {
+if (!isset($_SESSION['sesionTipoAlimentos'])) {
   echo json_encode([false, "Debe agregar por lo menos un alimento"]);
   die();
 }
 if(!isset($_POST["tipoAtencion"])) {
   echo json_encode([false, "El tipo de atencion no es valido"]);
   die();
+}else {
+  if ($_POST["tipoAtencion"]=="1") {
+   if (count($_SESSION['sesionTipoAlimentos'])>1) {
+    echo json_encode([false, "No es posible agregar mas de un alimento en tipo de salidas (NORMAL)"]);
+    die();
+   }
+  }
 }
 
 $idusuario = $_SESSION['datos_trabajador'][0]["cede"];

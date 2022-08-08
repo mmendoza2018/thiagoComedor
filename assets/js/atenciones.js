@@ -2,6 +2,18 @@ function agregarAtenciones() {
   event.preventDefault();
   if (validar_campos("formAddAtenciones")) {
     let formulario = document.getElementById("formAddAtenciones");
+    let comensal = formulario.idComensal.value;
+    let tipoAtencion = formulario.tipoAtencion.value;
+    console.log('comensal :>> ', comensal);
+    if (tipoAtencion==="") {
+      return toastPersonalizada('El tipo de atención es un campo obligatorio!', "error",3000);
+    }else {
+      if (tipoAtencion === "1" || tipoAtencion === "2") {
+        
+        if (comensal==="") 
+        return toastPersonalizada('El comensal es un campo obligatorio en salidas de tipo (NORMAL, ADICIONAL)', "error");
+      }
+    }
     let data = new FormData(formulario);
     verLoader();
     fetch("php/atenciones/agregaGeneral.php", {
@@ -136,9 +148,10 @@ const obtenerDatosComensales = (elemento) => {
       console.log(json);
       document.getElementById("empresaRegistroDiario").value = json.empresa;
       document.getElementById("areaRegistroDiario").value = json.area;
-      document
-        .getElementById("ComensalNRegistroDiario")
-        .setAttribute("readonly", "true");
+      let inputComensalOtros = document.getElementById("ComensalNRegistroDiario");
+      
+      inputComensalOtros.setAttribute("readonly", "true");
+      inputComensalOtros.value='';
       ocultarLoader();
     });
 };

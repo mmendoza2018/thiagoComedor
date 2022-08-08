@@ -20,7 +20,10 @@ $resComensales =  mysqli_query($conexion, "SELECT * FROM comensales WHERE COME_e
           <?php endforeach; ?>
         </select>
         <label>Fecha inicio</label>
-        <select name="tipoSalida" class="form-select form-select-sm" id="tipoSalidaExcel" onchange="asignarUrlGeneraExcel(this)">
+        <select name="tipoSalida" 
+        data-validate 
+        class="form-select form-select-sm" 
+        id="tipoSalidaExcel" onchange="asignarUrlGeneraExcel(this)">
           <option value="" disabled selected>Selecciona un tipo de salida</option>
           <option value="0">NORMAL</option>
           <option value="1">ADICIONAL</option>

@@ -10,6 +10,11 @@ $fInicio = @$_GET["fInicio"];
 $fFinal = @$_GET["fFinal"];
 $tipoNormal = @$_GET["tipoNormal"];
 $tipoAdicional = @$_GET["tipoAdicional"];
+$whereComensal = ($idComensal != "") ? "AND COME_id=$idComensal" : "";
+  $whereFechas = ($fInicio != "" && $fFinal != "")
+    ? "AND (REAL_fecha BETWEEN '$fInicio' AND '$fFinal')"
+    : "";
+
 //$estado = @$_GET["estado"];
 $idOrden = 1;
 $abecedario = [
@@ -31,11 +36,7 @@ $abecedario = [
 //creamos el excel
 $spreadsheet = new Spreadsheet();
 if ($tipoNormal == "true") {
-  $whereComensal = ($idComensal != "") ? "AND COME_id=$idComensal" : "";
-  $whereFechas = ($fInicio != "" && $fFinal != "")
-    ? "AND (REAL_fecha BETWEEN '$fInicio' AND '$fFinal')"
-    : "";
-
+  
   $resComensales = "SELECT COME_id, COME_nombres, AREA_descripcion, COME_dni FROM comensales co 
                   INNER JOIN areas ar ON co.AREA_id01=ar.AREA_id WHERE COME_estado=1 $whereComensal";
   # AND COME_id=199
@@ -158,18 +159,20 @@ die(); */
 $resConsultaPersonas = mysqli_query($conexion, "SELECT * FROM  personas $whereTrabajador"); */
 //si existe registros en essas fechas
 $sheet = $spreadsheet->getActiveSheet();
-  if (count($arrayDiasGeneralComensales) > 0) {
-    # code...
+    $filaAfectadaColorDet2 = 'G2:L2';
+    $spreadsheet->getActiveSheet()->getStyle($filaAfectadaColorDet2)->getFill()
+      ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+      ->getStartColor()->setARGB('F4A060');
+    $sheet->setCellValue('H2', 'REPORTE NORMAL');
+    $spreadsheet->getActiveSheet()->setTitle("REPORTE NORMAL");
+    if (count($arrayDiasGeneralComensales) > 0) {
 
     for ($i = 0; $i < 6; $i++) {
       $spreadsheet->getActiveSheet()->getColumnDimension($abecedario[$i])->setAutoSize(true);
     }
     $spreadsheet->getActiveSheet()->getRowDimension('2')->setRowHeight(20);
-    $spreadsheet->getActiveSheet()->mergeCells('H2:R2');
-    $spreadsheet->getActiveSheet()->setTitle("REPORTE NORMAL");
-
-
-    $sheet->setCellValue('H2', 'REPORTE NORMAL');
+    $spreadsheet->getActiveSheet()->mergeCells('H2:L2');
+    
     $rowData = 8;
     //si no hay comensales no muestra nada 
     if (count($arrayDiasRegistroComensales) > 0) {
@@ -182,7 +185,8 @@ $sheet = $spreadsheet->getActiveSheet();
       $filaAfectadaColorDet = 'B7:F7';
       $spreadsheet->getActiveSheet()->getStyle($filaAfectadaColorDet)->getFill()
         ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
-        ->getStartColor()->setARGB('D4D3D3');
+        ->getStartColor()->setARGB('F4A060');
+     
 
       $sumaTotal = 0;
       //$cell = $sheet->getCellByColumnAndRow(9 + 1,11);
@@ -241,7 +245,7 @@ $sheet = $spreadsheet->getActiveSheet();
       $filaAfectadaColor = 'G5:' . $ultimaColumnaAfectada;
       $spreadsheet->getActiveSheet()->getStyle($filaAfectadaColor)->getFill()
         ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
-        ->getStartColor()->setARGB('D4D3D3');
+        ->getStartColor()->setARGB('F4A060');
 
 
       $posicionSiguienteColumnaAfectada = $posicionUltimaColumnaAfectada + 1;
@@ -274,7 +278,7 @@ $sheet = $spreadsheet->getActiveSheet();
       $filaAfectadaColorFinal = $ultimaColumnaAfectada . ':' .  $ultimaColumnaFinal;
       $spreadsheet->getActiveSheet()->getStyle($filaAfectadaColorFinal)->getFill()
         ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
-        ->getStartColor()->setARGB('D4D3D3');
+        ->getStartColor()->setARGB('F4A060');
 
       $sumaTotalGeneral = 0;
       $ultimaColumnaTablaFinal = 0;
@@ -322,7 +326,7 @@ $sheet = $spreadsheet->getActiveSheet();
       $sheet->setCellValueByColumnAndRow($ultimaColumnaTablaFinal, $ultimaFilaTablaFinal + 4, $sumaTotalGeneral + $totalConIgv);
     }
   }else{
-    $sheet->setCellValueByColumnAndRow(2, 2, "SIN REGISTROS DISPONIBLES");
+    $sheet->setCellValueByColumnAndRow(3, 4, "SIN REGISTROS DISPONIBLES");
   }
 }
 //seleeciona ver tipo de salida Adicional
@@ -338,39 +342,53 @@ if ($tipoAdicional == "true") {
                           INNER JOIN cedes ce ON ra.CEDE_id01 = ce.CEDE_id
                           INNER JOIN comensales co ON ra.COME_id01 = co.COME_id
                           INNER JOIN empresas e ON co.EMPR_id01 = e.EMPR_id
-                          INNER JOIN areas a ON co.AREA_id01 = a.AREA_id";
+                          INNER JOIN areas a ON co.AREA_id01 = a.AREA_id
+                          WHERE TIAT_id01 = 2 $whereFechas $whereComensal";
   $resConSalidas = mysqli_query($conexion, $conSalidasAdicional);
+
+  $spreadsheet->setActiveSheetIndex(0);
+  for ($i = 0; $i < 13; $i++) {
+    $spreadsheet->getActiveSheet()->getColumnDimension($abecedario[$i])->setAutoSize(true);
+  }
+  $spreadsheet->getActiveSheet()->mergeCells('F2:G2');
+  $sheet = $spreadsheet->getActiveSheet();
+  $sheet->setCellValue('F2', 'REPORTE ADICIONAL');
+  $sheet->getStyle('B:L')->getAlignment()->setHorizontal('center');
+
+  $sheet->setCellValue('C4', 'Periodo: ');
+  $sheet->setCellValue('C5', 'Total otras ventas: ');
+  $sheet->setCellValue('D4', $fInicio);
+  $sheet->setCellValue('E4', $fFinal);
+  //color 
+  $filaAfectadaColorDet = 'B2:L2';
+  $spreadsheet->getActiveSheet()->getStyle($filaAfectadaColorDet)->getFill()
+    ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+    ->getStartColor()->setARGB('F4A060');
+  //color 
+  $filaAfectadaColorDet = 'B7:L7';
+  $spreadsheet->getActiveSheet()->getStyle($filaAfectadaColorDet)->getFill()
+    ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+    ->getStartColor()->setARGB('F4A060');
+  $rowSegundoReporte = 7;
+  $totalGeneralAdicional = 0;
+  $myWorkSheet->setCellValueByColumnAndRow(2, $rowSegundoReporte, "");
+
+  $myWorkSheet->setCellValueByColumnAndRow(2, $rowSegundoReporte, "ID");
+  $myWorkSheet->setCellValueByColumnAndRow(3, $rowSegundoReporte, "Comedor");
+  $myWorkSheet->setCellValueByColumnAndRow(4, $rowSegundoReporte, "DNI");
+  $myWorkSheet->setCellValueByColumnAndRow(5, $rowSegundoReporte, "Nombres");
+  $myWorkSheet->setCellValueByColumnAndRow(6, $rowSegundoReporte, "Empresa");
+  $myWorkSheet->setCellValueByColumnAndRow(7, $rowSegundoReporte, "Cargo");
+  $myWorkSheet->setCellValueByColumnAndRow(8, $rowSegundoReporte, "Fecha");
+  $myWorkSheet->setCellValueByColumnAndRow(9, $rowSegundoReporte, "Alimento");
+  $myWorkSheet->setCellValueByColumnAndRow(10, $rowSegundoReporte, "Precio");
+  $myWorkSheet->setCellValueByColumnAndRow(11, $rowSegundoReporte, "Cantidad");
+  $myWorkSheet->setCellValueByColumnAndRow(12, $rowSegundoReporte, "Total");
 
   if (mysqli_num_rows($resConSalidas) > 0) {
     // Attach the "My Data" worksheet as the first worksheet in the Spreadsheet object
-    $spreadsheet->setActiveSheetIndex(0);
+    
     //celdas autoajustables al tamaño
-    for ($i = 0; $i < 13; $i++) {
-      $spreadsheet->getActiveSheet()->getColumnDimension($abecedario[$i])->setAutoSize(true);
-    }
-    $spreadsheet->getActiveSheet()->mergeCells('G2:H2');
-    $sheet = $spreadsheet->getActiveSheet();
-    $sheet->setCellValue('G2', 'REPORTE ADICIONAL');
-    //color 
-    $filaAfectadaColorDet = 'B4:L4';
-    $spreadsheet->getActiveSheet()->getStyle($filaAfectadaColorDet)->getFill()
-      ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
-      ->getStartColor()->setARGB('D4D3D3');
-    $rowSegundoReporte = 4;
-    $totalGeneralAdicional = 0;
-    $myWorkSheet->setCellValueByColumnAndRow(2, $rowSegundoReporte, "");
-
-    $myWorkSheet->setCellValueByColumnAndRow(2, $rowSegundoReporte, "ID");
-    $myWorkSheet->setCellValueByColumnAndRow(3, $rowSegundoReporte, "Comedor");
-    $myWorkSheet->setCellValueByColumnAndRow(4, $rowSegundoReporte, "DNI");
-    $myWorkSheet->setCellValueByColumnAndRow(5, $rowSegundoReporte, "Nombres");
-    $myWorkSheet->setCellValueByColumnAndRow(6, $rowSegundoReporte, "Empresa");
-    $myWorkSheet->setCellValueByColumnAndRow(7, $rowSegundoReporte, "Cargo");
-    $myWorkSheet->setCellValueByColumnAndRow(8, $rowSegundoReporte, "Fecha");
-    $myWorkSheet->setCellValueByColumnAndRow(9, $rowSegundoReporte, "Alimento");
-    $myWorkSheet->setCellValueByColumnAndRow(10, $rowSegundoReporte, "Precio");
-    $myWorkSheet->setCellValueByColumnAndRow(11, $rowSegundoReporte, "Cantidad");
-    $myWorkSheet->setCellValueByColumnAndRow(12, $rowSegundoReporte, "Total");
     $rowSegundoReporte += 1;
     foreach ($resConSalidas as $k) {
       $totalGeneralAdicional += $k["DESA_total"];
@@ -387,11 +405,10 @@ if ($tipoAdicional == "true") {
       $myWorkSheet->setCellValueByColumnAndRow(12, $rowSegundoReporte, $k["DESA_total"]);
       $rowSegundoReporte++;
     }
-    $myWorkSheet->setCellValueByColumnAndRow(11, $rowSegundoReporte+2, "Saldo Total");
-    $myWorkSheet->setCellValueByColumnAndRow(12, $rowSegundoReporte+2, number_format($totalGeneralAdicional,2));
+    $sheet->setCellValue('D5', number_format($totalGeneralAdicional,2));
     
   } else {
-    $myWorkSheet->setCellValueByColumnAndRow(2, 2, "SIN REGISTROS DISPONIBLES");
+    $myWorkSheet->setCellValueByColumnAndRow(3, 8, "SIN REGISTROS DISPONIBLES");
   }
 }
 
