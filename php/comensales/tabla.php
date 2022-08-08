@@ -29,8 +29,8 @@ $conComensales = mysqli_query($conexion, $consulta);
           <td><?php echo $x["COME_id"] ?></td>
           <td><?php echo $x["COME_nombres"] ?></td>
           <td><?php echo $x["COME_dni"] ?></td>
-          <td><?php echo $x["AREA_descripcion"] ?></td>
           <td><?php echo $x["EMPR_razonSocial"] ?></td>
+          <td><?php echo $x["AREA_descripcion"] ?></td>
           <td>
             <a href="#" class="text-dark" data-bs-toggle="modal" data-bs-target="#modalComensalesAct" onclick="llenarDatosComensales('<?php echo $data  ?>')"><i class="fas fa-list-ul"></i></a>
           </td>

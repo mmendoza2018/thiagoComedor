@@ -2,7 +2,7 @@
     <div class="sidebar-content">
         <!-- sidebar-brand  -->
         <div class="text-center">
-            <a href="menu.php" id="index" class="my-2 text-center"><img src="https://1757140519.rsc.cdn77.org/blog/wp-content/uploads/sites/4/2020/09/Seenit.jpg" class="mx-auto img-fluid mt-1" alt="gyt"></a>
+            <a href="menu.php" id="index" class="my-2 text-center"><img src="assets/img/logo2.jpeg" class="mx-auto img-fluid mt-1" alt="gyt"></a>
         </div>
         <!-- sidebar-header  -->
         <div class="sidebar-item sidebar-header d-flex flex-nowrap">
@@ -33,7 +33,7 @@
                             <li><a href="#" id="btnReportes">Reportes</a></li>
                             <li><a href="#" id="btnEstadisticas">Estadisticas</a></li>
                             <li><a href="#" id="btnlectorQr">lector</a></li>
-                            <!--  <li><a href="#" id="btnPrueba">Prueba</a></li> -->
+                             <!-- <li><a href="#" id="btnPrueba">Prueba</a></li> -->
                         </ul>
                     </div>
                 </li>

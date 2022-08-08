@@ -14,15 +14,24 @@ $resComensales =  mysqli_query($conexion, "SELECT * FROM comensales WHERE COME_e
       <form id="formReporteExcel" onsubmit="reporteExcel(this)">
         <label>Comensal</label>
         <select id="dataComensalesAtenciones" name="idComensal" class="form-control select2" >
+          <option></option>
           <?php foreach ($resComensales as $x) : ?>
             <option value="<?php echo $x["COME_id"] ?>"><?php echo  $x["COME_nombres"] . " - " . $x["COME_dni"] ?></option>
           <?php endforeach; ?>
         </select>
         <label>Fecha inicio</label>
-        <input type="date" name="fInicio" class="form-control form-control-sm">
+        <select name="tipoSalida" class="form-select form-select-sm" id="tipoSalidaExcel" onchange="asignarUrlGeneraExcel(this)">
+          <option value="" disabled selected>Selecciona un tipo de salida</option>
+          <option value="0">NORMAL</option>
+          <option value="1">ADICIONAL</option>
+          <option value="2">NORMAL Y ADICIONAL</option>
+          <option value="3">OTROS</option>
+        </select>
+        <label>Fecha inicio</label>
+        <input type="date" name="fInicio" onchange="limitarFechaUnMes(this)" data-validate class="form-control form-control-sm">
         <label>Fecha final</label>
-        <input type="date" name="fFinal" class="form-control form-control-sm">
-        <button type="submit" class="btn btn-primary btn-sm float-end mt-3">enviar</button>
+        <input type="date" name="fFinal" id="fFinalReporteExcel" data-validate class="form-control form-control-sm">
+        <button type="submit" data-url_excel id="buttonGeneraExcel" class="btn btn-primary btn-sm float-end mt-3">enviar</button>
       </form>
     </div>
   </div>

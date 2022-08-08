@@ -11,10 +11,10 @@ $tiposAtencion = mysqli_query($conexion, "SELECT * FROM tipos_atencion WHERE TIA
   <div class="text-center mb-4">
     <h5 class="my-0">REGISTRO ATENCIONES</h5>
   </div>
-  <div class="col-md-9 mx-auto">
+  <div class="col-md-10 mx-auto">
     <div class="row">
       <!-- formulario -->
-      <div class="col-sm-6 pe-5" id="formularioAtenciones">
+      <div class="col-sm-5 pe-5" id="formularioAtenciones">
         <form id="formAddAtenciones">
           <label>Comensal (Registrado)</label>
           <select class="form-select form-select-sm select2Atenciones" onchange="obtenerDatosComensales(this)" name="idComensal">
@@ -26,7 +26,7 @@ $tiposAtencion = mysqli_query($conexion, "SELECT * FROM tipos_atencion WHERE TIA
           <?php endforeach; ?>
         </select>
           <label>Nombres y apellidos (comensal nuevo)</label>
-          <input type="text" class="form-control form-control-sm mb-2" id="ComensalNRegistroDiario" name="comensalNuevo">
+          <input type="text" class="form-control form-control-sm mb-2" data-validate id="ComensalNRegistroDiario" name="comensalNuevo">
           <label>Empresa</label>
           <input type="text" class="form-control form-control-sm mb-2" id="empresaRegistroDiario" readonly>
           <label>Área</label>
@@ -34,6 +34,7 @@ $tiposAtencion = mysqli_query($conexion, "SELECT * FROM tipos_atencion WHERE TIA
           <?php foreach ($tiposAtencion as $x) : ?>
             <div class="form-check">
               <input class="form-check-input" type="radio" data-validate_atencion onchange="obtenerListaAlimentos(this)" name="tipoAtencion" 
+              data-primer_ingreso
               id="tipoAtencion<?php echo $x["TIAT_id"];  ?>" value="<?php echo $x["TIAT_id"]; ?>">
               <label class="form-check-label" for="tipoAtencion<?php echo $x["TIAT_id"];  ?>">
                 ATENCIÓN <?php echo $x["TIAT_descripcion"] ?>
@@ -43,11 +44,16 @@ $tiposAtencion = mysqli_query($conexion, "SELECT * FROM tipos_atencion WHERE TIA
           <button type="button" class="btn btn-primary btn-sm float-end mt-3" onclick="agregarAtenciones()">enviar</button>
         </form>
       </div>
-      <div class="col-sm-6" id="formularioAtenciones">
+      <div class="col-sm-7" id="formularioAtenciones">
         Lista Productos
-        <select class="form-select form-select-sm select2Atenciones" id="selectListaAlimentos" onchange="guardarTipoAlimento(this)" name="state">
+        <select class="form-select form-select-sm select2Atenciones" id="selectListaAlimentos" 
+        onchange="guardarTipoAlimentoGeneral(this)" name="state">
           <option></option>
         </select>
+        <div class="text-end mt-3">
+          <button class="btn btn-sm btn-danger" 
+          onclick="EliminaListaSesionProductos('¿Esta seguro de eliminar los productos agregados?')">Eliminar Productos</button>
+        </div>
         <div id="tablaSesionAlimentos"></div>
       </div>
     </div>

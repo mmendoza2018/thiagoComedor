@@ -49,7 +49,6 @@ $conComensales = mysqli_query($conexion, $consulta);
     </tbody>
   </table>
 </div>
-<a class="btn btn-success" href="php/generaEXCEL/reporteNormal/index.php">excel</a>
 </div>
 <script>
   $(document).ready(function() {

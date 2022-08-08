@@ -6,7 +6,7 @@ window.addEventListener("load", ()=>{
 document.addEventListener("DOMContentLoaded", () => {
 
   $("#contenido").load("php/home/index.php")
-  /* guardarDireccion() */
+  MostrarRutaStorage()
   $("#modales").load("componentes/modales.php")
   validar_campos();
   CambiarIconoSidebar();
@@ -128,7 +128,7 @@ function routerVistas(idBoton,url) {
           success: function (response) {
               /* document.getElementById(contenedor).innerHTML=response; */
               $("#contenido").html(response)
-              localStorage.setItem("ruta",url);
+              localStorage.setItem("rutaTh", url);
               ocultarLoader();
           }
         });
@@ -243,3 +243,9 @@ const validaRespuestaActualizar = (respuesta, ruta, idmodal) => {
      }
    })
  }
+function MostrarRutaStorage() {
+  let rutaActual = localStorage.getItem("rutaTh");
+  if (rutaActual) {
+    $("#contenido").load(localStorage.getItem("rutaTh"));
+  }
+}
