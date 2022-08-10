@@ -1,6 +1,7 @@
 <?php 
 require_once("../conexion.php");
 $resComensales =  mysqli_query($conexion, "SELECT * FROM comensales WHERE COME_estado = 1");
+$resEmpresas =  mysqli_query($conexion, "SELECT * FROM empresas WHERE EMPR_estado = 1");
 ?>
 
 <div class="container-fluid bg-white my-1 py-3">
@@ -19,7 +20,7 @@ $resComensales =  mysqli_query($conexion, "SELECT * FROM comensales WHERE COME_e
             <option value="<?php echo $x["COME_id"] ?>"><?php echo  $x["COME_nombres"] . " - " . $x["COME_dni"] ?></option>
           <?php endforeach; ?>
         </select>
-        <label>Fecha inicio</label>
+        <label>Tipo de salida</label>
         <select name="tipoSalida" 
         data-validate 
         class="form-select form-select-sm" 
@@ -29,6 +30,13 @@ $resComensales =  mysqli_query($conexion, "SELECT * FROM comensales WHERE COME_e
           <option value="1">ADICIONAL</option>
           <option value="2">NORMAL Y ADICIONAL</option>
           <option value="3">OTROS</option>
+        </select>
+        <label>Empresa</label>
+        <select name="idEmpresa" class="form-control select2" >
+          <option></option>
+          <?php foreach ($resEmpresas as $x) : ?>
+            <option value="<?php echo $x["EMPR_id"] ?>"><?php echo  $x["EMPR_razonSocial"] ?></option>
+          <?php endforeach; ?>
         </select>
         <label>Fecha inicio</label>
         <input type="date" name="fInicio" onchange="limitarFechaUnMes(this)" data-validate class="form-control form-control-sm">

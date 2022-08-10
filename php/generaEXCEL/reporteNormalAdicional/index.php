@@ -10,9 +10,12 @@ $fInicio = @$_GET["fInicio"];
 $fFinal = @$_GET["fFinal"];
 $tipoNormal = @$_GET["tipoNormal"];
 $tipoAdicional = @$_GET["tipoAdicional"];
+$idEmpresa = @$_GET["idEmpresa"];
 $whereComensal = ($idComensal != "") ? "AND COME_id=$idComensal" : "";
+$whereEmpresa = ($idEmpresa != "") ? "AND EMPR_id01=$idEmpresa" : "";
   $whereFechas = ($fInicio != "" && $fFinal != "")
-    ? "AND (REAL_fecha BETWEEN '$fInicio' AND '$fFinal')"
+    //? "AND (REAL_fecha BETWEEN '$fInicio' AND '$fFinal')"
+    ? "AND (REAL_fecha >= '$fInicio' AND REAL_fecha <= '$fFinal')"
     : "";
 
 //$estado = @$_GET["estado"];
@@ -37,8 +40,10 @@ $abecedario = [
 $spreadsheet = new Spreadsheet();
 if ($tipoNormal == "true") {
   
-  $resComensales = "SELECT COME_id, COME_nombres, AREA_descripcion, COME_dni FROM comensales co 
-                  INNER JOIN areas ar ON co.AREA_id01=ar.AREA_id WHERE COME_estado=1 $whereComensal";
+  $resComensales = "SELECT COME_id, COME_nombres, AREA_descripcion, COME_dni,EMPR_razonSocial FROM comensales co 
+                  INNER JOIN areas ar ON co.AREA_id01=ar.AREA_id 
+                  INNER JOIN empresas em ON co.EMPR_id01=em.EMPR_id 
+                  WHERE COME_estado=1 $whereComensal $whereEmpresa";
   # AND COME_id=199
   $resComesal = mysqli_query($conexion, $resComensales);
   $auxiliar = null;
@@ -80,6 +85,7 @@ if ($tipoNormal == "true") {
         'dni' => $x['COME_dni'],
         'cargo' => $x['AREA_descripcion'],
         'cede' => $cedeSalida,
+        'empresa' => $x['EMPR_razonSocial'],
         'diasRegistro' => $arrayDiasSalidaPorComensal,
       ]);
     }
@@ -127,6 +133,7 @@ die(); */
       'dni' => $x['dni'],
       'cargo' => $x['cargo'],
       'cede' => $cedeSalida,
+      'empresa' => $x['empresa'],
       'diasRegistro' => [],
     ]);
     foreach ($arrayDiasSelecionados as $y) {
@@ -163,7 +170,7 @@ $sheet = $spreadsheet->getActiveSheet();
     $spreadsheet->getActiveSheet()->getStyle($filaAfectadaColorDet2)->getFill()
       ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
       ->getStartColor()->setARGB('F4A060');
-    $sheet->setCellValue('H2', 'REPORTE NORMAL');
+    $sheet->setCellValue('H2', 'REPORTE NORMAL'.$idEmpresa);
     $spreadsheet->getActiveSheet()->setTitle("REPORTE NORMAL");
     if (count($arrayDiasGeneralComensales) > 0) {
 
@@ -176,17 +183,18 @@ $sheet = $spreadsheet->getActiveSheet();
     $rowData = 8;
     //si no hay comensales no muestra nada 
     if (count($arrayDiasRegistroComensales) > 0) {
-      $sheet->setCellValue('B7', '#');
-      $sheet->setCellValue('C7', 'Comedor');
-      $sheet->setCellValue('D7', 'Dni');
-      $sheet->setCellValue('E7', 'Nombres');
-      $sheet->setCellValue('F7', 'Cargo');
+      $sheet->setCellValue('A7', '#');
+      $sheet->setCellValue('B7', 'Comedor');
+           $sheet->setCellValue('C7', 'Dni');
+      $sheet->setCellValue('D7', 'Nombres');
+      $sheet->setCellValue('E7', 'Cargo');
+      $sheet->setCellValue('F7', 'Empresa');
 
       $filaAfectadaColorDet = 'B7:F7';
       $spreadsheet->getActiveSheet()->getStyle($filaAfectadaColorDet)->getFill()
         ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
         ->getStartColor()->setARGB('F4A060');
-     
+
 
       $sumaTotal = 0;
       //$cell = $sheet->getCellByColumnAndRow(9 + 1,11);
@@ -195,7 +203,6 @@ $sheet = $spreadsheet->getActiveSheet();
       $rowFecha = 6;
       $ultimaColumnData = 0;
 
-
       for ($contadorTrajadores = 0; $contadorTrajadores < count($arrayDiasGeneralComensales); $contadorTrajadores++) {
         $columnData = 7;
         $sheet->setCellValueByColumnAndRow(2, $rowData, $contadorTrajadores + 1);
@@ -203,6 +210,7 @@ $sheet = $spreadsheet->getActiveSheet();
         $sheet->setCellValueByColumnAndRow(4, $rowData, $arrayDiasGeneralComensales[$contadorTrajadores]['nombres']);
         $sheet->setCellValueByColumnAndRow(5, $rowData, $arrayDiasGeneralComensales[$contadorTrajadores]['dni']);
         $sheet->setCellValueByColumnAndRow(6, $rowData, $arrayDiasGeneralComensales[$contadorTrajadores]['cargo']);
+        $sheet->setCellValueByColumnAndRow(6, $rowData, $arrayDiasGeneralComensales[$contadorTrajadores]['empresa']);
 
         foreach ($arrayDiasGeneralComensales[$contadorTrajadores]['diasRegistro'] as $diaRegistros) {
           foreach ($diaRegistros as $tipos) {
@@ -343,7 +351,7 @@ if ($tipoAdicional == "true") {
                           INNER JOIN comensales co ON ra.COME_id01 = co.COME_id
                           INNER JOIN empresas e ON co.EMPR_id01 = e.EMPR_id
                           INNER JOIN areas a ON co.AREA_id01 = a.AREA_id
-                          WHERE TIAT_id01 = 2 $whereFechas $whereComensal";
+                          WHERE TIAT_id01 = 2 $whereFechas $whereComensal $whereEmpresa";
   $resConSalidas = mysqli_query($conexion, $conSalidasAdicional);
 
   $spreadsheet->setActiveSheetIndex(0);

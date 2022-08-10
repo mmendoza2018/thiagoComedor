@@ -25,6 +25,13 @@ $idCedeSesion = $_SESSION['datos_trabajador'][0]["cede"];
 $idComensal = (isset($_POST["idComensal"])) ? $_POST["idComensal"] : null;
 $comensalNuevo = @$_POST["comensalNuevo"];
 $tipoAtencion = @$_POST["tipoAtencion"];
+$fechaRegistro = isset($_POST["fechaRegistro"]) ? $_POST["fechaRegistro"] : null;
+if ($fechaRegistro == null) {
+  $fechaActual = date("YYYY-MM-DD HH:MM:SS");
+}else {
+  $fechaActual = $fechaRegistro." 00:00:00";
+}
+
 $registroTipoAlimento = ($tipoAtencion == 1) ? $_SESSION['sesionTipoAlimentos'][0]['id'] : null;
 $precioTipoAlimento = ($tipoAtencion == 1) ? $_SESSION['sesionTipoAlimentos'][0]['precio'] : null;
 $TipoRegistroAlimento = ($tipoAtencion == 1) ? 2 : null;
@@ -48,7 +55,8 @@ $consultaRegistro = "INSERT INTO registros_alimentacion
                           TIAL_id01,		
                           REAL_precio_comida,	
                           TIRE_id01,	
-                          TIAT_id01
+                          TIAT_id01,
+                          REAL_fecha
                         ) VALUES 
                         (
                           " . (($idComensal == null) ? "NULL" : $idComensal) . ",
@@ -57,7 +65,8 @@ $consultaRegistro = "INSERT INTO registros_alimentacion
                           " . (($registroTipoAlimento == null) ? "NULL" : $registroTipoAlimento) . ",
                           " . (($precioTipoAlimento == null) ? "NULL" : $precioTipoAlimento) . ",
                           " . (($TipoRegistroAlimento == null) ? "NULL" : $TipoRegistroAlimento) . ",
-                          '$tipoAtencion'
+                          '$tipoAtencion',
+                          '$fechaActual'
                         )";
 
 /* echo $consultaCotizacion;

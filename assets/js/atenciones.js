@@ -308,6 +308,13 @@ const obtenerListaAlimentos = (elemento) => {
       body: data,
     }
   );
+  // mostrar input fecha en caso de salidas normales
+  if (elemento.value == "1") {
+    let input = `<input type="date" data-validate class="form-control form-control-sm" name="fechaRegistro">`;
+    document.getElementById("llegaInputFechaAdd").innerHTML=input;
+  }else{ 
+    document.getElementById("llegaInputFechaAdd").innerHTML='';
+  }
 };
 const reporteExcel = () => {
   //array para enviar data de acuerdo el value del select
@@ -345,8 +352,9 @@ const reporteExcel = () => {
   let idComensal = formulario.idComensal.value;
   let fInicio = formulario.fInicio.value;
   let fFinal = formulario.fFinal.value;
+  let idEmpresa = formulario.idEmpresa.value;
   window.open(
-    `${ruta}?id=${idComensal}&fInicio=${fInicio}&fFinal=${fFinal}${listaEnvios}`,
+    `${ruta}?id=${idComensal}&fInicio=${fInicio}&fFinal=${fFinal}&idEmpresa=${idEmpresa}${listaEnvios}`,
     "facturacion"
   );
 };

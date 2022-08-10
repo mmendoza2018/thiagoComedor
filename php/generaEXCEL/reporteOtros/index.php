@@ -41,11 +41,11 @@ $sheet->setCellValue('E4', $fFinal);
 $sheet->setCellValue('B7', '#');
 $sheet->setCellValue('C7', 'Comedor');
 $sheet->setCellValue('D7', 'Descripcion');
-$sheet->setCellValue('D7', 'Fecha');
-$sheet->setCellValue('E7', 'Precio');
-$sheet->setCellValue('F7', 'Cantidad');
-$sheet->setCellValue('G7', 'Total');
-$sheet->setCellValue('H7', 'Movimiento');
+$sheet->setCellValue('E7', 'Fecha');
+$sheet->setCellValue('F7', 'Precio');
+$sheet->setCellValue('G7', 'Cantidad');
+$sheet->setCellValue('H7', 'Total');
+$sheet->setCellValue('I7', 'Movimiento');
 //alinear celdas
 $sheet->getStyle('B:H')->getAlignment()->setHorizontal('center');
 
