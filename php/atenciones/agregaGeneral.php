@@ -2,7 +2,6 @@
 session_start();
 require_once("../conexion.php");
 date_default_timezone_set("America/Lima");
-$fechaActual = date('Y-m-d');  
 
 if (!isset($_SESSION['sesionTipoAlimentos'])) {
   echo json_encode([false, "Debe agregar por lo menos un alimento"]);
@@ -27,11 +26,10 @@ $comensalNuevo = @$_POST["comensalNuevo"];
 $tipoAtencion = @$_POST["tipoAtencion"];
 $fechaRegistro = isset($_POST["fechaRegistro"]) ? $_POST["fechaRegistro"] : null;
 if ($fechaRegistro == null) {
-  $fechaActual = date("YYYY-MM-DD HH:MM:SS");
+  $fechaActual = date("Y-m-d h:m:s");
 }else {
   $fechaActual = $fechaRegistro." 00:00:00";
 }
-
 $registroTipoAlimento = ($tipoAtencion == 1) ? $_SESSION['sesionTipoAlimentos'][0]['id'] : null;
 $precioTipoAlimento = ($tipoAtencion == 1) ? $_SESSION['sesionTipoAlimentos'][0]['precio'] : null;
 $TipoRegistroAlimento = ($tipoAtencion == 1) ? 2 : null;

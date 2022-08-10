@@ -29,7 +29,16 @@
                     <div class="sidebar-submenu" style="display: block;">
                         <ul>
                             <li><a href="#" id="btnRegistroVentas">Registro Ventas</a></li>
-                            <li><a href="#" id="btnlistadoVentas">Listado Ventas</a></li>
+                            <li class="sidebar-dropdown-child">
+                                <a href="#"><span class="menu-text2">Listado atenciones</span> </a>
+                                <div class="sidebar-submenu-child" style="display: none;">
+                                    <ul>
+                                        <li><a href="#" id="btnlistadoVentasNormal">Normales</a></li>
+                                        <li><a href="#" id="btnlistadoVentasAdicional">Adicionales</a></li>
+                                        <li><a href="#" id="btnlistadoVentasOtros">Otros</a></li>
+                                    </ul>
+                                </div>
+                            </li>
                             <li><a href="#" id="btnReportes">Reportes</a></li>
                             <li><a href="#" id="btnEstadisticas">Estadisticas</a></li>
                             <li><a href="#" id="btnlectorQr">lector</a></li>

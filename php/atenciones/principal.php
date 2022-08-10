@@ -32,7 +32,7 @@ $tiposComida = mysqli_query($conexion, "SELECT * FROM tipo_alimentos WHERE TIAL_
             <option value="<?php echo $x["TIAL_id"] ?>"><?php echo $x["TIAL_descripcion"] ?></option>
           <?php endforeach; ?>
         </select>
-        <button type="submit" class="btn btn-primary btn-sm float-end mt-3">enviar</button>
+        <button type="submit" class="btn btn-primary btn-sm float-end mt-3">REGISTRAR</button>
       </form>
     </div>
     <!-- fin formulario -->

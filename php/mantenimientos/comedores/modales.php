@@ -18,8 +18,8 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-sm btn-blue-gyt" onclick="actualizaComedor()">Actualizar</button>
+        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">CERRAR</button>
+        <button type="button" class="btn btn-sm btn-blue-gyt" onclick="actualizaComedor()">ACTUALIZAR</button>
       </div>
     </div>
   </div>

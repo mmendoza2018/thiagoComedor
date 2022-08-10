@@ -13,7 +13,7 @@ $conComensales = mysqli_query($conexion, $consulta);
 ?>
 <div class="container-fluid bg-white my-1 py-3">
   <div class="text-center mb-4">
-    <h5 class="my-0">REGISTRO ATENCIONES</h5>
+    <h5 class="my-0">ATENCIONES NORMALES</h5>
   </div>
 <div class="table-responsive">
   <table id="tabla_lista_personas" class="table table-striped table-sm">
@@ -24,9 +24,9 @@ $conComensales = mysqli_query($conexion, $consulta);
         <th>DNI</th>
         <th>Empresa</th>
         <th>Area</th>
-        <th>Comida</th>
+        <th>Alimento</th>
         <th>Cede</th>
-        <th>Opciones</th>
+        <th>Fecha</th>
       </tr>
     </thead>
     <tbody>
@@ -41,9 +41,7 @@ $conComensales = mysqli_query($conexion, $consulta);
           <td><?php echo $x["AREA_descripcion"] ?></td>
           <td><?php echo $x["TIAL_descripcion"] ?></td>
           <td><?php echo $x["CEDE_descripcion"] ?></td>
-          <td>
-            <a href="#" class="text-dark"><i class="fas fa-list-ul"></i></a>
-          </td>
+          <td><?php echo $x["REAL_fecha"] ?></td>
         </tr>
       <?php endforeach; ?>
     </tbody>

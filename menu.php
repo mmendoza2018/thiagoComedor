@@ -25,9 +25,13 @@ if ($_SESSION["datos_trabajador"][0]){ ?>
             <div class="container-fluid px-0 pt-2" id="contenido"> </div>
         </main>
         <div id="modales"></div>
+        <div id="estadoIngresoSistema" data-estado_sis="<?php echo $_SESSION["datos_trabajador"][0]["estado"] ?>"></div>
         <!-- page-content" -->
     </div>
-    <?php include "componentes/footer.html" ?>
+    <?php 
+    $_SESSION["datos_trabajador"][0]["estado"] = false;
+    include "componentes/footer.html" 
+    ?>
 </body>
 </html>
 <?php } else header("Location: index.html"); ?>

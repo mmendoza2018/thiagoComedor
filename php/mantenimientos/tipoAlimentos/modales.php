@@ -16,11 +16,11 @@
           <input type="text" name="TIAL_unidad" class="form-control form-control-sm mb-2" id="TIAL_unidad" data-validate>
           <label>Precio</label>
           <input type="text" name="TIAL_precio" class="form-control form-control-sm mb-2" id="TIAL_precio" data-validate>
-          <label>Tipo Alimento</label>
+          <!-- <label>Tipo Alimento</label>
           <select class="form-select form-select-sm mb-2" name="TIAL_principal" id="TIAL_principal" data-validate>
             <option value="1">NORMAL</option>
             <option value="0">OTROS</option>
-          </select>
+          </select> -->
           <label>Estado</label>
           <select class="form-select form-select-sm mb-2" name="TIAL_estado" id="TIAL_estado" data-validate>
             <option value="1">Habilitado</option>
@@ -29,8 +29,8 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-sm btn-blue-gyt" onclick="actualizaTipoAlimento()">Actualizar</button>
+        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">CERRAR</button>
+        <button type="button" class="btn btn-sm btn-blue-gyt" onclick="actualizaTipoAlimento()">ACTUALIZAR</button>
       </div>
     </div>
   </div>

@@ -24,7 +24,7 @@ const llenarDatosAlimentos = (dato) => {
     document.getElementById("TIAL_marca").value = x[2];
     document.getElementById("TIAL_unidad").value = x[3];
     document.getElementById("TIAL_precio").value = x[4];
-    document.getElementById("TIAL_principal").value = x[5];
+    //document.getElementById("TIAL_principal").value = x[5];
     document.getElementById("TIAL_estado").value = x[7];
 
 }

@@ -5,7 +5,7 @@ window.addEventListener("load", ()=>{
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  $("#contenido").load("php/home/index.php")
+
   MostrarRutaStorage()
   $("#modales").load("componentes/modales.php")
   validar_campos();
@@ -14,7 +14,10 @@ document.addEventListener("DOMContentLoaded", () => {
   routerVistas("#listaPersonas","php/ordenes/lista_personas.php")
   routerVistas("#btnFormComensales","php/comensales/principal.php")
   routerVistas("#btnRegistroVentas","php/atenciones/formAgrega.php")
-  routerVistas("#btnlistadoVentas","php/atenciones/tabla.php")
+  routerVistas("#btnlistadoVentasNormal","php/atenciones/tablaNormal.php")
+  routerVistas("#btnlistadoVentasAdicional","php/atenciones/tablaAdicional.php")
+  routerVistas("#btnlistadoVentasOtros","php/atenciones/tablaOtros.php")
+
   routerVistas("#btnEstadisticas","php/estadisticas/principal.php")
   routerVistas("#btnlectorQr","php/atenciones/lectorQr.php")
   routerVistas("#btnPrueba","php/atenciones/prueba.php")
@@ -246,6 +249,11 @@ const validaRespuestaActualizar = (respuesta, ruta, idmodal) => {
 function MostrarRutaStorage() {
   let rutaActual = localStorage.getItem("rutaTh");
   if (rutaActual) {
-    $("#contenido").load(localStorage.getItem("rutaTh"));
+    let primerIngresoSistema = document.getElementById("estadoIngresoSistema").dataset.estado_sis;
+    (primerIngresoSistema =="1") 
+     ? $("#contenido").load("php/home/index.php")
+     : $("#contenido").load(localStorage.getItem("rutaTh"));
   }
 }
+
+

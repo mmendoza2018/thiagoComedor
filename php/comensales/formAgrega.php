@@ -22,5 +22,5 @@ $areas = mysqli_query($conexion, "SELECT AREA_descripcion,AREA_id FROM areas WHE
     <option value="<?php echo $x["AREA_id"] ?>"><?php echo $x["AREA_descripcion"] ?></option>
     <?php endforeach; ?>
   </select>
-  <button type="submit" class="btn btn-primary btn-sm float-end mt-3">enviar</button>
+  <button type="submit" class="btn btn-primary btn-sm float-end mt-3">REGISTRAR</button>
 </form>

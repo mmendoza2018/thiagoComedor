@@ -52,7 +52,7 @@ $counTotal = 0;
   <div class="col-5" style="border-top: 2px solid black; border-bottom: 2px solid black;">
     <div class="row">
       <div class="col-6">
-        <span class="fw-bold">Total Servicio</span>
+        <span class="fw-bold">Total:</span>
       </div>
       <div class="col-6">
       <?php echo number_format($totalGeneral,2); ?>

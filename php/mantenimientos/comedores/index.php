@@ -7,7 +7,7 @@
             <form id="formComedores">
                 <label class="mb-1">Descripción</label>
                 <input type="text" class="form-control form-control-sm mb-2" data-validate name="descripcionComedor">
-                <button class="btn btn-blue-gyt btn-sm float-end" onclick="agregarComedor()" type="button">Agregar</button>
+                <button class="btn btn-blue-gyt btn-sm float-end" onclick="agregarComedor()" type="button">REGISTRAR</button>
             </form>
         </div>
         <div class="col-sm-8">

@@ -190,7 +190,7 @@ $sheet = $spreadsheet->getActiveSheet();
       $sheet->setCellValue('E7', 'Cargo');
       $sheet->setCellValue('F7', 'Empresa');
 
-      $filaAfectadaColorDet = 'B7:F7';
+      $filaAfectadaColorDet = 'A7:F7';
       $spreadsheet->getActiveSheet()->getStyle($filaAfectadaColorDet)->getFill()
         ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
         ->getStartColor()->setARGB('F4A060');
@@ -205,11 +205,11 @@ $sheet = $spreadsheet->getActiveSheet();
 
       for ($contadorTrajadores = 0; $contadorTrajadores < count($arrayDiasGeneralComensales); $contadorTrajadores++) {
         $columnData = 7;
-        $sheet->setCellValueByColumnAndRow(2, $rowData, $contadorTrajadores + 1);
-        $sheet->setCellValueByColumnAndRow(3, $rowData, $arrayDiasGeneralComensales[$contadorTrajadores]['cede']);
+        $sheet->setCellValueByColumnAndRow(1, $rowData, $contadorTrajadores + 1);
+        $sheet->setCellValueByColumnAndRow(2, $rowData, $arrayDiasGeneralComensales[$contadorTrajadores]['cede']);
+        $sheet->setCellValueByColumnAndRow(3, $rowData, $arrayDiasGeneralComensales[$contadorTrajadores]['dni']);
         $sheet->setCellValueByColumnAndRow(4, $rowData, $arrayDiasGeneralComensales[$contadorTrajadores]['nombres']);
-        $sheet->setCellValueByColumnAndRow(5, $rowData, $arrayDiasGeneralComensales[$contadorTrajadores]['dni']);
-        $sheet->setCellValueByColumnAndRow(6, $rowData, $arrayDiasGeneralComensales[$contadorTrajadores]['cargo']);
+        $sheet->setCellValueByColumnAndRow(5, $rowData, $arrayDiasGeneralComensales[$contadorTrajadores]['cargo']);
         $sheet->setCellValueByColumnAndRow(6, $rowData, $arrayDiasGeneralComensales[$contadorTrajadores]['empresa']);
 
         foreach ($arrayDiasGeneralComensales[$contadorTrajadores]['diasRegistro'] as $diaRegistros) {

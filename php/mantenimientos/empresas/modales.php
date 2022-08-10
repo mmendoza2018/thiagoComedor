@@ -20,8 +20,8 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-sm btn-blue-gyt" onclick="actualizaEmpresa()">Actualizar</button>
+        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">CERRAR</button>
+        <button type="button" class="btn btn-sm btn-blue-gyt" onclick="actualizaEmpresa()">ACTUALIZAR</button>
       </div>
     </div>
   </div>

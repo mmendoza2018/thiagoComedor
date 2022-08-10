@@ -39,9 +39,9 @@ $sheet->setCellValue('D4', $fInicio);
 $sheet->setCellValue('E4', $fFinal);
 
 $sheet->setCellValue('B7', '#');
-$sheet->setCellValue('C7', 'Comedor');
-$sheet->setCellValue('D7', 'Descripcion');
-$sheet->setCellValue('E7', 'Fecha');
+$sheet->setCellValue('C7', 'Fecha');
+$sheet->setCellValue('D7', 'Comedor');
+$sheet->setCellValue('E7', 'Solicitante');
 $sheet->setCellValue('F7', 'Precio');
 $sheet->setCellValue('G7', 'Cantidad');
 $sheet->setCellValue('H7', 'Total');
@@ -69,17 +69,19 @@ $resConSalidas = mysqli_query($conexion, $consulta);
 if (mysqli_num_rows($resConSalidas)>0) {
   $totalGeneralOtros = 0;
   $rowReporte = 8;
+  $contador = 1;
   foreach ($resConSalidas as $k) {
     $totalGeneralOtros += $k["DESA_total"];
-    $sheet->setCellValueByColumnAndRow(2, $rowReporte, $k["DESA_id"]);
-    $sheet->setCellValueByColumnAndRow(3, $rowReporte, $k["CEDE_descripcion"]);
-    $sheet->setCellValueByColumnAndRow(4, $rowReporte, $k["TIAL_descripcion"]);
-    $sheet->setCellValueByColumnAndRow(5, $rowReporte, $k["REAL_fecha"]);
+    $sheet->setCellValueByColumnAndRow(2, $rowReporte, $contador);
+    $sheet->setCellValueByColumnAndRow(3, $rowReporte, $k["REAL_fecha"]);
+    $sheet->setCellValueByColumnAndRow(4, $rowReporte, $k["CEDE_descripcion"]);
+    $sheet->setCellValueByColumnAndRow(5, $rowReporte, $k["TIAL_descripcion"]);
     $sheet->setCellValueByColumnAndRow(6, $rowReporte, $k["DESA_precio"]);
     $sheet->setCellValueByColumnAndRow(7, $rowReporte, $k["DESA_cantidad"]);
     $sheet->setCellValueByColumnAndRow(8, $rowReporte, $k["DESA_total"]);
     $sheet->setCellValueByColumnAndRow(9, $rowReporte, 'OTROS');
     $rowReporte++;
+    $contador++;
   }
   $sheet->setCellValue('D5', $totalGeneralOtros);
 }else {
@@ -90,7 +92,7 @@ $conexion->close();
 $writer = new Xlsx($spreadsheet);
 
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-header('Content-Disposition: attachment;filename="Reporte.xlsx"');
+header('Content-Disposition: attachment;filename="Reporte Otros.xlsx"');
 header('Cache-Control: max-age=0');
 
 $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');

@@ -12,14 +12,15 @@
                 <label class="mb-1">Unidad</label>
                 <input type="text" class="form-control form-control-sm mb-2" data-validate name="unidadAlimento">
                 <label class="mb-1">Precio</label>
-                <input type="text" class="form-control form-control-sm mb-2" data-validate name="precioAlimento">
-                <label class="mb-1">Tipo Alimento</label>
+                <input type="number" class="form-control form-control-sm mb-2" data-validate name="precioAlimento">
+                <!-- <label class="mb-1">Tipo Alimento</label>
                 <select class="form-select form-select-sm" data-validate name="tipoAlimento" required="">
                 <option value="">-- SELECCIONE --</option>
                 <option value="1">Normal</option>
                 <option value="0">Otros</option>
-                </select><br>
-                <button class="btn btn-blue-gyt btn-sm float-end" onclick="agregarAlimento()" type="button">Agregar</button>
+                </select> -->
+                <br>
+                <button class="btn btn-blue-gyt btn-sm float-end" onclick="agregarAlimento()" type="button">AGREGAR</button>
             </form>
         </div>
         <div class="col-sm-8">

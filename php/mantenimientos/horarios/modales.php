@@ -7,7 +7,7 @@ $resAlimentos = mysqli_query($conexion, "SELECT * FROM tipo_alimentos");
   <div class="modal-dialog modal-dialog-centered modal-sm">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title mx-auto" id="staticBackdropLabel">Editar Motivo Salida</h5>
+        <h5 class="modal-title mx-auto" id="staticBackdropLabel">Editar Horarios</h5>
       </div>
       <div class="modal-body">
         <form id="formHorariosAct">
@@ -16,8 +16,8 @@ $resAlimentos = mysqli_query($conexion, "SELECT * FROM tipo_alimentos");
           <input type="time" class="form-control form-control-sm mb-2" data-validate name="HORA_inicio" id="HORA_inicio" step="1" data-validate>
           <label class="mb-1">Hora Final</label>
           <input type="time" class="form-control form-control-sm mb-2" data-validate name="HORA_final" id="HORA_final" step="1">
-          <label class="mb-1">Tipo Alimento</label>
-          <input type="text" name="TIAL_id01" class="form-control form-control-sm mb-2" id="TIAL_id01" data-validate>
+          <!-- <label class="mb-1">Tipo Alimento</label>
+          <input type="text" name="TIAL_id01" class="form-control form-control-sm mb-2" id="TIAL_id01" data-validate> -->
           <label>Estado</label>
           <select class="form-select form-select-sm mb-2" name="HORA_estado" id="HORA_estado" data-validate>
             <option value="1">Habilitado</option>
@@ -25,13 +25,10 @@ $resAlimentos = mysqli_query($conexion, "SELECT * FROM tipo_alimentos");
           </select>
         </form>
 
-
-
-
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-sm btn-blue-gyt" onclick="actualizaMotivo()">Actualizar</button>
+        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">CERRAR</button>
+        <button type="button" class="btn btn-sm btn-blue-gyt" onclick="actualizaHorario()">ACTUALIZAR</button>
       </div>
     </div>
   </div>

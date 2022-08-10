@@ -39,7 +39,7 @@ $areas = mysqli_query($conexion, "SELECT AREA_descripcion,AREA_id FROM areas WHE
             <option value="1">Habilitado</option>
             <option value="0">inhabilitar</option>
           </select>
-          <button type="submit" class="btn btn-sm btn-primary float-end mt-1">Actualizar</button>
+          <button type="submit" class="btn btn-sm btn-primary float-end mt-1">ACTUALIZAR</button>
         </form>
       </div>
     </div>

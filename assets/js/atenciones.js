@@ -245,7 +245,7 @@ const lecturaRegistroComensales = (formulario) => {
     .then((json) => {
       console.log("json", json);
       if (json[0]) {
-        toastPersonalizada(json[1], "success");
+        alertaPersonalizada(json[1], "success");
       } else {
         alertaPersonalizada(json[1], "error");
       }
@@ -418,3 +418,12 @@ const asignarUrlGeneraExcel = (elemento) => {
   let buttonEnviar = document.getElementById("buttonGeneraExcel");
   buttonEnviar.dataset.url_excel = url;
 };
+
+const verDetalleSalidas = (idRegistroAlimentacion) => {
+  let data = new FormData();
+  data.append("idRegistroAlimentacion",idRegistroAlimentacion)
+  cargarContenido("php/atenciones/detalleAdicionalOtros.php","llegaDetalleAdicionalOtros",{
+    method:"post",
+    body:data
+  })
+}

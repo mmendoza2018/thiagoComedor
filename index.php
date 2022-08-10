@@ -20,7 +20,7 @@
     <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
        <div class="col-xs-5 col-lg-4 col-md-8 col-sm-12 card-login shadow bg-white p-3 rounded-3">
            <form class="d-flex flex-column" id="formLogin">
-               <img src="assets/img/comida.svg" class="mx-auto img-fluid" alt="gyt">
+               <img src="assets/img/logo1.jpeg" class="mx-auto img-fluid" style="height: 320px;" alt="gyt">
                <!--  <MARQUEE class="mx-2 text-uppercase my-2"> INGRESE SU USUARIO Y CONTRASEÑA </MARQUEE> -->
               <div class="input-group mt-3 input-g">
                 <span class="input-group-text" id="basic-addon1"><i class='bx bxs-user'></i></span>

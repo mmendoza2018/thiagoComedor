@@ -42,7 +42,7 @@ $resEmpresas =  mysqli_query($conexion, "SELECT * FROM empresas WHERE EMPR_estad
         <input type="date" name="fInicio" onchange="limitarFechaUnMes(this)" data-validate class="form-control form-control-sm">
         <label>Fecha final</label>
         <input type="date" name="fFinal" id="fFinalReporteExcel" data-validate class="form-control form-control-sm">
-        <button type="submit" data-url_excel id="buttonGeneraExcel" class="btn btn-primary btn-sm float-end mt-3">enviar</button>
+        <button type="submit" data-url_excel id="buttonGeneraExcel" class="btn btn-primary btn-sm float-end mt-3">GENERAR REPORTE</button>
       </form>
     </div>
   </div>

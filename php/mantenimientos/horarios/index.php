@@ -1,6 +1,6 @@
 <?php require_once('modales.php');
 require_once('../../conexion.php');
-$resAlimentos = mysqli_query($conexion, "SELECT * FROM tipo_alimentos");
+$resAlimentos = mysqli_query($conexion, "SELECT * FROM tipo_alimentos WHERE TIAL_principal=1");
 ?>
 
 <div><h5>HORARIOS</h5></div>
@@ -19,7 +19,8 @@ $resAlimentos = mysqli_query($conexion, "SELECT * FROM tipo_alimentos");
                 <option value="<?php echo $x["TIAL_id"] ?>"><?php echo $x["TIAL_descripcion"] ?></option>
                 <?php endforeach; ?>
                 </select><br>
-                <button class="btn btn-blue-gyt btn-sm float-end" onclick="agregarHorario()" type="button">Agregar</button>
+                <button class="btn btn-blue-gyt btn-sm float-end"  disabled type="button">AGREGAR</button>
+                <!-- onclick="agregarHorario()" -->
             </form>
         </div>
         <div class="col-sm-8">

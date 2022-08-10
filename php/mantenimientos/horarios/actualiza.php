@@ -1,14 +1,15 @@
 <?php 
 session_start();
-require_once("../../../conexion.php");
+require_once("../../conexion.php");
 
-$id_motivo = @$_POST["id_motivo"];
-$mot_descripcion = @$_POST["mot_descripcion"];
-$mot_estado = @$_POST["mot_estado"];
+$HORA_id = @$_POST["HORA_id"];
+$HORA_inicio = @$_POST["HORA_inicio"];
+$HORA_final = @$_POST["HORA_final"];
+$HORA_estado = @$_POST["HORA_estado"];
 
-$consulta="UPDATE gyt_motivos SET mot_descripcion='$mot_descripcion', mot_estado='$mot_estado' WHERE id_motivo='$id_motivo';";
-$updateMotivo = mysqli_query($conexion,$consulta);
-echo ($updateMotivo) ? json_encode(true) : json_encode(false) ;  
+$consulta="UPDATE horarios SET HORA_inicio='$HORA_inicio', HORA_final='$HORA_final', HORA_estado='$HORA_estado' WHERE HORA_id=$HORA_id";
+$updateHorario = mysqli_query($conexion,$consulta);
+echo ($updateHorario) ? json_encode(true) : json_encode(false) ;  
 $conexion->close();
 
 ?>

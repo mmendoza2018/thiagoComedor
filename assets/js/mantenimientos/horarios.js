@@ -22,7 +22,7 @@ const llenarDatosHorario = (dato) => {
     document.getElementById("HORA_id").value = x[0];
     document.getElementById("HORA_inicio").value = x[1];
     document.getElementById("HORA_final").value = x[2];
-    document.getElementById("TIAL_id01").value = x[3];
+    //document.getElementById("TIAL_id01").value = x[3];
     document.getElementById("HORA_estado").value = x[4];
 
 }
@@ -42,10 +42,11 @@ const actualizaHorario = () => {
                 event.preventDefault();
                 $.ajax({
                     type: "POST",
-                    url: "php/mantenimientos/comedores/actualiza.php",
+                    url: "php/mantenimientos/horarios/actualiza.php",
                     data: $("#formHorariosAct").serialize(),
                     success: function (response) {
-                        validaRespuestaActualizar(response, "php/mantenimientos/comedores/index.php", "modalHorarioAct")
+                        console.log('response', response)
+                        validaRespuestaActualizar(response, "php/mantenimientos/horarios/index.php", "modalHorarioAct")
                         ocultarLoader();
                     }
                 });

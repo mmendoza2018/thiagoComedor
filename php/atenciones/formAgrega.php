@@ -42,7 +42,7 @@ $tiposAtencion = mysqli_query($conexion, "SELECT * FROM tipos_atencion WHERE TIA
               </label>
             </div>
           <?php endforeach; ?>
-          <button type="button" class="btn btn-primary btn-sm float-end mt-3" onclick="agregarAtenciones()">enviar</button>
+          <button type="button" class="btn btn-primary btn-sm float-end mt-3" onclick="agregarAtenciones()">REGISTRAR ATENCIÓN</button>
         </form>
       </div>
       <div class="col-sm-7" id="formularioAtenciones">

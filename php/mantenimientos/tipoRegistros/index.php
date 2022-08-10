@@ -7,7 +7,7 @@
             <form id="formTipoRegistro">
                 <label class="mb-1">Descripción</label>
                 <input type="text" class="form-control form-control-sm mb-2" data-validate name="descripcionTipoRegistro">
-                <button class="btn btn-blue-gyt btn-sm float-end" onclick="agregarTipoRegistro()" type="button">Agregar</button>
+                <button class="btn btn-blue-gyt btn-sm float-end" onclick="agregarTipoRegistro()" type="button">AGREGAR</button>
             </form>
         </div>
         <div class="col-sm-8">
