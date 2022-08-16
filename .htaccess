@@ -1,6 +1,6 @@
 
-RewriteEngine on
-options -indexes
+#RewriteEngine on
+#options -indexes
 RewriteCond %{HTTPS} off
 RewriteCond %{HTTP:X-Forwarded-SSL} !on
 RewriteCond %{HTTP_HOST} ^sistema\.gytperu\.com$ [OR]

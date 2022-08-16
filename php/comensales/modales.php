@@ -45,3 +45,31 @@ $areas = mysqli_query($conexion, "SELECT AREA_descripcion,AREA_id FROM areas WHE
     </div>
   </div>
 </div>
+
+<!-- Modal actualiza proyectos -->
+<div class="modal fade" id="modalConfirmImportExcel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-md">
+    <div class="modal-content">
+      <div>
+        <div class="text-end">
+          <button type="button" class="btn-close p-2" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <h5 class="modal-title text-center" id="staticBackdropLabel">Importar Excel</h5>
+      </div>
+      <div class="modal-body">
+        <form id="formImportarExcel">
+          <label>Ingrese el archivo EXCEL</label>
+          <input type="file" class="form-control form-control-sm" data-validate name="archivoExcel" accept=".Xlsx">
+          <label>Empresa</label>
+          <select class="form-select form-select-sm" data-validate name="idEmpresa" id="empresaComensalesAct">
+            <option value="" selected disabled>Seleccione una opción</option>
+            <?php foreach ($empresas as $x) : ?>
+            <option value="<?php echo $x["EMPR_id"] ?>"><?php echo $x["EMPR_razonSocial"] ?></option>
+            <?php endforeach; ?>
+          </select>
+          <button type="button" class="btn btn-sm btn-primary float-end mt-1" onclick="importarComensalesExcel()">PROCESAR INFORMACIÓN</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

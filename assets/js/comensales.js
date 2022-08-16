@@ -9,14 +9,14 @@ function agregarComensales(formulario) {
     })
       .then((res) => res.json())
       .then((respuesta) => {
-        if(respuesta){
+        if (respuesta) {
           cargarContenidoMultiple(
             [fetch("php/comensales/principal.php")],
             ["contenido"]
-          )
-          alertaPersonalizada("Agregado con exito","success");
-        }else{
-          alertaPersonalizada("Fallo Al agregar","error");
+          );
+          alertaPersonalizada("Agregado con exito", "success");
+        } else {
+          alertaPersonalizada("Fallo Al agregar", "error");
         }
         ocultarLoader();
       });
@@ -32,7 +32,6 @@ const llenarDatosComensales = (dato) => {
   document.getElementById("empresaComensalesAct").value = empresa;
   document.getElementById("areaComensalesAct").value = area;
   document.getElementById("estadoComensalesAct").value = 1;
-
 };
 
 const actualizaComensales = (formulario) => {
@@ -48,7 +47,7 @@ const actualizaComensales = (formulario) => {
     }).then((result) => {
       if (result.isConfirmed) {
         verLoader();
-        let data = new FormData(formulario)
+        let data = new FormData(formulario);
         fetch("php/comensales/actualiza.php", {
           method: "POST",
           body: data,
@@ -57,21 +56,43 @@ const actualizaComensales = (formulario) => {
           .then((respuesta) => {
             console.log(respuesta);
             $("#modalComensalesAct").modal("hide");
-            if (respuesta){
+            if (respuesta) {
               cargarContenidoMultiple(
                 [fetch("php/comensales/tabla.php")],
                 ["tablaComensales"]
-              )
-              alertaPersonalizada("Actualizado con exito","success");
-            }else{
-              alertaPersonalizada("Fallo Al actualizar","error");
+              );
+              alertaPersonalizada("Actualizado con exito", "success");
+            } else {
+              alertaPersonalizada("Fallo Al actualizar", "error");
             }
             ocultarLoader();
           });
       }
     });
   } else {
-    alertaCamposVacios();
+    alertaPersonalizada("Algunos campos son obligatorios","error");
   }
 };
 
+const importarComensalesExcel = () => {
+  let formulario = document.getElementById("formImportarExcel");
+  let data = new FormData(formulario);
+  if (!validar_campos("formImportarExcel"))
+    return alertaPersonalizada("algunos campos son obligatorios", "warning");
+  verLoader();
+  fetch("php/comensales/lecturaExcel.php", {
+    method: "POST",
+    body: data,
+  })
+    .then((res) => res.json())
+    .then((json) => {
+      if (json[0]) {
+        alertaPersonalizada("Importacion Exitosa!", "success");
+        $("#modalConfirmImportExcel").modal("hide")
+      } else {
+        alertaPersonalizada(json[1], "error", 4000);
+      }
+      formulario.reset();
+      ocultarLoader();
+    });
+};
