@@ -336,7 +336,7 @@ const reporteExcel = () => {
   //array para enviar data de acuerdo el value del select
   event.preventDefault();
   if (!validar_campos("formReporteExcel"))
-    return toastPersonalizada("Algunos Campos son necesarios");
+    return toastPersonalizada("Algunos Campos son necesarios","error");
   let arrayConfig = [
     {
       ruta: "php/generaEXCEL/reporteNormalAdicional/index.php",
@@ -497,7 +497,7 @@ const actualizaAtencionesEsperadas = (formulario) => {
       }
     });
   } else {
-    alertaCamposVacios();
+    toastPersonalizada("Algunos campos son abligatorios!", "error");
   }
 };
 

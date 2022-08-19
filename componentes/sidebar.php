@@ -2,12 +2,13 @@
     <div class="sidebar-content">
         <!-- sidebar-brand  -->
         <div class="text-center">
+            <strong><?php echo $_SESSION["datos_trabajador"][0]["cedeNombre"] ?></strong>
             <a href="menu.php" id="index" class="my-2 text-center"><img src="assets/img/logo2.jpeg" class="mx-auto img-fluid mt-1" alt="gyt"></a>
         </div>
         <!-- sidebar-header  -->
-        <div class="sidebar-item sidebar-header d-flex flex-nowrap">
+        <div class="sidebar-item sidebar-header d-flex flex-nowrap p-2">
             <div class="user-pic">
-                <img class="img-responsive img-rounded mx-2 mt-0" src="assets/plugins/sidebar/src/img/user.jpg" with="80" alt="User picture">
+                <img class="img-responsive img-rounded mx-1 mt-0" src="assets/plugins/sidebar/src/img/user.jpg" with="80" alt="User picture">
             </div>
             <div class="user-info">
                 <span class="user-name">
@@ -83,10 +84,7 @@
     <div class="sidebar-footer">
         <div class="dropdown ">
             <!-- show -->
-
-            <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-
-                <a href="php/cerrar_sesion.php" class="text-danger"><i class="fas fa-reply-all"></i></a>
+                <a href="php/cerrar_sesion.php" class="text-danger"><span class="badge bg-danger">SALIR</span></a>
             </a>
 
             <!-- <div class="dropdown-menu notifications" aria-labelledby="dropdownMenuMessage">

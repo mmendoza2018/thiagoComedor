@@ -2,7 +2,7 @@
 session_start();
 require_once("../conexion.php");
 date_default_timezone_set("America/Lima");
-$horaActual = date('G:i:s');  
+$horaActual = date('H:i:s');  
 $fechaActual = date('Y-m-d');  
 
 $idCedeSesion = $_SESSION['datos_trabajador'][0]["cede"];
@@ -23,9 +23,9 @@ $resHorarios = mysqli_query($conexion,"SELECT * FROM horarios h
                                       LEFT JOIN tipo_alimentos ta ON h.TIAL_id01=ta.TIAL_id WHERE HORA_estado=1");
 foreach ($resHorarios as $x) {
   $horaInicio = new DateTime($x['HORA_inicio']);
-  $resHoraInicio = $horaInicio->format('G:i:s');
+  $resHoraInicio = $horaInicio->format('H:i:s');
   $horaFinal = new DateTime($x['HORA_final']);
-  $resHoraFinal = $horaFinal->format('G:i:s');
+  $resHoraFinal = $horaFinal->format('H:i:s');
   if ($horaActual > $resHoraInicio && $horaActual < $resHoraFinal) {
     $idTipoComida = $x['TIAL_id01'];
     $precioTipoComida = $x['TIAL_precio'];

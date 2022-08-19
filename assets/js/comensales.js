@@ -21,7 +21,7 @@ function agregarComensales(formulario) {
         ocultarLoader();
       });
   } else {
-    alertaPersonalizada("complete todos los campos", "error");
+    toastPersonalizada("complete todos los campos", "error");
   }
 }
 const llenarDatosComensales = (dato) => {
@@ -54,7 +54,6 @@ const actualizaComensales = (formulario) => {
         })
           .then((res) => res.json())
           .then((respuesta) => {
-            console.log(respuesta);
             $("#modalComensalesAct").modal("hide");
             if (respuesta) {
               cargarContenidoMultiple(
@@ -70,7 +69,7 @@ const actualizaComensales = (formulario) => {
       }
     });
   } else {
-    alertaPersonalizada("Algunos campos son obligatorios","error");
+    toastPersonalizada("Algunos campos son obligatorios","error");
   }
 };
 
@@ -78,7 +77,7 @@ const importarComensalesExcel = () => {
   let formulario = document.getElementById("formImportarExcel");
   let data = new FormData(formulario);
   if (!validar_campos("formImportarExcel"))
-    return alertaPersonalizada("algunos campos son obligatorios", "warning");
+    return toastPersonalizada("algunos campos son obligatorios", "warning");
   verLoader();
   fetch("php/comensales/lecturaExcel.php", {
     method: "POST",
@@ -90,7 +89,7 @@ const importarComensalesExcel = () => {
         alertaPersonalizada("Importacion Exitosa!", "success");
         $("#modalConfirmImportExcel").modal("hide")
       } else {
-        alertaPersonalizada(json[1], "error", 4000);
+        alertaPersonalizada(json[1],json[2] , 4000);
       }
       formulario.reset();
       ocultarLoader();

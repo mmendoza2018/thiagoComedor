@@ -6,6 +6,7 @@ if ($_POST['usuario'] !== "" && $_POST['contrasena'] !== "" && $_POST['cede'] !=
     $usuario = $_POST['usuario'];
     $contrasena = $_POST['contrasena'];
     $cede = $_POST['cede'];
+    $cedeNombre = $_POST['cedeNombre'];
     $contrasenaSql= "";
     $nombreSql = "";
 
@@ -36,6 +37,7 @@ if ($_POST['usuario'] !== "" && $_POST['contrasena'] !== "" && $_POST['cede'] !=
                 "nombres"=> $nombreSql,
                 "id"=> $idUsuario,
                 "cede"=>$cede,
+                "cedeNombre"=>$cedeNombre,
                 "estado"=>true
             ];
 

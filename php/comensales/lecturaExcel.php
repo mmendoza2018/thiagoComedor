@@ -33,30 +33,43 @@ $data = $spreadsheet->getActiveSheet()->toArray();
 var_dump($data);
 echo "<pre>"; */
 if ($data[3][1] == null || $data[4][1] == null) {
-  echo json_encode([false, "Los registros no fueron ubicados"]);
+  echo json_encode([false, "Los registros no fueron ubicados","error"]);
   die();
 }
 
 $consultaComensales = "SELECT COME_dni FROM comensales WHERE EMPR_id01='$idEmpresa' AND COME_estado = 1";
 $resComensales = mysqli_query($conexion, $consultaComensales);
 $arrayNuevosComensales = [];
-foreach ($data as $k) {
-  $comensalRepetido = false;
-  foreach ($resComensales as $t) {
-    if ($k[1] == null || $k[1] == $t["COME_dni"]) {
-      $comensalRepetido = true;
-      break;
+if (mysqli_num_rows($resComensales) >0 ) {
+  # code...
+  foreach ($data as $k) {
+    $comensalRepetido = false;
+    foreach ($resComensales as $t) {
+      if ($k[1] == null || $k[1] == $t["COME_dni"]) {
+        $comensalRepetido = true;
+        break;
+      }
+    }
+    if ($comensalRepetido == false) {
+      array_push($arrayNuevosComensales, ["dni" => $k[1], "nombres" => $k[2], "cargo" => $k[3]]);
     }
   }
-  if ($comensalRepetido == false) {
-    array_push($arrayNuevosComensales, ["dni" => $k[1], "nombres" => $k[2], "cargo" => $k[3]]);
+}else {
+  foreach ($data as $k) {
+    if ($k[1] != null) {
+      array_push($arrayNuevosComensales, ["dni" => $k[1], "nombres" => $k[2], "cargo" => $k[3]]);
+    }
   }
 }
-
+/* echo "<pre>";
+var_dump($arrayNuevosComensales);
+echo "<pre>";
+die(); */
 if (count($arrayNuevosComensales) <= 0) {
-  echo json_encode([false, "todos los comensales ya fueron previamente registrados!"]);
+  echo json_encode([false, "todos los comensales ya fueron previamente registrados!","warning"]);
   die();
 }
+
 foreach ($arrayNuevosComensales as $x) {
   $dni = $x['dni'];
   $consultaAdd = "INSERT INTO comensales (
@@ -72,8 +85,8 @@ foreach ($arrayNuevosComensales as $x) {
                                         " . $x["cargo"] . "
                                         )";
   if (!mysqli_query($conexion, $consultaAdd)) {
-    echo json_encode([false, "El comensal con DNI $dni  no pudo ser registrado, Revise que el cargo sea el correcto"]);
+    echo json_encode([false, "El comensal con DNI $dni  no pudo ser registrado, Revise que el cargo sea el correcto","error"]);
     die();
   }
 }
-echo json_encode([true,null]);
+echo json_encode([true,null,null]);
