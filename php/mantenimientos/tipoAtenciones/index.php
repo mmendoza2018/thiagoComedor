@@ -7,7 +7,7 @@
             <form id="formTipoAtencion">
                 <label class="mb-1">Descripción</label>
                 <input type="text" class="form-control form-control-sm mb-2" data-validate name="descripcionTipoAtencion">
-                <button class="btn btn-blue-gyt btn-sm float-end" onclick="agregarTipoAtencion()" type="button">AGREGAR</button>
+                <button class="btn btn-primary btn-sm float-end" onclick="agregarTipoAtencion()" type="button">AGREGAR</button>
             </form>
         </div>
         <div class="col-sm-8">

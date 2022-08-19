@@ -45,3 +45,59 @@ $areas = mysqli_query($conexion, "SELECT AREA_descripcion,AREA_id FROM areas WHE
     </div>
   </div>
 </div>
+
+<!-- Modal actualiza atenciones del dia  -->
+<div class="modal fade" id="modalActAtencionesDelDia" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content">
+      <div>
+        <div class="text-end">
+          <button type="button" class="btn-close p-2" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <h6 class="modal-title text-center" id="staticBackdropLabel">Actualizar atenciones del día</h6>
+      </div>
+      <div class="modal-body">
+        <form id="formActAtencionesEsperadas" onsubmit="actualizaAtencionesEsperadas(this)">
+          <input type="text" name="idAtencionEsperada" hidden id="idAtencionEsperada">
+          <label>Empresa</label>
+          <input name="empresa" readonly class="form-control form-control-sm" id="descEmpresaAteEspe" />
+          <label>Desayunos</label>
+          <input name="desayunos" data-validate class="form-control form-control-sm" id="desayunosAteEspe" />
+          <label>Almuerzos</label>
+          <input name="almuerzos" data-validate class="form-control form-control-sm" id="alumuerzosAteEspe" />
+          <label>Cenas</label>
+          <input name="cenas" data-validate class="form-control form-control-sm" id="cenasAteEspe" />
+          <button type="submit" class="btn btn-sm btn-primary float-end mt-1">ACTUALIZAR</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal agrega atenciones del dia  -->
+<div class="modal fade" id="modalAddAtencionesDelDia" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content">
+      <div>
+        <div class="text-end">
+          <button type="button" class="btn-close p-2" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <h6 class="modal-title text-center" id="staticBackdropLabel">Agregar atenciones del día</h6>
+      </div>
+      <div class="modal-body">
+        <form id="formAddAtencionesEsperadas" onsubmit="agregaAtencionesEsperadas(this)">
+          <input type="text" name="idEmpresa" hidden id="idEmpresaAteEspeAdd">
+          <label>Empresa</label>
+          <input name="empresa" readonly class="form-control form-control-sm" id="empresaAteEspeAdd"/>
+          <label>Desayunos</label>
+          <input name="desayunos" data-validate class="form-control form-control-sm" />
+          <label>Almuerzos</label>
+          <input name="almuerzos" data-validate class="form-control form-control-sm"/>
+          <label>Cenas</label>
+          <input name="cenas" data-validate class="form-control form-control-sm" />
+          <button type="submit" class="btn btn-sm btn-primary float-end mt-1">AGREGAR</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

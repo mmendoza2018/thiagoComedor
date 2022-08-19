@@ -32,7 +32,7 @@ $gerentes = mysqli_query($conexion,"SELECT * FROM personas p INNER JOIN roles_pe
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">CERRAR</button>
-        <button type="button" class="btn btn-sm btn-blue-gyt" onclick="actualizaProyecto()">ACTUALIZAR</button>
+        <button type="button" class="btn btn-sm btn-primary" onclick="actualizaProyecto()">ACTUALIZAR</button>
       </div>
     </div>
   </div>
@@ -60,7 +60,7 @@ $gerentes = mysqli_query($conexion,"SELECT * FROM personas p INNER JOIN roles_pe
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">CERRAR</button>
-        <button type="button" class="btn btn-sm btn-blue-gyt" onclick="actualizaCliente()">ACTUALIZAR</button>
+        <button type="button" class="btn btn-sm btn-primary" onclick="actualizaCliente()">ACTUALIZAR</button>
       </div>
     </div>
   </div>
@@ -251,7 +251,7 @@ $gerentes = mysqli_query($conexion,"SELECT * FROM personas p INNER JOIN roles_pe
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">CERRAR</button>
-        <button type="button" class="btn btn-sm btn-blue-gyt" onclick="agregaTipoOrden()">REGISTRAR</button>
+        <button type="button" class="btn btn-sm primary" onclick="agregaTipoOrden()">REGISTRAR</button>
       </div>
     </div>
   </div>
@@ -331,7 +331,7 @@ $gerentes = mysqli_query($conexion,"SELECT * FROM personas p INNER JOIN roles_pe
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">CERRAR</button>
-        <button type="button" class="btn btn-sm btn-blue-gyt" onclick="agregaOrden()">AGREGAR</button>
+        <button type="button" class="btn btn-sm btn-primary" onclick="agregaOrden()">AGREGAR</button>
       </div>
     </div>
   </div>

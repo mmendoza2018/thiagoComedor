@@ -4,14 +4,20 @@ function agregarAtenciones() {
     let formulario = document.getElementById("formAddAtenciones");
     let comensal = formulario.idComensal.value;
     let tipoAtencion = formulario.tipoAtencion.value;
-    console.log('comensal :>> ', comensal);
-    if (tipoAtencion==="") {
-      return toastPersonalizada('El tipo de atención es un campo obligatorio!', "error",3000);
-    }else {
+    console.log("comensal :>> ", comensal);
+    if (tipoAtencion === "") {
+      return toastPersonalizada(
+        "El tipo de atención es un campo obligatorio!",
+        "error",
+        3000
+      );
+    } else {
       if (tipoAtencion === "1" || tipoAtencion === "2") {
-        
-        if (comensal==="") 
-        return toastPersonalizada('El comensal es un campo obligatorio en salidas de tipo (NORMAL, ADICIONAL)', "error");
+        if (comensal === "")
+          return toastPersonalizada(
+            "El comensal es un campo obligatorio en salidas de tipo (NORMAL, ADICIONAL)",
+            "error"
+          );
       }
     }
     let data = new FormData(formulario);
@@ -148,10 +154,12 @@ const obtenerDatosComensales = (elemento) => {
       console.log(json);
       document.getElementById("empresaRegistroDiario").value = json.empresa;
       document.getElementById("areaRegistroDiario").value = json.area;
-      let inputComensalOtros = document.getElementById("ComensalNRegistroDiario");
-      
+      let inputComensalOtros = document.getElementById(
+        "ComensalNRegistroDiario"
+      );
+
       inputComensalOtros.setAttribute("readonly", "true");
-      inputComensalOtros.value='';
+      inputComensalOtros.value = "";
       ocultarLoader();
     });
 };
@@ -310,10 +318,18 @@ const obtenerListaAlimentos = (elemento) => {
   );
   // mostrar input fecha en caso de salidas normales
   if (elemento.value == "1") {
-    let input = `<input type="date" data-validate class="form-control form-control-sm" name="fechaRegistro">`;
-    document.getElementById("llegaInputFechaAdd").innerHTML=input;
-  }else{ 
-    document.getElementById("llegaInputFechaAdd").innerHTML='';
+    let input = `<label>Fecha de Ajuste</label><input type="date" data-validate class="form-control form-control-sm" name="fechaRegistro">`;
+    document.getElementById("llegaInputFechaAdd").innerHTML = input;
+  } else {
+    document.getElementById("llegaInputFechaAdd").innerHTML = "";
+  }
+  // mostrar input obersvaciones adicional
+  if (elemento.value == "2") {
+    let input = `<label>Observaciones</label><input type="text" data-validate class="form-control form-control-sm" name="observaciones">`;
+    document.getElementById("llegaInputObservacionesAdicional").innerHTML =
+      input;
+  } else {
+    document.getElementById("llegaInputObservacionesAdicional").innerHTML = "";
   }
 };
 const reporteExcel = () => {
@@ -421,9 +437,90 @@ const asignarUrlGeneraExcel = (elemento) => {
 
 const verDetalleSalidas = (idRegistroAlimentacion) => {
   let data = new FormData();
-  data.append("idRegistroAlimentacion",idRegistroAlimentacion)
-  cargarContenido("php/atenciones/detalleAdicionalOtros.php","llegaDetalleAdicionalOtros",{
-    method:"post",
-    body:data
+  data.append("idRegistroAlimentacion", idRegistroAlimentacion);
+  cargarContenido(
+    "php/atenciones/detalleAdicionalOtros.php",
+    "llegaDetalleAdicionalOtros",
+    {
+      method: "post",
+      body: data,
+    }
+  );
+};
+
+const llenarDatosActAtencionesEsperadas = (datos) => {
+  let [desayunos, almuerzos, cenas, idEmpresa, empresa,idAtencionEsperada] = datos.split("|");
+  document.getElementById("desayunosAteEspe").value = desayunos;
+  document.getElementById("alumuerzosAteEspe").value = almuerzos;
+  document.getElementById("cenasAteEspe").value = cenas;
+  document.getElementById("idAtencionEsperada").value = idAtencionEsperada;
+  document.getElementById("descEmpresaAteEspe").value = empresa;
+};
+
+const llenarDatosAddAtencionesEsperadas = (datos) => {
+  let [, , , idEmpresa, empresa] = datos.split("|");
+
+  document.getElementById("idEmpresaAteEspeAdd").value = idEmpresa;
+  document.getElementById("empresaAteEspeAdd").value = empresa;
+};
+
+const actualizaAtencionesEsperadas = (formulario) => {
+  event.preventDefault();
+  if (validar_campos("formActAtencionesEsperadas")) {
+    Swal.fire({
+      title: "¿Estas seguro de actualizar?",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "si",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        verLoader();
+        let data = new FormData(formulario);
+        fetch("php/estadisticas/actualizarAtenEsperadas.php", {
+          method: "POST",
+          body: data,
+        })
+          .then((res) => res.json())
+          .then((respuesta) => {
+            console.log(respuesta);
+            if (respuesta){
+              $("#modalActAtencionesDelDia").modal("hide");
+              toastPersonalizada("Actualizado con exito!", "success")
+              cargarContenido("php/estadisticas/atencionesEmpresas.php","contenido")
+            }else{
+              alertaPersonalizada("Fallo Al actualizar","error");
+            }
+            ocultarLoader();
+          });
+      }
+    });
+  } else {
+    alertaCamposVacios();
+  }
+};
+
+const agregaAtencionesEsperadas = (formulario) => {
+  event.preventDefault();
+  if (!validar_campos("formAddAtencionesEsperadas"))
+    return toastPersonalizada("Algunos campos son obligatorios!", "warning");
+  verLoader();
+  let data = new FormData(formulario);
+  fetch("php/estadisticas/agregarAtenEsperadas.php", {
+    method: "POST",
+    body: data,
   })
-}
+    .then((res) => res.json())
+    .then((respuesta) => {
+      console.log(respuesta);
+      if(respuesta){
+        $("#modalAddAtencionesDelDia").modal("hide");
+        toastPersonalizada("Agregado con exito!", "success")
+        cargarContenido("php/estadisticas/atencionesEmpresas.php","contenido")
+      }else {
+        alertaPersonalizada("Fallo Al actualizar","error");
+      }
+      ocultarLoader();
+    });
+};

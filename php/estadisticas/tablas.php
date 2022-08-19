@@ -34,7 +34,7 @@ $consultaCena = "SELECT EMPR_razonSocial,
   <div class="shadow p-2">
     <h6 class="text-center">DESAYUNO</h6>
     <div class="table-responsive">
-      <table id="tabla_lista_personas" class="table table-striped table-sm">
+      <table class="table table-striped table-sm">
         <thead>
           <tr>
             <th>Empresa</th>
@@ -64,7 +64,7 @@ $consultaCena = "SELECT EMPR_razonSocial,
   <div class="shadow p-2">
     <h6 class="text-center">ALMUERZO</h6>
     <div class="table-responsive">
-      <table id="tabla_lista_personas" class="table table-striped table-sm">
+      <table class="table table-striped table-sm">
         <thead>
           <tr>
             <th>Empresa</th>
@@ -94,7 +94,7 @@ $consultaCena = "SELECT EMPR_razonSocial,
   <div class="shadow p-2">
     <h6 class="text-center">CENA</h6>
     <div class="table-responsive">
-      <table id="tabla_lista_personas" class="table table-striped table-sm">
+      <table class="table table-striped table-sm">
         <thead>
           <tr>
             <th>Empresa</th>

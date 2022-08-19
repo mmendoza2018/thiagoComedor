@@ -20,7 +20,7 @@
                 <option value="0">Otros</option>
                 </select> -->
                 <br>
-                <button class="btn btn-blue-gyt btn-sm float-end" onclick="agregarAlimento()" type="button">AGREGAR</button>
+                <button class="btn btn-primary btn-sm float-end" onclick="agregarAlimento()" type="button">AGREGAR</button>
             </form>
         </div>
         <div class="col-sm-8">

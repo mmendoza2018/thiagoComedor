@@ -25,7 +25,7 @@ require("modales.php")
           <th>DNI</th>
           <th>Empresa</th>
           <th>Area</th>
-          <th>Cede</th>
+          <th>Comedor</th>
           <th>Fecha</th>
           <th>Detalle</th>
         </tr>

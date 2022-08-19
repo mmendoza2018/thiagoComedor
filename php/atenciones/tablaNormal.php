@@ -16,7 +16,7 @@ $conComensales = mysqli_query($conexion, $consulta);
     <h5 class="my-0">ATENCIONES NORMALES</h5>
   </div>
 <div class="table-responsive">
-  <table id="tabla_lista_personas" class="table table-striped table-sm">
+  <table  class="table table-striped table-sm" id="tablaAtencionesNormales">
     <thead>
       <tr>
         <th>#</th>
@@ -25,7 +25,7 @@ $conComensales = mysqli_query($conexion, $consulta);
         <th>Empresa</th>
         <th>Area</th>
         <th>Alimento</th>
-        <th>Cede</th>
+        <th>Comedor</th>
         <th>Fecha</th>
       </tr>
     </thead>
@@ -50,7 +50,7 @@ $conComensales = mysqli_query($conexion, $consulta);
 </div>
 <script>
   $(document).ready(function() {
-    $('#tabla_lista_personas').DataTable({
+    $('#tablaAtencionesNormales').DataTable({
       "info": false,
       "language": {
         "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"

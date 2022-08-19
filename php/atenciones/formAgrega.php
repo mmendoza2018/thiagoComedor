@@ -28,6 +28,7 @@ $tiposAtencion = mysqli_query($conexion, "SELECT * FROM tipos_atencion WHERE TIA
           <label>Nombres y apellidos (comensal nuevo)</label>
           <input type="text" class="form-control form-control-sm mb-2" data-validate id="ComensalNRegistroDiario" name="comensalNuevo">
           <div id="llegaInputFechaAdd"></div>
+          <div id="llegaInputObservacionesAdicional"></div>
           <label>Empresa</label>
           <input type="text" class="form-control form-control-sm mb-2" id="empresaRegistroDiario" readonly>
           <label>Área</label>

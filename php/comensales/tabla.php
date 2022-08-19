@@ -10,7 +10,7 @@ $conComensales = mysqli_query($conexion, $consulta);
 ?>
 
 <div class="table-responsive">
-  <table id="tabla_lista_personas" class="table table-striped table-sm">
+  <table id="tablaComensales1" class="table table-striped table-sm">
     <thead>
       <tr>
         <th>#</th>
@@ -41,7 +41,7 @@ $conComensales = mysqli_query($conexion, $consulta);
 </div>
 <script>
   $(document).ready(function() {
-    $('#tabla_lista_personas').DataTable({
+    $('#tablaComensales1').DataTable({
       "info": false,
       "language": {
         "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"

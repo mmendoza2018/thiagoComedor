@@ -344,7 +344,7 @@ if ($tipoAdicional == "true") {
   $myWorkSheet = new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet($spreadsheet, 'REPORTE ADICIONAL');
   $spreadsheet->addSheet($myWorkSheet, 0);
 
-  $conSalidasAdicional = "SELECT DESA_id, CEDE_descripcion, COME_dni, COME_nombres, EMPR_razonSocial, AREA_descripcion, REAL_fecha, TIAL_descripcion, DESA_precio, DESA_cantidad, DESA_total FROM detalle_salidas ds 
+  $conSalidasAdicional = "SELECT DESA_id, CEDE_descripcion, COME_dni, COME_nombres, EMPR_razonSocial, AREA_descripcion, REAL_fecha, TIAL_descripcion, DESA_precio, DESA_cantidad, DESA_total, REAL_solicitante FROM detalle_salidas ds 
                           INNER JOIN tipo_alimentos ta ON ds.TIAL_id01 = ta.TIAL_id
                           INNER JOIN registros_alimentacion ra ON ds.REAL_id01 = ra.REAL_id
                           INNER JOIN cedes ce ON ra.CEDE_id01 = ce.CEDE_id
@@ -388,10 +388,11 @@ if ($tipoAdicional == "true") {
   $myWorkSheet->setCellValueByColumnAndRow(6, $rowSegundoReporte, "Empresa");
   $myWorkSheet->setCellValueByColumnAndRow(7, $rowSegundoReporte, "Cargo");
   $myWorkSheet->setCellValueByColumnAndRow(8, $rowSegundoReporte, "Fecha");
-  $myWorkSheet->setCellValueByColumnAndRow(9, $rowSegundoReporte, "Alimento");
-  $myWorkSheet->setCellValueByColumnAndRow(10, $rowSegundoReporte, "Precio");
-  $myWorkSheet->setCellValueByColumnAndRow(11, $rowSegundoReporte, "Cantidad");
-  $myWorkSheet->setCellValueByColumnAndRow(12, $rowSegundoReporte, "Total");
+  $myWorkSheet->setCellValueByColumnAndRow(9, $rowSegundoReporte, "Observaciones");
+  $myWorkSheet->setCellValueByColumnAndRow(10, $rowSegundoReporte, "Alimento");
+  $myWorkSheet->setCellValueByColumnAndRow(11, $rowSegundoReporte, "Precio");
+  $myWorkSheet->setCellValueByColumnAndRow(12, $rowSegundoReporte, "Cantidad");
+  $myWorkSheet->setCellValueByColumnAndRow(13, $rowSegundoReporte, "Total");
 
   if (mysqli_num_rows($resConSalidas) > 0) {
     // Attach the "My Data" worksheet as the first worksheet in the Spreadsheet object
@@ -407,10 +408,11 @@ if ($tipoAdicional == "true") {
       $myWorkSheet->setCellValueByColumnAndRow(6, $rowSegundoReporte, $k["EMPR_razonSocial"]);
       $myWorkSheet->setCellValueByColumnAndRow(7, $rowSegundoReporte, $k["AREA_descripcion"]);
       $myWorkSheet->setCellValueByColumnAndRow(8, $rowSegundoReporte, $k["REAL_fecha"]);
-      $myWorkSheet->setCellValueByColumnAndRow(9, $rowSegundoReporte, $k["TIAL_descripcion"]);
-      $myWorkSheet->setCellValueByColumnAndRow(10, $rowSegundoReporte, $k["DESA_precio"]);
-      $myWorkSheet->setCellValueByColumnAndRow(11, $rowSegundoReporte, $k["DESA_cantidad"]);
-      $myWorkSheet->setCellValueByColumnAndRow(12, $rowSegundoReporte, $k["DESA_total"]);
+      $myWorkSheet->setCellValueByColumnAndRow(9, $rowSegundoReporte, $k["REAL_solicitante"]);
+      $myWorkSheet->setCellValueByColumnAndRow(10, $rowSegundoReporte, $k["TIAL_descripcion"]);
+      $myWorkSheet->setCellValueByColumnAndRow(11, $rowSegundoReporte, $k["DESA_precio"]);
+      $myWorkSheet->setCellValueByColumnAndRow(12, $rowSegundoReporte, $k["DESA_cantidad"]);
+      $myWorkSheet->setCellValueByColumnAndRow(13, $rowSegundoReporte, $k["DESA_total"]);
       $rowSegundoReporte++;
     }
     $sheet->setCellValue('D5', number_format($totalGeneralAdicional,2));

@@ -36,7 +36,7 @@
               <div class="input-group mt-3">
                 <span class="input-group-text verContra" id="basic-addon1"><a href="#" class="text-dark"><i class='bx bxs-home' ></i></a></span>
                 <select class="form-select form-select-sm" data-validate="" name="cede">
-                  <option value="" selected disabled>Seleccione una cede</option>
+                  <option value="" selected disabled>Seleccione una Comedor</option>
                   <?php foreach ($cedes as $x) : ?>
                       <option value="<?php echo $x["CEDE_id"] ?>"><?php echo $x["CEDE_descripcion"] ?></option>
                   <?php endforeach; ?>

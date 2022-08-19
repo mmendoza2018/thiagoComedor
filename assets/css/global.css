@@ -7,35 +7,8 @@
 .bg-white{
     background-color: white;
 }
-.bg-red-gyt{
-    background-color: var(--color-primary);
-}
-.bg-gray-gyt{
-    background-color: var(--color-gray);
-}
-.bg-blue-gyt{
-    background-color: var(--color-secondary);
-}
-.btn-blue-gyt{
-    background-color: var(--color-secondary);
-    color: white;
-}
-.btn-red-gyt{
-    background-color: var(--color-primary);
-    color: white;
-}
-.btn-gray-gyt{
-    background-color: var(--color-gray);
-    color: black;
-}
-.fondo-global{
-    background-color: #e4e6e7;
-}
-.text-blue-gyt{
-    color: var(--color-secondary);
-}
-.text-red-gyt{
-    color: var(--color-primary);
+.bg-success-opacity {
+    background-color: rgba(101, 193, 101, 0.332) !important;
 }
 /* quitar flechas del input type number */
 input[type=number]::-webkit-inner-spin-button, 

@@ -19,6 +19,8 @@ document.addEventListener("DOMContentLoaded", () => {
   routerVistas("#btnlistadoVentasOtros","php/atenciones/tablaOtros.php")
 
   routerVistas("#btnEstadisticas","php/estadisticas/principal.php")
+  routerVistas("#btnEstadisticasEmpresas","php/estadisticas/atencionesEmpresas.php")
+  
   routerVistas("#btnlectorQr","php/atenciones/lectorQr.php")
   routerVistas("#btnPrueba","php/atenciones/prueba.php")
   routerVistas("#btnReportes","php/atenciones/formReportes.php")
@@ -255,5 +257,11 @@ function MostrarRutaStorage() {
      : $("#contenido").load(localStorage.getItem("rutaTh"));
   }
 }
+
+document.addEventListener("input", (e) => {
+  if (e.target.matches("input[type=text]")) {
+    e.target.value = e.target.value.toUpperCase()
+  }
+})
 
 

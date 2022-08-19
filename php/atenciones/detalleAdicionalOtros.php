@@ -13,7 +13,7 @@ $consulta = "SELECT DESA_id, REAL_fecha,CEDE_descripcion, TIAL_descripcion, DESA
   $resAdiconal = mysqli_query($conexion,$consulta);
 ?>
 <div class="table-responsive">
-  <table id="tabla_lista_personas" class="table table-striped table-sm">
+  <table class="table table-striped table-sm">
     <thead>
       <tr>
         <th>#</th>
@@ -27,7 +27,9 @@ $consulta = "SELECT DESA_id, REAL_fecha,CEDE_descripcion, TIAL_descripcion, DESA
     </thead>
     <tbody>
       <?php
-      foreach ($resAdiconal as $x) : ?>
+      $sumtaTotal = 0;
+      foreach ($resAdiconal as $x) :
+      $sumtaTotal += $x["DESA_total"];  ?>
         <tr>
           <td><?php echo $x["DESA_id"] ?></td>
           <td><?php echo $x["REAL_fecha"] ?></td>
@@ -38,6 +40,11 @@ $consulta = "SELECT DESA_id, REAL_fecha,CEDE_descripcion, TIAL_descripcion, DESA
           <td><?php echo $x["DESA_total"] ?></td>
         </tr>
       <?php endforeach; ?>
+      <tr>
+        <td colspan="5"></td>
+        <td class="fw-bold bg-success-opacity">Total</td>
+        <td class="bg-success-opacity"><?php echo number_format($sumtaTotal,2) ?></td>
+      </tr>
     </tbody>
   </table>
 </div>

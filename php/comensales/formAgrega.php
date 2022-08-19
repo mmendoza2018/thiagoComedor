@@ -5,9 +5,9 @@ $areas = mysqli_query($conexion, "SELECT AREA_descripcion,AREA_id FROM areas WHE
 ?>
 <form id="formAddComensales" onsubmit="agregarComensales(this)">
   <label>Nombres y Apellidos</label>
-  <input name="nombres" data-validate class="form-control form-control-sm" />
+  <input name="nombres" type="text" data-validate class="form-control form-control-sm" />
   <label>DNI</label>
-  <input name="dni" data-validate class="form-control form-control-sm" />
+  <input name="dni" type="text" data-validate class="form-control form-control-sm" />
   <label>Empresa</label>
   <select class="form-select form-select-sm" data-validate name="empresa">
     <option value="" selected disabled>Seleccione una opción</option>

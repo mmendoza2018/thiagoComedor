@@ -28,7 +28,7 @@ $resAlimentos = mysqli_query($conexion, "SELECT * FROM tipo_alimentos");
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">CERRAR</button>
-        <button type="button" class="btn btn-sm btn-blue-gyt" onclick="actualizaHorario()">ACTUALIZAR</button>
+        <button type="button" class="btn btn-sm btn-primary" onclick="actualizaHorario()">ACTUALIZAR</button>
       </div>
     </div>
   </div>

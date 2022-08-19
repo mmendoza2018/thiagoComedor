@@ -22,7 +22,7 @@
                 <li class="header-menu"><span>General</span></li>
                 <li class="sidebar-dropdown active">
                     <a href="#">
-                    <i class="fas fa-donate"></i>
+                        <i class="fas fa-donate"></i>
                         <span class="menu-text">ORDENES DE PEDIDO</span>
                         <span class="badge badge-pill badge-warning">New</span>
                     </a>
@@ -40,9 +40,17 @@
                                 </div>
                             </li>
                             <li><a href="#" id="btnReportes">Reportes</a></li>
-                            <li><a href="#" id="btnEstadisticas">Estadisticas</a></li>
+                            <li class="sidebar-dropdown-child">
+                                <a href="#"><span class="menu-text2">Estadisticas</span> </a>
+                                <div class="sidebar-submenu-child" style="display: none;">
+                                    <ul>
+                                        <li><a href="#" id="btnEstadisticas">Atenciones diarias</a></li>
+                                        <li><a href="#" id="btnEstadisticasEmpresas">Atenciones esperadas</a></li>
+                                    </ul>
+                                </div>
+                            </li>
                             <li><a href="#" id="btnlectorQr">lector</a></li>
-                             <!-- <li><a href="#" id="btnPrueba">Prueba</a></li> -->
+                            <!-- <li><a href="#" id="btnPrueba">Prueba</a></li> -->
                         </ul>
                     </div>
                 </li>
@@ -80,7 +88,7 @@
 
                 <a href="php/cerrar_sesion.php" class="text-danger"><i class="fas fa-reply-all"></i></a>
             </a>
-           
+
             <!-- <div class="dropdown-menu notifications" aria-labelledby="dropdownMenuMessage">
                 <div class="notifications-header">
                     <a href="php/cerrar_sesion.php" class="text-danger"><i class=""></i></a>
@@ -200,7 +208,7 @@
                 <a class="dropdown-item" href="#">Setting</a>
             </div>
         </div>
-    <!--     <div>
+        <!--     <div>
             <a id="pin-sidebar" class="pt-1" href="#"> <i class="fas fa-caret-left fa-2x"></i></a>
         </div> -->
         <div class="pinned-footer">

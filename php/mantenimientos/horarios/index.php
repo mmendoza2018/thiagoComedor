@@ -19,7 +19,7 @@ $resAlimentos = mysqli_query($conexion, "SELECT * FROM tipo_alimentos WHERE TIAL
                 <option value="<?php echo $x["TIAL_id"] ?>"><?php echo $x["TIAL_descripcion"] ?></option>
                 <?php endforeach; ?>
                 </select><br>
-                <button class="btn btn-blue-gyt btn-sm float-end"  disabled type="button">AGREGAR</button>
+                <button class="btn btn-primary btn-sm float-end"  disabled type="button">AGREGAR</button>
                 <!-- onclick="agregarHorario()" -->
             </form>
         </div>
