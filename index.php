@@ -42,7 +42,7 @@
                   <?php endforeach; ?>
                 </select>
               </div>
-              <button class="btn btn-gray-gyt mt-3" id="envioLogin">Ingresar</button>
+              <button class="btn btn-primary mt-3" id="envioLogin">Ingresar</button>
            </form>
        </div>
     </div>
