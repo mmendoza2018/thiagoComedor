@@ -1,5 +1,6 @@
 <?php
 include_once("../conexion.php");
+require_once("modales.php");
 
 $comensales = mysqli_query($conexion, "SELECT * FROM comensales WHERE COME_estado = 1");
 $tiposComida = mysqli_query($conexion, "SELECT * FROM tipo_alimentos WHERE TIAL_estado = 1");
@@ -43,7 +44,10 @@ $tiposAtencion = mysqli_query($conexion, "SELECT * FROM tipos_atencion WHERE TIA
               </label>
             </div>
           <?php endforeach; ?>
-          <button type="button" class="btn btn-primary btn-sm float-end mt-3" onclick="agregarAtenciones()">REGISTRAR ATENCIÓN</button>
+          <div class="d-flex justify-content-between">
+            <button type="button" class="btn btn-success btn-sm float-end mt-3 me-2" data-bs-toggle="modal" data-bs-target="#modalCargaMasivaSalidas">IMPORTAR EXCEL</button>
+            <button type="button" class="btn btn-primary btn-sm float-end mt-3" onclick="agregarAtenciones()">REGISTRAR ATENCIÓN</button>
+          </div>
         </form>
       </div>
       <div class="col-sm-7" id="formularioAtenciones">

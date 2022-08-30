@@ -2,7 +2,7 @@
 session_start();
 date_default_timezone_set("America/Lima");
 $hoy = date("Y-m-d");
-$idCedeSesion = $_SESSION['datos_trabajador'][0]["cede"];
+$idCedeSesion = $_SESSION['datos_trabajador'][0]["idCede"];
 if (isset($_POST["idCede"])) {
   $idCede = $_POST["idCede"];
 }else{

@@ -3,7 +3,7 @@ session_start();
 require_once("../conexion.php");
 date_default_timezone_set("America/Lima");
 $usuario = $_SESSION['datos_trabajador'][0]["nombres"];
-$hoy = date("Y-m-d");
+$fechaReferencia = @$_POST["fechaReferencia"];
 $idEmpresa = @$_POST["idEmpresa"];
 $desayunos = @$_POST["desayunos"];
 $almuerzos = @$_POST["almuerzos"];
@@ -22,7 +22,7 @@ $consultaAdd = "INSERT INTO atenciones_esperadas (
                               $desayunos,
                               $almuerzos,
                               $cenas,
-                              '$hoy',
+                              '$fechaReferencia',
                               '$usuario'
                             )";
 echo (mysqli_query($conexion,$consultaAdd)) ? json_encode(true) :json_encode(false);

@@ -19,8 +19,8 @@ if(!isset($_POST["tipoAtencion"])) {
   }
 }
 
-$idusuario = $_SESSION['datos_trabajador'][0]["cede"];
-$idCedeSesion = $_SESSION['datos_trabajador'][0]["cede"];
+$idusuario = $_SESSION['datos_trabajador'][0]["nombres"];
+$idCedeSesion = $_SESSION['datos_trabajador'][0]["idCede"];
 $idComensal = (isset($_POST["idComensal"])) ? $_POST["idComensal"] : null;
 $comensalNuevo = @$_POST["comensalNuevo"];
 $tipoAtencion = @$_POST["tipoAtencion"];

@@ -4,7 +4,8 @@ require_once("../conexion.php");
 require_once("modales.php");
 date_default_timezone_set("America/Lima");
 $hoy = date("Y-m-d");
-$idCedeSesion = $_SESSION['datos_trabajador'][0]["cede"];
+$fechaFinal = isset($_POST["fecha"]) ? $_POST["fecha"] : $hoy;
+$idCedeSesion = $_SESSION['datos_trabajador'][0]["idCede"];
 if (isset($_POST["idCede"])) {
   $CondicionCede = "AND CEDE_id01='" . $_POST['idCede'] . "'";
 } else {
@@ -18,7 +19,7 @@ $resTipoAlimentos = mysqli_query($conexion, $consultaTipoAlimentos);
 ?>
 <?php foreach ($conEmpresas as $x) :
 
-  $conAtencionesEsperadas = "SELECT * FROM atenciones_esperadas WHERE EMPR_id01 = " . $x["EMPR_id"] . " AND ATES_fecha = '$hoy'";
+  $conAtencionesEsperadas = "SELECT * FROM atenciones_esperadas WHERE EMPR_id01 = " . $x["EMPR_id"] . " AND ATES_fecha = '$fechaFinal'";
   $resAtencionesEsperadas = mysqli_query($conexion, $conAtencionesEsperadas);
   $arrayAtencionesEsperadas = mysqli_fetch_assoc($resAtencionesEsperadas);
   $dataActualizar = @$arrayAtencionesEsperadas["ATES_cantidad_desayunos"] . "|" . @$arrayAtencionesEsperadas["ATES_cantidad_almuerzos"] . "|" . @$arrayAtencionesEsperadas["ATES_cantidad_cenas"] . "|" . $x["EMPR_id"] . "|" . $x["EMPR_razonSocial"] . "|" .@$arrayAtencionesEsperadas["ATES_id"];
@@ -61,7 +62,7 @@ $resTipoAlimentos = mysqli_query($conexion, $consultaTipoAlimentos);
                     $consultaTotalAlimento = "SELECT  count(*) AS numRegistros FROM registros_alimentacion ra
                                                 LEFT JOIN comensales co ON ra.COME_id01 = co.COME_id
                                                 INNER JOIN empresas em ON co.EMPR_id01 = em.EMPR_id
-                                                WHERE TIAL_id01 = " . $y["TIAL_id"] . " AND DATE(REAL_fecha) ='$hoy' AND EMPR_id01 = " . $x["EMPR_id"] . "";
+                                                WHERE TIAL_id01 = " . $y["TIAL_id"] . " AND DATE(REAL_fecha) ='$fechaFinal' AND EMPR_id01 = " . $x["EMPR_id"] . "";
                     $arrayConteoAlimentos = mysqli_fetch_assoc(mysqli_query($conexion, $consultaTotalAlimento));
                   ?>
                     <th class="text-center"><?php echo $arrayConteoAlimentos["numRegistros"] ?></th>

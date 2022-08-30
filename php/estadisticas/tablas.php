@@ -6,7 +6,7 @@ $hoy = date("Y-m-d");
 $totalDesayunos=0;
 $totalAlmuerzos=0;
 $totalCenas=0;
-$idCedeSesion = $_SESSION['datos_trabajador'][0]["cede"];
+$idCedeSesion = $_SESSION['datos_trabajador'][0]["idCede"];
 if (isset($_POST["idCede"])) {
   $CondicionCede = "AND CEDE_id01='".$_POST['idCede']."'";
 }else{

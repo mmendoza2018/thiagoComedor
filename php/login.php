@@ -36,7 +36,7 @@ if ($_POST['usuario'] !== "" && $_POST['contrasena'] !== "" && $_POST['cede'] !=
             $_SESSION['datos_trabajador'][] = [
                 "nombres"=> $nombreSql,
                 "id"=> $idUsuario,
-                "cede"=>$cede,
+                "idCede"=>$cede,
                 "cedeNombre"=>$cedeNombre,
                 "estado"=>true
             ];

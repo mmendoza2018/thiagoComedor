@@ -3,7 +3,7 @@ session_start();
 require_once("../conexion.php");
 date_default_timezone_set("America/Lima");
 $usuario = $_SESSION['datos_trabajador'][0]["nombres"];
-$hoy = date("Y-m-d");
+$fechaReferencia = @$_POST["fechaReferencia"];
 $idAtencionEsperada = @$_POST["idAtencionEsperada"];
 $desayunos = @$_POST["desayunos"];
 $almuerzos = @$_POST["almuerzos"];

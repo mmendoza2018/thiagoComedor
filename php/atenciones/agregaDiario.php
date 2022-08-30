@@ -5,7 +5,7 @@ date_default_timezone_set("America/Lima");
 $horaActual = date('H:i:s');  
 $fechaActual = date('Y-m-d');  
 
-$idCedeSesion = $_SESSION['datos_trabajador'][0]["cede"];
+$idCedeSesion = $_SESSION['datos_trabajador'][0]["idCede"];
 $dniComensal = $_POST["dniComensal"];
 $idTipoComida = null;
 $idTipoRegistro = 1; //registro hecho por el comensal

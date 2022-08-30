@@ -375,6 +375,50 @@ const reporteExcel = () => {
   );
 };
 
+const reporteExcelAjustes = () => {
+  let fechaAjuste = document.getElementById("fechaReferenciaAtencionesPrevistas").value;
+  //array para enviar data de acuerdo el value del select
+  
+  window.open(
+    `php/generaEXCEL/reporteAjustes/?fecha=${fechaAjuste}`,
+    "facturacion"
+  );
+};
+
+const importarSalidasExcel = () => {
+  let formulario = document.getElementById("formCargaMasivaSalidas");
+  let data = new FormData(formulario);
+  if (!validar_campos("formCargaMasivaSalidas"))
+    return toastPersonalizada("El archivo excel es obligatorio!", "warning");
+  verLoader();
+  fetch("php/atenciones/lecturaExcel.php", {
+    method: "POST",
+    body: data,
+  })
+    .then((res) => res.json())
+    .then((json) => {
+      console.log('json :>> ', json);
+      if (json[0]) {
+        alertaPersonalizada("Importacion Exitosa!", "success");
+        $("#modalConfirmImportExcel").modal("hide")
+      } else {
+        alertaPersonalizada(json[1],json[2] , 4000);
+      }
+      formulario.reset();
+      ocultarLoader();
+    });
+};
+
+const cargarTablaListaEmpresas = (elemento) => {
+  console.log("gdfgd");
+  let data = new FormData();
+  data.append("fecha", elemento.value)
+  cargarContenido("php/estadisticas/tablasEmpresas.php","llegaTablasEstadisticasEmpresas",{
+    method: "POST",
+    body: data,
+  },true);
+}
+
 const EliminaListaSesionProductos = (title, cambioTipoAtencion) => {
   Swal.fire({
     title: title,
@@ -506,7 +550,9 @@ const agregaAtencionesEsperadas = (formulario) => {
   if (!validar_campos("formAddAtencionesEsperadas"))
     return toastPersonalizada("Algunos campos son obligatorios!", "warning");
   verLoader();
+  let fechaReferencia = document.getElementById("fechaReferenciaAtencionesPrevistas").value;
   let data = new FormData(formulario);
+  data.append("fechaReferencia",fechaReferencia)
   fetch("php/estadisticas/agregarAtenEsperadas.php", {
     method: "POST",
     body: data,
