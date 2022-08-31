@@ -28,8 +28,12 @@ $resEmpresas =  mysqli_query($conexion, "SELECT * FROM empresas WHERE EMPR_estad
           <option value="" disabled selected>Selecciona un tipo de salida</option>
           <option value="0">NORMAL</option>
           <option value="1">ADICIONAL</option>
-          <option value="2">NORMAL Y ADICIONAL</option>
-          <option value="3">OTROS</option>
+          <option value="2">DELIVERY</option>
+          <option value="3">NORMAL Y ADICIONAL</option>
+          <option value="4">NORMAL Y DELIVERY</option>
+          <option value="5">ADICIONAL Y DELIVERY</option>
+          <option value="6">NORMAL, ADICIONAL Y DELIVERY</option>
+          <option value="7">OTROS</option>
         </select>
         <label>Empresa</label>
         <select name="idEmpresa" class="form-control select2" >

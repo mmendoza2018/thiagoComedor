@@ -10,12 +10,13 @@ $fInicio = @$_GET["fInicio"];
 $fFinal = @$_GET["fFinal"];
 $tipoNormal = @$_GET["tipoNormal"];
 $tipoAdicional = @$_GET["tipoAdicional"];
+$tipoDelivery = @$_GET["tipoDelivery"];
 $idEmpresa = @$_GET["idEmpresa"];
 $whereComensal = ($idComensal != "") ? "AND COME_id=$idComensal" : "";
 $whereEmpresa = ($idEmpresa != "") ? "AND EMPR_id01=$idEmpresa" : "";
   $whereFechas = ($fInicio != "" && $fFinal != "")
     //? "AND (REAL_fecha BETWEEN '$fInicio' AND '$fFinal')"
-    ? "AND (REAL_fecha >= '$fInicio' AND REAL_fecha <= '$fFinal')"
+    ? "AND (DATE(REAL_fecha) >= '$fInicio' AND DATE(REAL_fecha) <= '$fFinal')"
     : "";
 
 //$estado = @$_GET["estado"];
@@ -170,7 +171,7 @@ $sheet = $spreadsheet->getActiveSheet();
     $spreadsheet->getActiveSheet()->getStyle($filaAfectadaColorDet2)->getFill()
       ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
       ->getStartColor()->setARGB('F4A060');
-    $sheet->setCellValue('H2', 'REPORTE NORMAL'.$idEmpresa);
+    $sheet->setCellValue('H2', 'REPORTE NORMAL');
     $spreadsheet->getActiveSheet()->setTitle("REPORTE NORMAL");
     if (count($arrayDiasGeneralComensales) > 0) {
 
@@ -341,8 +342,8 @@ $sheet = $spreadsheet->getActiveSheet();
 
 if ($tipoAdicional == "true") {
   //creacion hoja nueva
-  $myWorkSheet = new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet($spreadsheet, 'REPORTE ADICIONAL');
-  $spreadsheet->addSheet($myWorkSheet, 0);
+  $adicionalWorkSheet = new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet($spreadsheet, 'REPORTE ADICIONAL');
+  $spreadsheet->addSheet($adicionalWorkSheet, 0);
 
   $conSalidasAdicional = "SELECT DESA_id, CEDE_descripcion, COME_dni, COME_nombres, EMPR_razonSocial, AREA_descripcion, REAL_fecha, TIAL_descripcion, DESA_precio, DESA_cantidad, DESA_total, REAL_solicitante FROM detalle_salidas ds 
                           INNER JOIN tipo_alimentos ta ON ds.TIAL_id01 = ta.TIAL_id
@@ -368,31 +369,31 @@ if ($tipoAdicional == "true") {
   $sheet->setCellValue('D4', $fInicio);
   $sheet->setCellValue('E4', $fFinal);
   //color 
-  $filaAfectadaColorDet = 'B2:L2';
+  $filaAfectadaColorDet = 'B2:M2';
   $spreadsheet->getActiveSheet()->getStyle($filaAfectadaColorDet)->getFill()
     ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
     ->getStartColor()->setARGB('F4A060');
   //color 
-  $filaAfectadaColorDet = 'B7:L7';
+  $filaAfectadaColorDet = 'B7:M7';
   $spreadsheet->getActiveSheet()->getStyle($filaAfectadaColorDet)->getFill()
     ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
     ->getStartColor()->setARGB('F4A060');
   $rowSegundoReporte = 7;
   $totalGeneralAdicional = 0;
-  $myWorkSheet->setCellValueByColumnAndRow(2, $rowSegundoReporte, "");
+  $adicionalWorkSheet->setCellValueByColumnAndRow(2, $rowSegundoReporte, "");
 
-  $myWorkSheet->setCellValueByColumnAndRow(2, $rowSegundoReporte, "ID");
-  $myWorkSheet->setCellValueByColumnAndRow(3, $rowSegundoReporte, "Comedor");
-  $myWorkSheet->setCellValueByColumnAndRow(4, $rowSegundoReporte, "DNI");
-  $myWorkSheet->setCellValueByColumnAndRow(5, $rowSegundoReporte, "Nombres");
-  $myWorkSheet->setCellValueByColumnAndRow(6, $rowSegundoReporte, "Empresa");
-  $myWorkSheet->setCellValueByColumnAndRow(7, $rowSegundoReporte, "Cargo");
-  $myWorkSheet->setCellValueByColumnAndRow(8, $rowSegundoReporte, "Fecha");
-  $myWorkSheet->setCellValueByColumnAndRow(9, $rowSegundoReporte, "Observaciones");
-  $myWorkSheet->setCellValueByColumnAndRow(10, $rowSegundoReporte, "Alimento");
-  $myWorkSheet->setCellValueByColumnAndRow(11, $rowSegundoReporte, "Precio");
-  $myWorkSheet->setCellValueByColumnAndRow(12, $rowSegundoReporte, "Cantidad");
-  $myWorkSheet->setCellValueByColumnAndRow(13, $rowSegundoReporte, "Total");
+  $adicionalWorkSheet->setCellValueByColumnAndRow(2, $rowSegundoReporte, "ID");
+  $adicionalWorkSheet->setCellValueByColumnAndRow(3, $rowSegundoReporte, "Comedor");
+  $adicionalWorkSheet->setCellValueByColumnAndRow(4, $rowSegundoReporte, "DNI");
+  $adicionalWorkSheet->setCellValueByColumnAndRow(5, $rowSegundoReporte, "Nombres");
+  $adicionalWorkSheet->setCellValueByColumnAndRow(6, $rowSegundoReporte, "Empresa");
+  $adicionalWorkSheet->setCellValueByColumnAndRow(7, $rowSegundoReporte, "Cargo");
+  $adicionalWorkSheet->setCellValueByColumnAndRow(8, $rowSegundoReporte, "Fecha");
+  $adicionalWorkSheet->setCellValueByColumnAndRow(9, $rowSegundoReporte, "Observaciones");
+  $adicionalWorkSheet->setCellValueByColumnAndRow(10, $rowSegundoReporte, "Alimento");
+  $adicionalWorkSheet->setCellValueByColumnAndRow(11, $rowSegundoReporte, "Precio");
+  $adicionalWorkSheet->setCellValueByColumnAndRow(12, $rowSegundoReporte, "Cantidad");
+  $adicionalWorkSheet->setCellValueByColumnAndRow(13, $rowSegundoReporte, "Total");
 
   if (mysqli_num_rows($resConSalidas) > 0) {
     // Attach the "My Data" worksheet as the first worksheet in the Spreadsheet object
@@ -401,25 +402,108 @@ if ($tipoAdicional == "true") {
     $rowSegundoReporte += 1;
     foreach ($resConSalidas as $k) {
       $totalGeneralAdicional += $k["DESA_total"];
-      $myWorkSheet->setCellValueByColumnAndRow(2, $rowSegundoReporte, $k["DESA_id"]);
-      $myWorkSheet->setCellValueByColumnAndRow(3, $rowSegundoReporte, $k["CEDE_descripcion"]);
-      $myWorkSheet->setCellValueByColumnAndRow(4, $rowSegundoReporte, $k["COME_dni"]);
-      $myWorkSheet->setCellValueByColumnAndRow(5, $rowSegundoReporte, $k["COME_nombres"]);
-      $myWorkSheet->setCellValueByColumnAndRow(6, $rowSegundoReporte, $k["EMPR_razonSocial"]);
-      $myWorkSheet->setCellValueByColumnAndRow(7, $rowSegundoReporte, $k["AREA_descripcion"]);
-      $myWorkSheet->setCellValueByColumnAndRow(8, $rowSegundoReporte, $k["REAL_fecha"]);
-      $myWorkSheet->setCellValueByColumnAndRow(9, $rowSegundoReporte, $k["REAL_solicitante"]);
-      $myWorkSheet->setCellValueByColumnAndRow(10, $rowSegundoReporte, $k["TIAL_descripcion"]);
-      $myWorkSheet->setCellValueByColumnAndRow(11, $rowSegundoReporte, $k["DESA_precio"]);
-      $myWorkSheet->setCellValueByColumnAndRow(12, $rowSegundoReporte, $k["DESA_cantidad"]);
-      $myWorkSheet->setCellValueByColumnAndRow(13, $rowSegundoReporte, $k["DESA_total"]);
+      $adicionalWorkSheet->setCellValueByColumnAndRow(2, $rowSegundoReporte, $k["DESA_id"]);
+      $adicionalWorkSheet->setCellValueByColumnAndRow(3, $rowSegundoReporte, $k["CEDE_descripcion"]);
+      $adicionalWorkSheet->setCellValueByColumnAndRow(4, $rowSegundoReporte, $k["COME_dni"]);
+      $adicionalWorkSheet->setCellValueByColumnAndRow(5, $rowSegundoReporte, $k["COME_nombres"]);
+      $adicionalWorkSheet->setCellValueByColumnAndRow(6, $rowSegundoReporte, $k["EMPR_razonSocial"]);
+      $adicionalWorkSheet->setCellValueByColumnAndRow(7, $rowSegundoReporte, $k["AREA_descripcion"]);
+      $adicionalWorkSheet->setCellValueByColumnAndRow(8, $rowSegundoReporte, $k["REAL_fecha"]);
+      $adicionalWorkSheet->setCellValueByColumnAndRow(9, $rowSegundoReporte, $k["REAL_solicitante"]);
+      $adicionalWorkSheet->setCellValueByColumnAndRow(10, $rowSegundoReporte, $k["TIAL_descripcion"]);
+      $adicionalWorkSheet->setCellValueByColumnAndRow(11, $rowSegundoReporte, $k["DESA_precio"]);
+      $adicionalWorkSheet->setCellValueByColumnAndRow(12, $rowSegundoReporte, $k["DESA_cantidad"]);
+      $adicionalWorkSheet->setCellValueByColumnAndRow(13, $rowSegundoReporte, $k["DESA_total"]);
       $rowSegundoReporte++;
     }
     $sheet->setCellValue('D5', number_format($totalGeneralAdicional,2));
     
   } else {
-    $myWorkSheet->setCellValueByColumnAndRow(3, 8, "SIN REGISTROS DISPONIBLES");
+    $adicionalWorkSheet->setCellValueByColumnAndRow(3, 8, "SIN REGISTROS DISPONIBLES");
   }
+}
+
+if ($tipoDelivery == "true") {
+  //creacion hoja nueva
+  $deliveryWorkSheet = new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet($spreadsheet, 'REPORTE DELIVERY');
+  $spreadsheet->addSheet($deliveryWorkSheet, 0);
+
+  $conSalidasDelivery = "SELECT DESA_id, CEDE_descripcion, COME_dni, COME_nombres, EMPR_razonSocial, AREA_descripcion, REAL_fecha, TIAL_descripcion, DESA_precio, DESA_cantidad, DESA_total, REAL_solicitante FROM detalle_salidas ds 
+                          INNER JOIN tipo_alimentos ta ON ds.TIAL_id01 = ta.TIAL_id
+                          INNER JOIN registros_alimentacion ra ON ds.REAL_id01 = ra.REAL_id
+                          INNER JOIN cedes ce ON ra.CEDE_id01 = ce.CEDE_id
+                          INNER JOIN comensales co ON ra.COME_id01 = co.COME_id
+                          INNER JOIN empresas e ON co.EMPR_id01 = e.EMPR_id
+                          INNER JOIN areas a ON co.AREA_id01 = a.AREA_id
+                          WHERE TIAT_id01= 4 $whereFechas $whereComensal $whereEmpresa";
+  $resConSalidasDelivery = mysqli_query($conexion, $conSalidasDelivery);
+
+  $spreadsheet->setActiveSheetIndex(0);
+  for ($i = 0; $i < 13; $i++) {
+    $spreadsheet->getActiveSheet()->getColumnDimension($abecedario[$i])->setAutoSize(true);
+  }
+  $spreadsheet->getActiveSheet()->mergeCells('F2:G2');
+  $sheet = $spreadsheet->getActiveSheet();
+  $sheet->setCellValue('F2', 'REPORTE DELIVERY');
+  $sheet->getStyle('B:L')->getAlignment()->setHorizontal('center');
+
+  $sheet->setCellValue('C4', 'Periodo: ');
+  $sheet->setCellValue('C5', 'Total otras ventas: ');
+  $sheet->setCellValue('D4', $fInicio);
+  $sheet->setCellValue('E4', $fFinal);
+  //color 
+  $filaAfectadaColorDet = 'B2:M2';
+  $spreadsheet->getActiveSheet()->getStyle($filaAfectadaColorDet)->getFill()
+    ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+    ->getStartColor()->setARGB('F4A060');
+  //color 
+  $filaAfectadaColorDet = 'B7:M7';
+  $spreadsheet->getActiveSheet()->getStyle($filaAfectadaColorDet)->getFill()
+    ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+    ->getStartColor()->setARGB('F4A060');
+  $rowSegundoReporte = 7;
+  $totalGeneralAdicional = 0;
+  $deliveryWorkSheet->setCellValueByColumnAndRow(2, $rowSegundoReporte, "");
+
+  $deliveryWorkSheet->setCellValueByColumnAndRow(2, $rowSegundoReporte, "ID");
+  $deliveryWorkSheet->setCellValueByColumnAndRow(3, $rowSegundoReporte, "Comedor");
+  $deliveryWorkSheet->setCellValueByColumnAndRow(4, $rowSegundoReporte, "DNI");
+  $deliveryWorkSheet->setCellValueByColumnAndRow(5, $rowSegundoReporte, "Nombres");
+  $deliveryWorkSheet->setCellValueByColumnAndRow(6, $rowSegundoReporte, "Empresa");
+  $deliveryWorkSheet->setCellValueByColumnAndRow(7, $rowSegundoReporte, "Cargo");
+  $deliveryWorkSheet->setCellValueByColumnAndRow(8, $rowSegundoReporte, "Fecha");
+  $deliveryWorkSheet->setCellValueByColumnAndRow(9, $rowSegundoReporte, "Observaciones");
+  $deliveryWorkSheet->setCellValueByColumnAndRow(10, $rowSegundoReporte, "Alimento");
+  $deliveryWorkSheet->setCellValueByColumnAndRow(11, $rowSegundoReporte, "Precio");
+  $deliveryWorkSheet->setCellValueByColumnAndRow(12, $rowSegundoReporte, "Cantidad");
+  $deliveryWorkSheet->setCellValueByColumnAndRow(13, $rowSegundoReporte, "Total");
+
+  if (mysqli_num_rows($resConSalidasDelivery) > 0) {
+    // Attach the "My Data" worksheet as the first worksheet in the Spreadsheet object
+    
+    //celdas autoajustables al tamaño
+    $rowSegundoReporte += 1;
+    foreach ($resConSalidasDelivery as $k) {
+      $totalGeneralAdicional += $k["DESA_total"];
+      $deliveryWorkSheet->setCellValueByColumnAndRow(2, $rowSegundoReporte, $k["DESA_id"]);
+      $deliveryWorkSheet->setCellValueByColumnAndRow(3, $rowSegundoReporte, $k["CEDE_descripcion"]);
+      $deliveryWorkSheet->setCellValueByColumnAndRow(4, $rowSegundoReporte, $k["COME_dni"]);
+      $deliveryWorkSheet->setCellValueByColumnAndRow(5, $rowSegundoReporte, $k["COME_nombres"]);
+      $deliveryWorkSheet->setCellValueByColumnAndRow(6, $rowSegundoReporte, $k["EMPR_razonSocial"]);
+      $deliveryWorkSheet->setCellValueByColumnAndRow(7, $rowSegundoReporte, $k["AREA_descripcion"]);
+      $deliveryWorkSheet->setCellValueByColumnAndRow(8, $rowSegundoReporte, $k["REAL_fecha"]);
+      $deliveryWorkSheet->setCellValueByColumnAndRow(9, $rowSegundoReporte, $k["REAL_solicitante"]);
+      $deliveryWorkSheet->setCellValueByColumnAndRow(10, $rowSegundoReporte, $k["TIAL_descripcion"]);
+      $deliveryWorkSheet->setCellValueByColumnAndRow(11, $rowSegundoReporte, $k["DESA_precio"]);
+      $deliveryWorkSheet->setCellValueByColumnAndRow(12, $rowSegundoReporte, $k["DESA_cantidad"]);
+      $deliveryWorkSheet->setCellValueByColumnAndRow(13, $rowSegundoReporte, $k["DESA_total"]);
+      $rowSegundoReporte++;
+    }
+    $sheet->setCellValue('D5', number_format($totalGeneralAdicional,2));
+    
+  } else {
+    $deliveryWorkSheet->setCellValueByColumnAndRow(3, 8, "SIN REGISTROS DISPONIBLES");
+  } 
 }
 
 
@@ -427,7 +511,7 @@ $conexion->close();
 $writer = new Xlsx($spreadsheet);
 
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-header('Content-Disposition: attachment;filename="Reporte orden.xlsx"');
+header('Content-Disposition: attachment;filename="Reporte ordenes.xlsx"');
 header('Cache-Control: max-age=0');
 
 $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');

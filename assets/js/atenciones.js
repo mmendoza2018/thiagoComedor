@@ -324,7 +324,7 @@ const obtenerListaAlimentos = (elemento) => {
     document.getElementById("llegaInputFechaAdd").innerHTML = "";
   }
   // mostrar input obersvaciones adicional
-  if (elemento.value == "2") {
+  if (elemento.value == "2" || elemento.value == "4") {
     let input = `<label>Observaciones</label><input type="text" data-validate class="form-control form-control-sm" name="observaciones">`;
     document.getElementById("llegaInputObservacionesAdicional").innerHTML =
       input;
@@ -339,20 +339,36 @@ const reporteExcel = () => {
     return toastPersonalizada("Algunos Campos son necesarios","error");
   let arrayConfig = [
     {
-      ruta: "php/generaEXCEL/reporteNormalAdicional/index.php",
+      ruta: "php/generaEXCEL/reportesValorizacion/index.php",
       tipoAlimentos: ["tipoNormal"],
     },
     {
-      ruta: "php/generaEXCEL/reporteNormalAdicional/index.php",
+      ruta: "php/generaEXCEL/reportesValorizacion/index.php",
       tipoAlimentos: ["tipoAdicional"],
     },
     {
-      ruta: "php/generaEXCEL/reporteNormalAdicional/index.php",
+      ruta: "php/generaEXCEL/reportesValorizacion/index.php",
+      tipoAlimentos: ["tipoDelivery"],
+    },
+    {
+      ruta: "php/generaEXCEL/reportesValorizacion/index.php",
       tipoAlimentos: ["tipoNormal", "tipoAdicional"],
     },
     {
+      ruta: "php/generaEXCEL/reportesValorizacion/index.php",
+      tipoAlimentos: ["tipoNormal","tipoDelivery"],
+    },
+    {
+      ruta: "php/generaEXCEL/reportesValorizacion/index.php",
+      tipoAlimentos: ["tipoAdicional","tipoDelivery"],
+    },
+    {
+      ruta: "php/generaEXCEL/reportesValorizacion/index.php",
+      tipoAlimentos: ["tipoAdicional","tipoDelivery","tipoNormal"],
+    },
+    {
       ruta: "php/generaEXCEL/reporteOtros/index.php",
-      tipoAlimentos: ["tipoOtros"],
+      tipoAlimentos: ["tipoDelivery"],
     },
   ];
   let selectTipoAl = document.getElementById("tipoSalidaExcel");

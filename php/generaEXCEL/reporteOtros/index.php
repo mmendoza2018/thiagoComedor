@@ -10,7 +10,7 @@ $fFinal = @$_GET["fFinal"];
 //$estado = @$_GET["estado"];
 $idOrden = 1;
 $whereFechas = ($fInicio != "" && $fFinal != "")
-  ? "AND (REAL_fecha BETWEEN '$fInicio' AND '$fFinal')"
+  ? "AND (DATE(REAL_fecha) BETWEEN '$fInicio' AND '$fFinal')"
   : "";
 
 $spreadsheet = new Spreadsheet();
