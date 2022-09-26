@@ -9,18 +9,24 @@ $resTipoAlimento = mysqli_query($conexion,"SELECT * FROM tipo_alimentos WHERE TI
 $arrayTipoAlimento = mysqli_fetch_assoc($resTipoAlimento);
 
 $tipoAlimentosAgregados = [
+
     "id" => $arrayTipoAlimento["TIAL_id"],
     "descripcion" => $arrayTipoAlimento["TIAL_descripcion"],
     "marca" => $arrayTipoAlimento["TIAL_marca"],
     "unidad" => $arrayTipoAlimento["TIAL_unidad"],
     "precio" =>  explode(".",$arrayTipoAlimento["TIAL_precio"])[0],
-    "cantidad" => $cantidad,
+    "cantidad" => $cantidad
+
 ];
 if (isset($_SESSION['sesionTipoAlimentos'])) {
+
 foreach ($_SESSION['sesionTipoAlimentos'] as $k) {
+
     if ($k["id"] === $idTipoAlimento) {
+
         echo json_encode([false,'El producto ya fue agregado!']);
         die();
+        
     }
 }
 }

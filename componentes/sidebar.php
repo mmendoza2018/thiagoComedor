@@ -51,6 +51,7 @@
                                 </div>
                             </li>
                             <li><a href="#" id="btnlectorQr">lector</a></li>
+                            <li><a href="#" id="btnTeclado">ingreso por teclado</a></li>
                             <!-- <li><a href="#" id="btnPrueba">Prueba</a></li> -->
                         </ul>
                     </div>

@@ -261,6 +261,12 @@ const lecturaRegistroComensales = (formulario) => {
       let lineaLectora = document.getElementById("inputLector").focus();
     });
 };
+const validaLongitudDni = (element) => {
+  let valueInput = element.value;
+  if (valueInput.length > 8) {
+    element.value = valueInput.slice(0, -1);
+  }
+}
 const mostrarLecturaCodigo = (elemento) => {
   let lineaLectora = document.getElementById("lineaLectora");
   lineaLectora.classList.remove("hide_lector");

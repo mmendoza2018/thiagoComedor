@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restaurant</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="assets/plugins/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/plugins/fontAwesone/css/all.css">
+    <script src="assets/plugins/sweetAlert.min.js"></script>
     <script
   src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
   crossorigin="anonymous"></script>
@@ -23,11 +23,11 @@
                <img src="assets/img/logo1.jpeg" class="mx-auto img-fluid" style="height: 320px;" alt="gyt">
                <!--  <MARQUEE class="mx-2 text-uppercase my-2"> INGRESE SU USUARIO Y CONTRASEÑA </MARQUEE> -->
               <div class="input-group mt-3 input-g">
-                <span class="input-group-text" id="basic-addon1"><i class='bx bxs-user'></i></span>
+                <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
                 <input type="text" class="form-control" data-validate name="usuario" placeholder="Usuario" aria-label="Username" aria-describedby="basic-addon1"><br>
               </div>
               <div class="input-group mt-3">
-                <span class="input-group-text verContra" id="basic-addon1"><a href="#" class="text-dark"><i class='bx bxs-low-vision'></i></a></span>
+                <span class="input-group-text verContra" id="basic-addon1"><a href="#" class="text-dark"><i class="fas fa-eye-slash"></i></a></span>
                 <input type="password" id="verContra" data-validate name="contrasena" class="form-control" placeholder="Contraseña" aria-label="Username" aria-describedby="basic-addon1">
               </div>
               <?php require_once("php/conexion.php");
@@ -48,6 +48,6 @@
     </div>
     <script src="assets/js/login.js" type="module"></script>
     <script src="assets/js/globales.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="assets/plugins/bootstrap.min.js" ></script>
 </body>
 </html>

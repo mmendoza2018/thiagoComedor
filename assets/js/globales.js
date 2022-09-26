@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
   routerVistas("#btnEstadisticasEmpresas","php/estadisticas/atencionesEmpresas.php")
   
   routerVistas("#btnlectorQr","php/atenciones/lectorQr.php")
+  routerVistas("#btnTeclado","php/atenciones/formTeclado.php")
   routerVistas("#btnPrueba","php/atenciones/prueba.php")
   routerVistas("#btnReportes","php/atenciones/formReportes.php")
   
