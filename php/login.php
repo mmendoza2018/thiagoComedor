@@ -2,7 +2,7 @@
 session_start();
 require("conexion.php");
 
-if ($_POST['usuario'] !== "" && $_POST['contrasena'] !== "" && $_POST['cede'] !== "") {
+if ($_POST['usuario'] != "" && $_POST['contrasena'] != "" && $_POST['cede'] != "") {
     $usuario = $_POST['usuario'];
     $contrasena = $_POST['contrasena'];
     $cede = $_POST['cede'];

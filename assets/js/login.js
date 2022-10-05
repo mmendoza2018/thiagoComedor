@@ -5,7 +5,7 @@ document.addEventListener("click", (e) => {
     }
     if (event.target.matches("#envioLogin")) {
         e.preventDefault();
-        if (validar_campos("formComensalesAct")) {
+        if (validar_campos("formLogin")) {
             let select = document.getElementById("indexComedorText");
         const datos = $("#formLogin").serialize(e);
         $.ajax({

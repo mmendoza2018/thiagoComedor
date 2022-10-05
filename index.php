@@ -8,9 +8,7 @@
     <link rel="stylesheet" href="assets/plugins/bootstrap.min.css">
     <link rel="stylesheet" href="assets/plugins/fontAwesone/css/all.css">
     <script src="assets/plugins/sweetAlert.min.js"></script>
-    <script
-  src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-  crossorigin="anonymous"></script>
+    <script  src="assets/plugins/jquery.min.js" ></script>
     <link rel="stylesheet" href="assets/css/global.css">
     <link rel="stylesheet" href="assets/css/login.css">
     <link rel="stylesheet" href="assets/css/general/loader.css">
@@ -34,8 +32,12 @@
               $cedes = mysqli_query($conexion, "SELECT * FROM cedes WHERE CEDE_estado=1");
                ?>
               <div class="input-group mt-3">
-                <span class="input-group-text verContra" id="basic-addon1"><a href="#" class="text-dark"><i class='bx bxs-home' ></i></a></span>
-                <select class="form-select form-select-sm" data-validate="" id="indexComedorText" name="cede">
+                <span class="input-group-text verContra" id="basic-addon1">
+                  <a href="#" class="text-dark">
+                    <i class='bx bxs-home' ></i>
+                  </a>
+              </span>
+                <select class="form-select form-select-sm" data-validate id="indexComedorText" name="cede">
                   <option value="" selected disabled>Seleccione una Comedor</option>
                   <?php foreach ($cedes as $x) : ?>
                       <option value="<?php echo $x["CEDE_id"] ?>"><?php echo $x["CEDE_descripcion"] ?></option>

@@ -3,7 +3,7 @@
   <div class="w-50">
     <form id="formLectorQr" onsubmit="lecturaRegistroComensales(this)">
     <label for="inputLector" class="position-relative">
-      <img src="https://static.vecteezy.com/system/resources/previews/001/199/361/non_2x/barcode-png.png" class="img-fluid" alt="">
+      <img src="assets/img/barcode.webp" class="img-fluid" alt="">
       <!-- linea lector -->
       <div class="container_lector hide_lector" id="lineaLectora"></div>
     </label>
