@@ -18,7 +18,7 @@ $tiposAtencion = mysqli_query($conexion, "SELECT * FROM tipos_atencion WHERE TIA
       <div class="col-sm-5 pe-5" id="formularioAtenciones">
         <form id="formAddAtenciones">
           <label>Comensal (Registrado)</label>
-          <select class="form-select form-select-sm select2Atenciones" onchange="obtenerDatosComensales(this)" name="idComensal">
+          <select class="form-select form-select-sm select2Atenciones" id="comensalRegistroDiario" onchange="obtenerDatosComensales(this)" name="idComensal">
           <option></option>
           <?php foreach ($comensales as $x) : ?>
               <option value="<?php echo $x["COME_id"] ?>">

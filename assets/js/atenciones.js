@@ -39,7 +39,12 @@ function agregarAtenciones() {
               )
             );
           alertaPersonalizada(respuesta[1], "success");
-          cargarContenido("php/atenciones/formAgrega.php", "contenido");
+          if (tipoAtencion === "1") {
+            $('#selectListaAlimentos').val('').trigger('change');
+            $('#comensalRegistroDiario').val('').trigger('change');
+          }else {
+            cargarContenido("php/atenciones/formAgrega.php", "contenido");
+          }
         } else {
           toastPersonalizada(respuesta[1], "error");
         }
@@ -138,6 +143,11 @@ const actualizaComensales = (formulario) => {
 
 const obtenerDatosComensales = (elemento) => {
   let idComensal = elemento.value;
+  if (idComensal === "") {
+    document.getElementById("empresaRegistroDiario").value = "";
+    document.getElementById("areaRegistroDiario").value = ""; 
+    return;
+  }
   let inputNombreNuevoComensal = document.getElementById(
     "ComensalNRegistroDiario"
   );
@@ -209,6 +219,9 @@ const guardarTipoAlimento = (elemento) => {
 const guardarTipoAlimentoGeneral = (elemento) => {
   let formulario = document.getElementById("formAddAtenciones");
   console.log("formulario.tipoAtencion.value", formulario.tipoAtencion.value);
+  if (elemento.value === "") {
+    return;
+  }
   if (formulario.tipoAtencion.value === "1") {
     guardarTipoAlimentoNormal(elemento);
   } else {

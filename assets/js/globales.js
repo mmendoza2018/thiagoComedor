@@ -33,6 +33,8 @@ document.addEventListener("DOMContentLoaded", () => {
   routerVistas("#btntipoAlimentos","php/mantenimientos/tipoAlimentos/index.php")
   routerVistas("#btntipoAtenciones","php/mantenimientos/tipoAtenciones/index.php")  
   routerVistas("#btntipoRegistros","php/mantenimientos/tipoRegistros/index.php")
+  routerVistas("#btnCargos","php/mantenimientos/cargos/index.php")
+  
   
   
   
@@ -196,6 +198,13 @@ function confirmacion () {
 //para resetear el formulario
 const validaRespuestasAgregar = (respuesta, ruta,idFormulario=false) => {
   if (respuesta) {
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Agregado con exito!',
+      showConfirmButton: false,
+      timer: 1500
+    })
     $("#contenido").load(ruta)
     if (idFormulario!==false) {
       $("#contenido").load(ruta)

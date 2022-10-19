@@ -1,0 +1,21 @@
+<?php require_once('modales.php') ?>
+
+<div><h5>CARGOS</h5></div>
+<div class="container-fluid bg-white my-2 py-3">
+    <div class="row g-5">
+        <div class="col-sm-4">
+            <form id="formCargo">
+                <label class="mb-1">Descripción</label>
+                <input type="text" class="form-control form-control-sm mb-2" data-validate name="descripcion">
+                <button class="btn btn-primary btn-sm float-end" onclick="agregarCargo()" type="button">REGISTRAR</button>
+            </form>
+        </div>
+        <div class="col-sm-8">
+            <div id="contenedorTablaCargos"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+  cargarContenido('php/mantenimientos/cargos/tabla.php','contenedorTablaCargos');
+</script>

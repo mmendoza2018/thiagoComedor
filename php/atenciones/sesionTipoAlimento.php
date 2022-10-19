@@ -14,7 +14,7 @@ $tipoAlimentosAgregados = [
     "descripcion" => $arrayTipoAlimento["TIAL_descripcion"],
     "marca" => $arrayTipoAlimento["TIAL_marca"],
     "unidad" => $arrayTipoAlimento["TIAL_unidad"],
-    "precio" =>  explode(".",$arrayTipoAlimento["TIAL_precio"])[0],
+    "precio" =>  $arrayTipoAlimento["TIAL_precio"],
     "cantidad" => $cantidad
 
 ];
@@ -30,14 +30,14 @@ foreach ($_SESSION['sesionTipoAlimentos'] as $k) {
     }
 }
 }
-if ($idTipoAtencion == 1) {
+/* if ($idTipoAtencion == 1) {
     if (isset($_SESSION['sesionTipoAlimentos'])) {
         if (count(($_SESSION['sesionTipoAlimentos'])) > 0) {
             echo json_encode([false,'No es posible agregar mas de un alimento en ingreso por AJUSTE ']);
             die();
         }
     }
-}
+} */
 $_SESSION['sesionTipoAlimentos'][] = $tipoAlimentosAgregados;
 
 echo json_encode([true,'Agregado!']);

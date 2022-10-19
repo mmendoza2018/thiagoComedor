@@ -47,3 +47,6 @@ input[type="number"]::-webkit-outer-spin-button {
   font-size: 1.5rem;
   border: solid 2px rgb(129, 125, 125);
 }
+.bg-danger-opacity {
+  background-color: rgba(242, 9, 9, 0.202) !important;
+}

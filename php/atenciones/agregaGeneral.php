@@ -10,14 +10,14 @@ if (!isset($_SESSION['sesionTipoAlimentos'])) {
 if(!isset($_POST["tipoAtencion"])) {
   echo json_encode([false, "El tipo de atencion no es valido"]);
   die();
-}else {
+}/* else {
   if ($_POST["tipoAtencion"]=="1") {
    if (count($_SESSION['sesionTipoAlimentos'])>1) {
     echo json_encode([false, "No es posible agregar mas de un alimento en tipo de salidas (NORMAL)"]);
     die();
    }
   }
-}
+} */
 
 $idusuario = $_SESSION['datos_trabajador'][0]["nombres"];
 $idCedeSesion = $_SESSION['datos_trabajador'][0]["idCede"];
@@ -35,6 +35,7 @@ $registroTipoAlimento = ($tipoAtencion == 1) ? $_SESSION['sesionTipoAlimentos'][
 $precioTipoAlimento = ($tipoAtencion == 1) ? $_SESSION['sesionTipoAlimentos'][0]['precio'] : null;
 $TipoRegistroAlimento = ($tipoAtencion == 1) ? 2 : null;
 $consultaDetalles = "";
+$consultaRegistrosDiarios = "";
 
 if ($tipoAtencion == 1) {
   //verifica que no haya duplicaciones de raciones
@@ -45,8 +46,10 @@ WHERE DATE(REAL_fecha)='$fechaActual' AND COME_id01='$idComensal' AND TIAL_id01=
     echo json_encode([false, 'El trabajador ya recibio la ración diaria!']);
     die();
   }
-}
-$consultaRegistro = "INSERT INTO registros_alimentacion 
+
+  foreach ($_SESSION['sesionTipoAlimentos'] as $el) {
+
+    $consultaRegistrosDiarios .= "INSERT INTO registros_alimentacion 
                         (	
                           COME_id01,	
                           REAL_solicitante,
@@ -61,51 +64,72 @@ $consultaRegistro = "INSERT INTO registros_alimentacion
                           " . (($idComensal == null) ? "NULL" : $idComensal) . ",
                           '$observacionGeneral',
                           $idCedeSesion,
-                          " . (($registroTipoAlimento == null) ? "NULL" : $registroTipoAlimento) . ",
-                          " . (($precioTipoAlimento == null) ? "NULL" : $precioTipoAlimento) . ",
+                          " . $el["id"] . ",
+                          " . $el["precio"] . ",
                           " . (($TipoRegistroAlimento == null) ? "NULL" : $TipoRegistroAlimento) . ",
                           '$tipoAtencion',
                           '$fechaActual'
-                        )";
-
-/* echo $consultaCotizacion;
-die(); */
-if (!mysqli_query($conexion, $consultaRegistro)) {
-  echo json_encode([false, "Fallo al agregar1!"]);
-  die();
-}
-
-$ultimaIngreso = mysqli_query($conexion, "SELECT REAL_id FROM registros_alimentacion ORDER BY REAL_id DESC LIMIT 1");
-foreach ($ultimaIngreso as $k) {
-  $idUltimoRegistro = $k["REAL_id"];
-}
-
-if ($tipoAtencion != 1) {
-
-  foreach ($_SESSION['sesionTipoAlimentos'] as $el) {
-
-    $total =  $el["precio"] * $el["cantidad"];
-    $consultaDetalles .= "INSERT INTO detalle_salidas 
-                          ( 
-                            REAL_id01,	
-                            TIAL_id01,		
-                            DESA_precio,	
-                            DESA_cantidad,		
-                            DESA_total
-                          ) 
-                          VALUES 
-                          (    
-                            '$idUltimoRegistro',
-                            " . $el["id"] . ",
-                            " . $el["precio"] . ",
-                            " . $el["cantidad"] . ",
-                            " . $total . "
-                          );";
+                        );";
   }
-  echo (mysqli_multi_query($conexion, substr($consultaDetalles, 0, -1)))
+  echo (mysqli_multi_query($conexion, substr($consultaRegistrosDiarios, 0, -1)))
+  ? json_encode([true, "agregado con exito!"])
+  : json_encode([false, "Fallo al agregar1"]);
+
+} else {
+
+  $consultaRegistroDiario = "INSERT INTO registros_alimentacion 
+                          (	
+                            COME_id01,	
+                            REAL_solicitante,
+                            CEDE_id01,	
+                            TIAL_id01,		
+                            REAL_precio_comida,	
+                            TIRE_id01,	
+                            TIAT_id01,
+                            REAL_fecha
+                          ) VALUES 
+                          (
+                            " . (($idComensal == null) ? "NULL" : $idComensal) . ",
+                            '$observacionGeneral',
+                            $idCedeSesion,
+                            " . (($registroTipoAlimento == null) ? "NULL" : $registroTipoAlimento) . ",
+                            " . (($precioTipoAlimento == null) ? "NULL" : $precioTipoAlimento) . ",
+                            " . (($TipoRegistroAlimento == null) ? "NULL" : $TipoRegistroAlimento) . ",
+                            '$tipoAtencion',
+                            '$fechaActual'
+                          )";
+
+    if (!mysqli_query($conexion, $consultaRegistroDiario)) {
+      echo json_encode([false, "Fallo al agregar2!"]);
+      die();
+    }
+    
+    $ultimaIngreso = mysqli_query($conexion, "SELECT REAL_id FROM registros_alimentacion ORDER BY REAL_id DESC LIMIT 1");
+    foreach ($ultimaIngreso as $k) {
+      $idUltimoRegistro = $k["REAL_id"];
+    }
+    foreach ($_SESSION['sesionTipoAlimentos'] as $el) {
+
+      $total =  $el["precio"] * $el["cantidad"];
+      $consultaDetalles .= "INSERT INTO detalle_salidas 
+                            ( 
+                              REAL_id01,	
+                              TIAL_id01,		
+                              DESA_precio,	
+                              DESA_cantidad,		
+                              DESA_total
+                            ) 
+                            VALUES 
+                            (    
+                              '$idUltimoRegistro',
+                              " . $el["id"] . ",
+                              " . $el["precio"] . ",
+                              " . $el["cantidad"] . ",
+                              " . $total . "
+                            );";
+    }
+    echo (mysqli_multi_query($conexion, substr($consultaDetalles, 0, -1)))
     ? json_encode([true, "agregado con exito!"])
     : json_encode([false, "Fallo al agregar2"]);
-} else {
-  echo json_encode([true, "agregado con exito!"]);
 }
 mysqli_close($conexion);

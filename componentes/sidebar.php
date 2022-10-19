@@ -74,6 +74,7 @@
                             <li><a href="#" id="btntipoAlimentos">Alimentos</a></li>
                             <li><a href="#" id="btntipoAtenciones">TipoAtenciones</a></li>
                             <li><a href="#" id="btntipoRegistros">TipoRegistros</a></li>
+                            <li><a href="#" id="btnCargos">Cargos</a></li>
                         </ul>
                     </div>
                 </li>

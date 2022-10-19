@@ -11,6 +11,7 @@ $consulta = "SELECT * FROM registros_alimentacion ra
 
 $conComensales = mysqli_query($conexion, $consulta);
 ?>
+
 <div class="container-fluid bg-white my-1 py-3">
   <div class="text-center mb-4">
     <h5 class="my-0">ATENCIONES NORMALES</h5>
@@ -27,13 +28,14 @@ $conComensales = mysqli_query($conexion, $consulta);
         <th>Alimento</th>
         <th>Comedor</th>
         <th>Fecha</th>
+        <th>Opciones</th>
       </tr>
     </thead>
     <tbody>
       <?php
       foreach ($conComensales as $x) :
         $data = $x["COME_id"] . "|" . $x["COME_nombres"] . "|" . $x["COME_dni"]. "|" . $x["AREA_id"]. "|" . $x["EMPR_id"] ?>
-        <tr>
+        <tr class="<?php if ($x["REAL_estado"] == 1) echo 'bg-danger-opacity' ?>">
           <td><?php echo $x["REAL_id"] ?></td>
           <td><?php echo $x["COME_nombres"] ?></td>
           <td><?php echo $x["COME_dni"] ?></td>
@@ -42,6 +44,13 @@ $conComensales = mysqli_query($conexion, $consulta);
           <td><?php echo $x["TIAL_descripcion"] ?></td>
           <td><?php echo $x["CEDE_descripcion"] ?></td>
           <td><?php echo $x["REAL_fecha"] ?></td>
+          <td>
+            <?php if($x["REAL_estado"] == 1) { ?>
+              <a href="#" data-bs-toggle="modal" data-bs-target="#modalDetalleAdicional" onclick="verDetalleSalidas('<?php echo $idRegistro ?>')">
+                <span class="badge bg-danger">Anular</span>
+              </a>
+            <?php } ?>
+          </td>
         </tr>
       <?php endforeach; ?>
     </tbody>
