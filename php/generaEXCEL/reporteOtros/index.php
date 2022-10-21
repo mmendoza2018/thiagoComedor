@@ -63,7 +63,7 @@ $consulta = "SELECT DESA_id, REAL_fecha,CEDE_descripcion, TIAL_descripcion, DESA
   INNER JOIN registros_alimentacion ra ON ds.REAL_id01 = ra.REAL_id
   INNER JOIN tipos_atencion tat ON ra.TIAT_id01 = tat.TIAT_id
   INNER JOIN cedes ce ON ra.CEDE_id01 = ce.CEDE_id
-  WHERE TIAT_id01 = 3 $whereFechas";
+  WHERE TIAT_id01 = 3 AND REAL_estado=1 $whereFechas";
 
 $resConSalidas = mysqli_query($conexion, $consulta);
 if (mysqli_num_rows($resConSalidas)>0) {

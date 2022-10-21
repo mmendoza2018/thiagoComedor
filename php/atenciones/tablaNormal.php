@@ -6,8 +6,7 @@ $consulta = "SELECT * FROM registros_alimentacion ra
                 INNER JOIN cedes ce ON ra.CEDE_id01=ce.CEDE_id
                 INNER JOIN comensales co  ON ra.COME_id01=co.COME_id
                 INNER JOIN areas a ON co.AREA_id01=a.AREA_id
-                INNER JOIN empresas e ON co.EMPR_id01=e.EMPR_id
-                WHERE  REAL_estado=1";
+                INNER JOIN empresas e ON co.EMPR_id01=e.EMPR_id";
 
 $conComensales = mysqli_query($conexion, $consulta);
 ?>
@@ -35,7 +34,7 @@ $conComensales = mysqli_query($conexion, $consulta);
       <?php
       foreach ($conComensales as $x) :
         $data = $x["COME_id"] . "|" . $x["COME_nombres"] . "|" . $x["COME_dni"]. "|" . $x["AREA_id"]. "|" . $x["EMPR_id"] ?>
-        <tr class="<?php if ($x["REAL_estado"] == 1) echo 'bg-danger-opacity' ?>">
+        <tr class="<?php if ($x["REAL_estado"] == 0) echo 'bg-danger-opacity' ?>">
           <td><?php echo $x["REAL_id"] ?></td>
           <td><?php echo $x["COME_nombres"] ?></td>
           <td><?php echo $x["COME_dni"] ?></td>
@@ -46,7 +45,7 @@ $conComensales = mysqli_query($conexion, $consulta);
           <td><?php echo $x["REAL_fecha"] ?></td>
           <td>
             <?php if($x["REAL_estado"] == 1) { ?>
-              <a href="#" data-bs-toggle="modal" data-bs-target="#modalDetalleAdicional" onclick="verDetalleSalidas('<?php echo $idRegistro ?>')">
+              <a href="#" onclick="anularOperacion('<?php echo $x['REAL_id'] ?>')">
                 <span class="badge bg-danger">Anular</span>
               </a>
             <?php } ?>

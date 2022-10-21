@@ -43,7 +43,7 @@ $spreadsheet->getActiveSheet()->getStyle($filaAfectadaColorDet)->getFill()
 $arregloListaAjustes = [];
 $consultaComensales = "SELECT COME_id,COME_nombres,COME_dni FROM comensales WHERE COME_estado = 1 ORDER BY EMPR_id01 ASC ";
 foreach (mysqli_query($conexion, $consultaComensales) as $k) {
-  $consultaRegistroAl = "SELECT * FROM registros_alimentacion WHERE TIAT_id01= 1 AND COME_id01 = ".$k["COME_id"]." AND DATE(REAL_fecha) ='$fecha'";
+  $consultaRegistroAl = "SELECT * FROM registros_alimentacion WHERE TIAT_id01= 1 AND REAL_estado=1 AND COME_id01 = ".$k["COME_id"]." AND DATE(REAL_fecha) ='$fecha'";
   $resRegistroAl = mysqli_query($conexion, $consultaRegistroAl );
   $numIngresos = mysqli_num_rows($resRegistroAl);
   if ($numIngresos > 0 && $numIngresos < 3) {

@@ -68,6 +68,31 @@ const obtenerTablasPorCede = (elemento) => {
   );
 };
 
+const anularOperacion = ( idRegistro ) => {
+    Swal.fire({
+      title: "¿Estas anular esta operación?",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "si",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let data = new FormData();
+        data.append("idRegistro", idRegistro)
+        fetch("php/atenciones/anularOperacion.php",{
+          method:"post",
+          body:data
+        })
+        .then(res => res.json())
+        .then(json => {
+          console.log('json :>> ', json);
+          cargarContenido("php/atenciones/tablaNormal.php", "contenido")
+        })
+      }
+    })
+}
+
 const obtenerTablasPorCedeIndex = (idCede) => {
   let data = new FormData();
   data.append("idCede", idCede);
