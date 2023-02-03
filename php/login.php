@@ -10,16 +10,16 @@ if ($_POST['usuario'] != "" && $_POST['contrasena'] != "" && $_POST['cede'] != "
     $contrasenaSql= "";
     $nombreSql = "";
 
-    $sentencia = $conexion->prepare("SELECT USU_dni,USU_contrasenia,USU_nombres,USU_id FROM usuarios WHERE USU_dni = ? ");
+    $sentencia = $conexion->prepare("SELECT PER_id,PER_contrasenia,CONCAT(PER_nombres, ' ', PER_apellidos) as nombres, PER_usuario FROM personas WHERE PER_usuario = ? ");
     $sentencia->bind_param("s", $usuario);
     $sentencia->execute();
     $res = $sentencia->get_result();
     $filas = $res->num_rows;
     foreach ($res as $k) {
-        $contrasenaSql = $k["USU_contrasenia"];
-        $nombreSql = $k["USU_nombres"];
-        $idUsuario = $k["USU_id"];
-        $dniUsuario = $k["USU_dni"];
+        $contrasenaSql = $k["PER_contrasenia"];
+        $nombreSql = $k["nombres"];
+        $idUsuario = $k["PER_id"];
+        $dniUsuario = $k["PER_usuario"];
         # code...
     }
     if ($filas !== 0) {
@@ -32,13 +32,13 @@ if ($_POST['usuario'] != "" && $_POST['contrasena'] != "" && $_POST['cede'] != "
                 echo 0;
                 return;
             } */
-            echo 1; // hay similitud con las contaseñasS
+            echo 1; // hay similitud con las contaseñas
             $_SESSION['datos_trabajador'][] = [
                 "nombres"=> $nombreSql,
                 "id"=> $idUsuario,
                 "idCede"=>$cede,
                 "cedeNombre"=>$cedeNombre,
-                "estado"=>true
+                "estado"=>1
             ];
 
         } else {

@@ -24,7 +24,7 @@
                 <li class="sidebar-dropdown active">
                     <a href="#">
                         <i class="fas fa-donate"></i>
-                        <span class="menu-text">ORDENES DE PEDIDO</span>
+                        <span class="menu-text">Ordenes de pedido</span>
                         <span class="badge badge-pill badge-warning">New</span>
                     </a>
                     <div class="sidebar-submenu" style="display: block;">
@@ -56,6 +56,47 @@
                         </ul>
                     </div>
                 </li>
+                <li class="sidebar-dropdown">
+                    <a href="#">
+                        <i class="fas fa-users"></i>
+                        <span class="menu-text">Recursos humanos</span>
+                        <span class="badge badge-pill badge-warning">New</span>
+                    </a>
+                    <div class="sidebar-submenu">
+                        <ul>
+                            <li class="sidebar-dropdown-child">
+                                <a href="#"><span class="menu-text2">personal</span> </a>
+                                <div class="sidebar-submenu-child" style="display: none;">
+                                    <ul>
+                                        <li><a href="#" id="sidebarNuevoPersonal">Nuevo personal</a></li>
+                                        <li><a href="#" id="sidebarGestionPersonal">Gestión personal</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="sidebar-dropdown-child">
+                                <a href="#"><span class="menu-text2">Documentos</span> </a>
+                                <div class="sidebar-submenu-child" style="display: none;">
+                                    <ul>
+                                        <li><a href="#" id="sidebarNuevoDocumento">Nuevo documento</a></li>
+                                        <li><a href="#" id="sidebarGestionDocumento">Gestión documentos</a></li>
+                                        <li><a href="#" id="sidebarEnviosDocumento">Envio documentos</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="sidebar-dropdown">
+                    <a href="#">
+                        <i class="fas fa-bell"></i>
+                        <span class="menu-text">Monitor de alertas</span>
+                    </a>
+                    <div class="sidebar-submenu">
+                        <ul>
+                            <li><a href="#" id="sidebarMonitorAlertas">Documentos del personal</a></li>
+                        </ul>
+                    </div>
+                </li>
                 <li class="header-menu">
                     <span>Mantenimientos</span>
                 </li>
@@ -75,6 +116,7 @@
                             <li><a href="#" id="btntipoAtenciones">TipoAtenciones</a></li>
                             <li><a href="#" id="btntipoRegistros">TipoRegistros</a></li>
                             <li><a href="#" id="btnCargos">Cargos</a></li>
+                            <li><a href="#" id="btnTiposDocumento">Tipos de documentos</a></li>
                         </ul>
                     </div>
                 </li>
@@ -86,7 +128,7 @@
     <div class="sidebar-footer">
         <div class="dropdown ">
             <!-- show -->
-                <a href="php/cerrar_sesion.php" class="text-danger"><span class="badge bg-danger">SALIR</span></a>
+            <a href="php/cerrar_sesion.php" class="text-danger"><span class="badge bg-danger">SALIR</span></a>
             </a>
 
             <!-- <div class="dropdown-menu notifications" aria-labelledby="dropdownMenuMessage">

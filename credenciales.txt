@@ -1,0 +1,4 @@
+password correo :sistemaEmail2022Thiago
+
+usuario admin mysql: sgthiago_administrador
+password admin mysql: usuario admin mysql: administradorThiago2023
