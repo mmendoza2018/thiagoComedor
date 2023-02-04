@@ -1,6 +1,4 @@
 <?php require_once("../php/conexion.php");
-$resPersonal = mysqli_query($conexion, " SELECT * FROM personas");
-$restipoDocumentos = mysqli_query($conexion, " SELECT * FROM tipo_documentos WHERE TIDO_estado= 1 ");
 ?>
 
 <!-- Modal actualiza proyectos -->
@@ -47,19 +45,12 @@ $restipoDocumentos = mysqli_query($conexion, " SELECT * FROM tipo_documentos WHE
               <input type="hidden" name="idDocumento" id="idDocAct">
               <input type="hidden" id="idPersonaAuxiliar">
               <select name="idPersona" id="idPersonaActDoc" data-validate class="form-select form-select-sm select2">
-                <?php foreach ($resPersonal as $x) : ?>
-                  <option value="<?php echo $x["PER_id"] ?>"><?php echo $x["PER_nombres"] . " " . $x["PER_apellidos"] ?></option>
-                <?php endforeach; ?>
               </select>
               <label>Seleccione tipo Documento</label>
               <select name="idTipoDocumento" id="idTipoDocActDOc" data-validate class="form-select form-select-sm select2">
-                <option value=""></option>
-                <?php foreach ($restipoDocumentos as $x) : ?>
-                  <option value="<?php echo $x["TIDO_id"] ?>"><?php echo $x["TIDO_descripcion"] ?></option>
-                <?php endforeach; ?>
               </select>
               <label>Seleccione Documento</label>
-              <input type="file" name="documento" class="form-control form-control-sm" readonly="readonly">
+              <input type="file" name="documento" class="form-control form-control-sm" accept="application/pdf" readonly="readonly">
               <label>Fecha Inscripcion</label>
               <input type="date" name="fInicio" data-validate id="fInicioDocAct" class="form-control form-control-sm" required="">
               <label>Fecha Vencimiento</label>

@@ -4,6 +4,7 @@ require_once "../../conexion.php";
 $resDepartamentos = mysqli_query($conexion, "SELECT * FROM departamentos");
 $resDistritos = mysqli_query($conexion, "SELECT * FROM distritos");
 $resProvincias = mysqli_query($conexion, "SELECT * FROM provincias");
+$resUnidadesMineras = mysqli_query($conexion, "SELECT * FROM unidad_minera WHERE UNMI_estado = 1");
 ?>
 <link href="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/css/smart_wizard_all.min.css" rel="stylesheet" type="text/css" />
 <script src="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/js/jquery.smartWizard.min.js" type="text/javascript"></script>
@@ -85,7 +86,7 @@ $resProvincias = mysqli_query($conexion, "SELECT * FROM provincias");
                       <?php endforeach; ?>
                     </select>
                     <label>Tipo Sangre</label>
-                    <select class="form-select form-select-sm select2" id="sangrePerAct" data-validate name="sangre">
+                    <select class="form-select form-select-sm select2" id="sangrePerAct" name="sangre">
                       <option value="">-- SELECCIONE --</option>
                       <option>O NEGATIVO</option>
                       <option>O POSITIVO</option>
@@ -279,6 +280,28 @@ $resProvincias = mysqli_query($conexion, "SELECT * FROM provincias");
                     <!-- /.form-group -->
                   </div>
                 </div>
+                <div class="row">
+                <div class="col-md-4">
+                <label>Unidad minera ( actual )</label>
+                  <select class="form-select form-select-sm" data-validate name="unidadMinera" id="unidadMineraPerAct">
+                    <option value="">-- SELECCIONE --</option>
+                    <?php foreach ($resUnidadesMineras as $x) : ?>
+                      <option value="<?php echo $x["UNMI_id"] ?>"><?php echo $x["UNMI_descripcion"] ?></option>
+                    <?php endforeach; ?>
+                  </select>
+                  <!-- /.form-group -->
+                </div>
+                <div class="col-md-4">
+                  
+                  <label>Estado trabajo</label>
+                  <select class="form-select form-select-sm" data-validate name="estadoTrabajo" id="estadoTrabajoPerAct">
+                    <option value="">-- SELECCIONE --</option>
+                    <option value="1">LABORANDO</option>
+                    <option value="0">RETIRADO</option>
+                  </select>
+
+                </div>
+              </div>
               </div>
               <div id="step-5" class="tab-pane" role="tabpanel" aria-labelledby="step-5">
                 <div class="row">
@@ -320,6 +343,14 @@ $resProvincias = mysqli_query($conexion, "SELECT * FROM provincias");
                       <option>BANBIF</option>
                       <option>SCOTIABANK</option>
                       <option>CAJA AREQUIPA</option>
+                    </select>
+                    <!-- /.form-group -->
+                  </div>
+                  <div class="col-md-4">
+                    <label>Estado del trabajador</label>
+                    <select class="form-select form-select-sm select2" data-validate name="estadoTrabajador">
+                      <option value="1">HABILITADO</option>
+                      <option value="0">INHABILITAR</option>
                     </select>
                     <!-- /.form-group -->
                   </div>

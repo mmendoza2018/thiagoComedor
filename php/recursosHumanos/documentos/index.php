@@ -44,7 +44,7 @@ $resTipoDocs = mysqli_query($conexion, " SELECT * FROM tipo_documentos WHERE TID
         </div>
         <div class="col-md-6">
           <label>Carga Documento</label>
-          <input class="form-control form-control-sm" data-validate name="adjunto" type="file" id="adjunto" required="">
+          <input class="form-control form-control-sm" accept="application/pdf" data-validate name="adjunto" type="file" id="adjunto" required="">
         </div>
       </div>
       <div class="text-end">

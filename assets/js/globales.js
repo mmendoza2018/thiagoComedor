@@ -69,6 +69,16 @@ document.addEventListener("DOMContentLoaded", () => {
     "#sidebarEnviosDocumento",
     "php/recursosHumanos/documentos/envioDocumentos.php"
   );
+  routerVistas(
+    "#sidebarReporteDocumentosPersonal",
+    "php/recursosHumanos/documentos/formReporte.php"
+  );
+  routerVistas(
+    "#sidebarReporteInfoPersonal",
+    "php/recursosHumanos/personal/formReporte.php"
+  );
+  
+
 
   /* mantenimientos */
   routerVistas("#btnFormComedores", "php/mantenimientos/comedores/index.php");
@@ -88,6 +98,8 @@ document.addEventListener("DOMContentLoaded", () => {
   );
   routerVistas("#btnCargos", "php/mantenimientos/cargos/index.php");
   routerVistas("#btnTiposDocumento", "php/mantenimientos/tipoDocumento/index.php");
+  routerVistas("#btnUnidadMinera", "php/mantenimientos/unidadMinera/index.php");
+  
 });
 
 /* funcion para validar los campos  */
@@ -262,7 +274,7 @@ function confirmacion() {
 
 //para resetear el formulario
 const validaRespuestasAgregar = (respuesta, ruta, idFormulario = false) => {
-  if (respuesta) {
+  if (respuesta == "true") {
     Swal.fire({
       position: "center",
       icon: "success",
@@ -289,7 +301,7 @@ const validaRespuestasAgregar = (respuesta, ruta, idFormulario = false) => {
 /* funcion para mostrar alertas de acuerdo a la respuesta, recibe dos parametros una la respuesta y la otra la ruta 
 para resetear el formulario */
 const validaRespuestaActualizar = (respuesta, ruta, idmodal) => {
-  if (respuesta) {
+  if (respuesta == "true") {
     Swal.fire({
       position: "center",
       icon: "success",

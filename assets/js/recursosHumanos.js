@@ -16,7 +16,7 @@ const mostrarSelectSisPensiones = (
 
 const determinaSisPensiones = (elemento, idLlegada) => {
   if (elemento.value == "AFP") {
-    mostrarSelectSisPensiones( undefined, idLlegada );
+    mostrarSelectSisPensiones(undefined, idLlegada);
   } else {
     document.getElementById(idLlegada).innerHTML = "";
   }
@@ -56,7 +56,7 @@ const mostrarSelectVehiculo = (
 
 const determinaVehiculo = (elemento, idLlegada) => {
   if (elemento.value == "SI") {
-    mostrarSelectVehiculo( undefined, idLlegada );
+    mostrarSelectVehiculo(undefined, idLlegada);
   } else {
     document.getElementById(idLlegada).innerHTML = "";
   }
@@ -95,8 +95,8 @@ const agregaPersonal = () => {
       console.log(respuesta);
       if (respuesta[0]) {
         $("#modalAddAtencionesDelDia").modal("hide");
-        toastPersonalizada("Agregado con exito!", "success");
-        cargarContenido("php/recursosHumanos/personal/tabla.php", "contenido");
+        alertaPersonalizada("Agregado con exito!", "success");
+        cargarContenido("php/recursosHumanos/personal/index.php", "contenido");
       } else {
         alertaPersonalizada(respuesta[1], "error");
       }
@@ -172,7 +172,11 @@ const llenarPersonas = (idPersona) => {
       document.getElementById("tallaZapatosPerAct").value = zapatos;
       document.getElementById("casaActualPerAct").value = json.PER_vivienda;
       document.getElementById("vehiculoPropioPerAct").value = json.PER_vehiculo;
-      document.getElementById("llegaVehiculoSelectAct").innerHTML = ''
+      document.getElementById("unidadMineraPerAct").value = json.UNMI_id01;
+      document.getElementById("estadoTrabajoPerAct").value =
+        json.PER_estado_trabajo;
+
+      document.getElementById("llegaVehiculoSelectAct").innerHTML = "";
       if (!json.PER_vehiculo_pagado == "") {
         mostrarSelectVehiculo(
           "vehiculoCanceladoPerAct",
@@ -188,7 +192,7 @@ const llenarPersonas = (idPersona) => {
         json.PER_5ta_ingresos;
       document.getElementById("quintaCategoria2PerAct").value =
         json.PER_5ta_adicional;
-      document.getElementById("llegaIngresos5taAct").innerHTML = ''
+      document.getElementById("llegaIngresos5taAct").innerHTML = "";
       if (!json.PER_5ta_empresa == "") {
         mostrarSelectIngresos5ta(
           "empresaIngresos5taPerAct",
@@ -203,7 +207,7 @@ const llenarPersonas = (idPersona) => {
         json.PER_banco_sueldo;
       document.getElementById("cuentaCtsPerAct").value = json.PER_cuenta_cts;
       document.getElementById("bancoCtsPerAct").value = json.PER_banco_cts;
-      document.getElementById("llegaSelectAfpAct").innerHTML = ''
+      document.getElementById("llegaSelectAfpAct").innerHTML = "";
       if (!json.PER_afp == "") {
         mostrarSelectSisPensiones("tipoAfpPerAct", "llegaSelectAfpAct");
         document.getElementById("tipoAfpPerAct").value = json.PER_afp;
@@ -266,7 +270,13 @@ const llenarPersonas = (idPersona) => {
         let listaEstudios = `
                         <div class="col-2">
                           <label>Estudios</label>
-                          <input type="text" data-validate="" value="${el[0]}" class="form-control form-control-sm" autocomplete="off">
+                          <select  class="form-select form-select-sm" data-validate>
+                            <option value="">Selecione una opción</option>
+                            <option value="Educación primaria">Educación primaria</option>
+                            <option value="Educación secundaria">Educación secundaria</option>
+                            <option value="Educación superior">Educación superior</option>
+                            <option value="Educación tecnica">Educación tecnica</option>
+                          </select>
                         </div>
                         <div class="col-2">
                           <label>Institución</label>
@@ -302,6 +312,7 @@ const llenarPersonas = (idPersona) => {
         div2.setAttribute("id", "inputCloneEstudiosAct");
         div2.innerHTML = listaEstudios;
         llegadaEstudios.insertAdjacentElement("beforeend", div2);
+        div2.querySelector("select").value = el[0];
       });
 
       // render otros estudios
@@ -395,37 +406,54 @@ const actualizaPersonal = () => {
       "warning"
     );
   /* verLoader(); */
-  let data = new FormData(formulario);
-  let dataDerechoHaAct = obtenerListaDatosMultiples("inputCloneDerechoHaAct");
-  let dataEstudiosAct = obtenerListaDatosMultiples("inputCloneEstudiosAct");
-  let dataOtrosEstudiosAct = obtenerListaDatosMultiples(
-    "inputCloneOtrosEstudiosAct"
-  );
-  let dataExperienciaAct = obtenerListaDatosMultiples(
-    "inputCloneExperienciaAct"
-  );
+  Swal.fire({
+    title: "¿Estas seguro de actualizar?",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "si",
+    cancelButtonText: "Cancelar",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      verLoader();
+      let data = new FormData(formulario);
+      let dataDerechoHaAct = obtenerListaDatosMultiples(
+        "inputCloneDerechoHaAct"
+      );
+      let dataEstudiosAct = obtenerListaDatosMultiples("inputCloneEstudiosAct");
+      let dataOtrosEstudiosAct = obtenerListaDatosMultiples(
+        "inputCloneOtrosEstudiosAct"
+      );
+      let dataExperienciaAct = obtenerListaDatosMultiples(
+        "inputCloneExperienciaAct"
+      );
 
-  data.append("dataDerechoHaAct", dataDerechoHaAct);
-  data.append("dataEstudiosAct", dataEstudiosAct);
-  data.append("dataOtrosEstudiosAct", dataOtrosEstudiosAct);
-  data.append("dataExperienciaAct", dataExperienciaAct);
+      data.append("dataDerechoHaAct", dataDerechoHaAct);
+      data.append("dataEstudiosAct", dataEstudiosAct);
+      data.append("dataOtrosEstudiosAct", dataOtrosEstudiosAct);
+      data.append("dataExperienciaAct", dataExperienciaAct);
 
-  fetch("php/recursosHumanos/personal/actualiza.php", {
-    method: "POST",
-    body: data,
-  })
-    .then((res) => res.json())
-    .then((respuesta) => {
-      console.log(respuesta);
-      if (respuesta) {
-        $("#modalActPersonal").modal("hide");
-        toastPersonalizada("Agregado con exito!", "success");
-        cargarContenido("php/recursosHumanos/personal/tabla.php", "contenido");
-      } else {
-        alertaPersonalizada("Fallo Al actualizar", "error");
-      }
-      ocultarLoader();
-    });
+      fetch("php/recursosHumanos/personal/actualiza.php", {
+        method: "POST",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((respuesta) => {
+          console.log(respuesta);
+          if (respuesta) {
+            $("#modalActPersonal").modal("hide");
+            alertaPersonalizada("Actualizado con exito!", "success");
+            cargarContenido(
+              "php/recursosHumanos/personal/tabla.php",
+              "contenido"
+            );
+          } else {
+            alertaPersonalizada("Fallo Al actualizar", "error");
+          }
+          ocultarLoader();
+        });
+    }
+  });
 };
 
 // documentos
@@ -447,10 +475,13 @@ const agregarDocumentoPersonal = (formulario) => {
     .then((json) => {
       console.log("json", json);
       if (json) {
-        toastPersonalizada("Agregado correctamente!", "success", 2000);
-        cargarContenido("php/recursosHumanos/documentos/index.php","contenido")
+        alertaPersonalizada("Agregado correctamente!", "success", 2000);
+        cargarContenido(
+          "php/recursosHumanos/documentos/index.php",
+          "contenido"
+        );
       } else {
-        toastPersonalizada("Ocurrio un error al agregar!", "error", 2000);
+        alertaPersonalizada("Ocurrio un error al agregar!", "error", 2000);
       }
       ocultarLoader();
     });
@@ -495,9 +526,35 @@ const llenarDocumentosAct = (data, isMonitorAlerta) => {
     observacion,
     idPersonaAux,
   ] = data.split("|");
+
+  //Obtener lista de personas y tipos de doc.
+  let arrayPromesas = [
+    fetch("php/recursosHumanos/documentos/optionslista.php"),
+    fetch("php/recursosHumanos/personal/optionslista.php"),
+  ];
+
+  Promise.all(arrayPromesas.map((prom) => prom.then((res) => res.text()))).then(
+    (resultado) => {
+      console.log("resultado", resultado[0]);
+      console.log("resultado", resultado[1]);
+      document.getElementById("idPersonaActDoc").innerHTML = resultado[1];
+      document.getElementById("idTipoDocActDOc").innerHTML = resultado[0];
+      console.log("idPersona", idPersona);
+      console.log("idTipoDoc", idTipoDoc);
+      document.getElementById("idPersonaActDoc").value = idPersona;
+      document.getElementById("idTipoDocActDOc").value = idTipoDoc;
+      $(".select2").select2({
+        placeholder: "Seleccione una opcion",
+        dropdownParent: $("#modalActDocPersonal"),
+        width: "100%",
+      });
+      $(document).on("select2:open", () => {
+        document.querySelector(".select2-search__field").focus();
+      });
+    }
+  );
+
   document.getElementById("idDocAct").value = idDocumento;
-  document.getElementById("idPersonaActDoc").value = idPersona;
-  document.getElementById("idTipoDocActDOc").value = idTipoDoc;
   document.getElementById("idTipoDocActDOc").click();
   document.getElementById("fInicioDocAct").value = fecha1;
   document.getElementById("fFinDocAct").value = fecha2;
@@ -507,17 +564,6 @@ const llenarDocumentosAct = (data, isMonitorAlerta) => {
   document.getElementById("observacionesDocAct").value = observacion;
   document.getElementById("idPersonaAuxiliar").value = idPersonaAux;
   document.getElementById("idBtnActDocs").dataset.tabla = isMonitorAlerta;
-
-  $(document).ready(function () {
-    $(".select2").select2({
-      placeholder: "Seleccione una opcion",
-      dropdownParent: $("#modalActDocPersonal"),
-      width: "100%",
-    });
-  });
-  $(document).on("select2:open", () => {
-    document.querySelector(".select2-search__field").focus();
-  });
 };
 const actualizaDocumentoPer = (elemento) => {
   if (validar_campos("formActDocPersonal")) {
@@ -540,25 +586,85 @@ const actualizaDocumentoPer = (elemento) => {
           .then((res) => res.json())
           .then((json) => {
             if (json) {
-              toastPersonalizada("Actualizado correctamente !", "success");
+              alertaPersonalizada("Actualizado correctamente !", "success");
               $("#modalActDocPersonal").modal("hide");
               let idPersonaAux =
                 document.getElementById("idPersonaAuxiliar").value;
-                let modalMonitorAlertas = document.getElementById('modalVerTablaMonitor');
-                if (modalMonitorAlertas.classList.contains('show')) {
-                  cargarContenido("php/recursosHumanos/documentos/tablaMonitor.php","llegaTablaALertaDocs")
-                } else{
-                  if (monitorAlerta === "true") {
-                    cargarContenido("php/recursosHumanos/documentos/tablaMonitor.php","contenidoGeneral")
-                  }else {
-                    obtenerListaDocsPer(idPersonaAux);
-                  }
+              let modalMonitorAlertas = document.getElementById(
+                "modalVerTablaMonitor"
+              );
+              if (modalMonitorAlertas.classList.contains("show")) {
+                cargarContenido(
+                  "php/recursosHumanos/documentos/tablaMonitor.php",
+                  "llegaTablaALertaDocs"
+                );
+              } else {
+                if (monitorAlerta === "true") {
+                  cargarContenido(
+                    "php/recursosHumanos/documentos/tablaMonitor.php",
+                    "contenidoGeneral"
+                  );
+                } else {
+                  obtenerListaDocsPer(idPersonaAux);
                 }
+              }
             } else {
-              toastPersonalizada("Ocurrio algun error!", "error");
+              alertaPersonalizada("Ocurrio algun error!", "error");
             }
           });
       }
     });
   }
+};
+
+const reporteExcelDocumentosVencidos = (formulario) => {
+  //array para enviar data de acuerdo el value del select
+  event.preventDefault();
+  if (!validar_campos("formReporteDocumentosVencer"))
+    return toastPersonalizada("Algunos Campos son necesarios", "error");
+
+  let idUnidadMinera = formulario.unidadMinera.value;
+  let idTipoDocumento = formulario.tipoDocumento.value;
+  let unidadMinera =
+    formulario.unidadMinera.options[formulario.unidadMinera.selectedIndex].text;
+  let tipoDocumento =
+    formulario.tipoDocumento.options[formulario.tipoDocumento.selectedIndex]
+      .text;
+  let fechainicio = formulario.fecha1.value;
+  let fechaFin = formulario.fecha2.value;
+  let ruta = "php/generaEXCEL/reporteDocVencidos/index.php";
+
+  if (idUnidadMinera === "") {
+    unidadMinera = "-";
+  }
+  if (idTipoDocumento === "") {
+    tipoDocumento = "-";
+  }
+
+  window.open(
+    `${ruta}
+    ?idUnidadMinera=${idUnidadMinera}&unidadMinera=${unidadMinera}&idTipoDocumento=${idTipoDocumento}&tipoDocumento=${tipoDocumento}&fInicio=${fechainicio}&fFinal=${fechaFin}`,
+    "Documentos"
+  );
+};
+
+const reporteExcelTrabajadores = (formulario) => {
+  //array para enviar data de acuerdo el value del select
+  event.preventDefault();
+
+  let estadoTrabajador = formulario.estadoTrabajador.value;
+  let idUnidadMinera = formulario.unidadMinera.value;
+  let unidadMinera =
+    formulario.unidadMinera.options[formulario.unidadMinera.selectedIndex].text;
+  let ruta = "php/generaEXCEL/reporteTrabajadores/index.php";
+
+  if (idUnidadMinera === "") {
+    unidadMinera = "-";
+  }
+
+  window.open(
+    `${ruta}
+    ?idUnidadMinera=${idUnidadMinera}&unidadMinera=${unidadMinera}&estadoTrabajador=${estadoTrabajador}`,
+    "Trabajadores"
+  );
 };

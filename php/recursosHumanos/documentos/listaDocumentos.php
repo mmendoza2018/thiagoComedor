@@ -5,7 +5,8 @@ $whereConsulta = "";
 $idPersona = @$_POST["idPersona"];
 $contador = 1;
 
-$consultaPersona = "SELECT * FROM personas WHERE PER_id = $idPersona ";
+$consultaPersona = "SELECT * FROM personas pe 
+                    INNER JOIN unidad_minera um ON pe.UNMI_id01 = um.UNMI_id WHERE PER_id = $idPersona ";
 $consultaDocumento = "SELECT * FROM documentos do INNER JOIN personas pe ON do.PER_id01 = pe.PER_id
             LEFT JOIN tipo_documentos td ON do.TIDO_id01 = td.TIDO_id
 WHERE pe.PER_id=$idPersona";
@@ -28,6 +29,10 @@ $arrayDatosPersona = mysqli_fetch_assoc($resListaPersona);
           <tr>
             <td class="fw-bold">Nombres y apellidos</td>
             <td><?php echo $arrayDatosPersona["PER_nombres"] .' '.$arrayDatosPersona["PER_apellidos"]; ?></td>
+          </tr>
+          <tr>
+            <td class="fw-bold">Unidad minera</td>
+            <td><?php echo $arrayDatosPersona["UNMI_descripcion"] ?></td>
           </tr>
         </tbody>
       </table>

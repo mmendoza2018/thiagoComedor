@@ -9,9 +9,10 @@ if ($_POST['usuario'] != "" && $_POST['contrasena'] != "" && $_POST['cede'] != "
     $cedeNombre = $_POST['cedeNombre'];
     $contrasenaSql= "";
     $nombreSql = "";
+    $estadoPermitido = 1;
 
-    $sentencia = $conexion->prepare("SELECT PER_id,PER_contrasenia,CONCAT(PER_nombres, ' ', PER_apellidos) as nombres, PER_usuario FROM personas WHERE PER_usuario = ? ");
-    $sentencia->bind_param("s", $usuario);
+    $sentencia = $conexion->prepare("SELECT PER_id,PER_contrasenia,CONCAT(PER_nombres, ' ', PER_apellidos) as nombres, PER_usuario FROM personas WHERE PER_usuario = ? AND PER_estado = ? ");
+    $sentencia->bind_param("si", $usuario, $estadoPermitido);
     $sentencia->execute();
     $res = $sentencia->get_result();
     $filas = $res->num_rows;

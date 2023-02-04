@@ -33,11 +33,14 @@ $quintaCategoria1 = @$_POST["quintaCategoria1"];
 $quintaCategoria2 = @$_POST["quintaCategoria2"];
 $cuentaSueldo = @$_POST["cuentaSueldo"];
 $bancoSueldo = @$_POST["bancoSueldo"];
+$unidadMinera = @$_POST["unidadMinera"];
 $cuentaCts = @$_POST["cuentaCts"];
 $bancoCts = @$_POST["bancoCts"];
 $tipoAfp = @$_POST["tipoAfp"];
 $empresaIngresos5ta = @$_POST["empresaIngresos5ta"];
 $vehiculoCancelado = @$_POST["vehiculoCancelado"];
+$estadoTrabajo = @$_POST["estadoTrabajo"];
+
 
 //conjunto de datos
 $dataDerechoHaAdd = @$_POST["dataDerechoHaAdd"];
@@ -45,7 +48,7 @@ $dataEstudiosAdd = @$_POST["dataEstudiosAdd"];
 $dataOtrosEstudiosAdd = @$_POST["dataOtrosEstudiosAdd"];
 $dataExperienciaAdd = @$_POST["dataExperienciaAdd"];
 
-$conPersona = "SELECT PER_id FROM personas WHERE PER_usuario=$numDocumento";
+$conPersona = "SELECT PER_id FROM personas WHERE PER_usuario=$numDocumento AND PER_estado = 1";
 $resPersona = mysqli_query($conexion, $conPersona);
 if (mysqli_num_rows($resPersona)>0) {
   echo json_encode([false,'Un Trabajador ya fue registrado con este DNI']);
@@ -70,6 +73,7 @@ $jsonImplementos = json_encode(
   );
 
 $consulta = " INSERT INTO personas (
+                                    UNMI_id01,
                                     PER_usuario, 
                                     PER_tipodoc, 	
                                     PER_nombres, 	
@@ -106,9 +110,11 @@ $consulta = " INSERT INTO personas (
                                     PER_5ta_adicional, 		
                                     PER_cuenta_sueldo, 	
                                     PER_cuenta_cts, 	
+                                    PER_estado_trabajo,
                                     PER_loguser
                                     ) VALUES 
                                     (
+                                      $unidadMinera,
                                      '$numDocumento',
                                      'DNI',
                                      '$nombres',
@@ -145,6 +151,7 @@ $consulta = " INSERT INTO personas (
                                      '$quintaCategoria2',
                                      '$cuentaSueldo',
                                      '$cuentaCts',
+                                      $estadoTrabajo,
                                      'Administrador'
                                     )";
 $resInsert = mysqli_query($conexion, $consulta);

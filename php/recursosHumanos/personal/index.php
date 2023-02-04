@@ -3,6 +3,7 @@ require_once('modales.php');
 require_once('../../conexion.php');
 
 $resDepartamentos = mysqli_query($conexion, "SELECT * FROM departamentos");
+$resUnidadesMineras = mysqli_query($conexion, "SELECT * FROM unidad_minera WHERE UNMI_estado = 1");
 
 ?>
 <style>
@@ -53,7 +54,7 @@ $resDepartamentos = mysqli_query($conexion, "SELECT * FROM departamentos");
         <form id="formPersonal">
           <div class="tab-content mt-3">
             <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
-              <div class="row" style="min-height: 340px;">
+              <div class="row" style="min-height: 330px;">
                 <div class="col-md-4">
                   <label>Num. Doc</label>
                   <input type="number" oninput="limitarTextoInput(this,undefined,8);" name="numDocumento" data-validate class="form-control form-control-sm" required="">
@@ -79,7 +80,7 @@ $resDepartamentos = mysqli_query($conexion, "SELECT * FROM departamentos");
                     <option value="">-- SELECCIONE --</option>
                   </select>
                   <label>Tipo Sangre</label>
-                  <select class="form-select form-select-sm select2" data-validate name="sangre">
+                  <select class="form-select form-select-sm select2" name="sangre">
                     <option value="">-- SELECCIONE --</option>
                     <option>O NEGATIVO</option>
                     <option>O POSITIVO</option>
@@ -155,19 +156,19 @@ $resDepartamentos = mysqli_query($conexion, "SELECT * FROM departamentos");
                     <b class="text-center">Derechohabientes</b>
                     <div class="mt-2">
                       <div class="row justify-content-center align-items-center" data-clone="" id="inputCloneDerechoHaAdd">
-                        <div class="col-3">
+                        <div class="col-12 col-lg-3">
                           <label>Nombres y apellidos</label>
                           <input type="text" data-validate="" class="form-control form-control-sm" autocomplete="off">
                         </div>
-                        <div class="col-2">
+                        <div class="col-12 col-lg-2">
                           <label>Vinculo</label>
                           <input type="text" data-validate="" class="form-control form-control-sm" autocomplete="off">
                         </div>
-                        <div class="col-2">
+                        <div class="col-12 col-lg-2">
                           <label>F. Nacimiento</label>
                           <input type="date" data-validate="" class="form-control form-control-sm" autocomplete="off">
                         </div>
-                        <div class="col-2">
+                        <div class="col-12 col-lg-2">
                           <label>Sexo</label>
                           <select data-validate="" class="form-select form-select-sm" id="">
                             <option value="">-- SELECCIONE --</option>
@@ -176,7 +177,7 @@ $resDepartamentos = mysqli_query($conexion, "SELECT * FROM departamentos");
                             <option>Otro</option>
                           </select>
                         </div>
-                        <div class="col-2">
+                        <div class="col-12 col-lg-2">
                           <label>DNI</label>
                           <input type="number" data-validate="" oninput="limitarTextoInput(this,false,8)" class="form-control form-control-sm" autocomplete="off">
                         </div>
@@ -229,27 +230,33 @@ $resDepartamentos = mysqli_query($conexion, "SELECT * FROM departamentos");
                   <b class="text-center">Educación</b>
                   <div class="mt-1">
                     <div class="row justify-content-center align-items-center" data-clone="" id="inputCloneEstudiosAdd">
-                      <div class="col-2">
+                      <div class="col-12 col-lg-2">
                         <label>Estudios</label>
-                        <input type="text" data-validate="" class="form-control form-control-sm" autocomplete="off">
+                        <select  class="form-select form-select-sm" data-validate>
+                        <option value="">Selecione una opción</option>
+                        <option value="Educación primaria">Educación primaria</option>
+                        <option value="Educación secundaria">Educación secundaria</option>
+                        <option value="Educación superior">Educación superior</option>
+                        <option value="Educación tecnica">Educación tecnica</option>
+                        </select>
                       </div>
-                      <div class="col-2">
+                      <div class="col-12 col-lg-2">
                         <label>Institución</label>
                         <input type="text" data-validate="" class="form-control form-control-sm" autocomplete="off">
                       </div>
-                      <div class="col-2">
+                      <div class="col-12 col-lg-2">
                         <label>Espcialidad</label>
                         <input type="text" data-validate="" class="form-control form-control-sm" autocomplete="off">
                       </div>
-                      <div class="col-1">
+                      <div class="col-12 col-lg-1">
                         <label>Grado</label>
                         <input type="text" data-validate="" class="form-control form-control-sm" autocomplete="off">
                       </div>
-                      <div class="col-2">
+                      <div class="col-12 col-lg-2">
                         <label>Desde</label>
                         <input type="date" data-validate="" class="form-control form-control-sm" autocomplete="off">
                       </div>
-                      <div class="col-2">
+                      <div class="col-12 col-lg-2">
                         <label>Hasta</label>
                         <input type="date" data-validate="" class="form-control form-control-sm" autocomplete="off">
                       </div>
@@ -265,19 +272,19 @@ $resDepartamentos = mysqli_query($conexion, "SELECT * FROM departamentos");
                   <b class="text-center">Otros estudios</b>
                   <div class="mt-1">
                     <div class="row justify-content-center align-items-center" data-clone="" id="inputCloneOtrosEstudiosAdd">
-                      <div class="col-4">
+                      <div class="col-12 col-lg-4">
                         <label>Nombre del curso</label>
                         <input type="text" data-validate="" class="form-control form-control-sm" autocomplete="off">
                       </div>
-                      <div class="col-3">
+                      <div class="col-12 col-lg-3">
                         <label>institución</label>
                         <input type="text" data-validate="" class="form-control form-control-sm" autocomplete="off">
                       </div>
-                      <div class="col-2">
+                      <div class="col-12 col-lg-2">
                         <label>Desde</label>
                         <input type="date" data-validate="" class="form-control form-control-sm" autocomplete="off">
                       </div>
-                      <div class="col-2">
+                      <div class="col-12 col-lg-2">
                         <label>Hasta</label>
                         <input type="date" data-validate="" class="form-control form-control-sm" autocomplete="off">
                       </div>
@@ -293,23 +300,23 @@ $resDepartamentos = mysqli_query($conexion, "SELECT * FROM departamentos");
                   <b class="text-center">Experiencia</b>
                   <div class="mt-1">
                     <div class="row justify-content-center align-items-center" data-clone="" id="inputCloneExperienciaAdd">
-                      <div class="col-3">
+                      <div class="col-12 col-lg-3">
                         <label>Empresa</label>
                         <input type="text" data-validate="" class="form-control form-control-sm" autocomplete="off">
                       </div>
-                      <div class="col-2">
+                      <div class="col-12 col-lg-2">
                         <label>F. inicio</label>
                         <input type="date" data-validate="" class="form-control form-control-sm" autocomplete="off">
                       </div>
-                      <div class="col-2">
+                      <div class="col-12 col-lg-2">
                         <label>F. fin</label>
                         <input type="date" data-validate="" class="form-control form-control-sm" autocomplete="off">
                       </div>
-                      <div class="col-2">
+                      <div class="col-12 col-lg-2">
                         <label>cargo</label>
                         <input type="text" data-validate="" class="form-control form-control-sm" autocomplete="off">
                       </div>
-                      <div class="col-2">
+                      <div class="col-12 col-lg-2">
                         <label>Remuneración</label>
                         <input type="number" data-validate="" class="form-control form-control-sm" autocomplete="off">
                       </div>
@@ -369,6 +376,29 @@ $resDepartamentos = mysqli_query($conexion, "SELECT * FROM departamentos");
 
                   </div>
                   <!-- /.form-group -->
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+
+                  <label>Unidad minera ( actual )</label>
+                  <select class="form-select form-select-sm" data-validate name="unidadMinera">
+                    <option value="">-- SELECCIONE --</option>
+                    <?php foreach ($resUnidadesMineras as $x) : ?>
+                      <option value="<?php echo $x["UNMI_id"] ?>"><?php echo $x["UNMI_descripcion"] ?></option>
+                    <?php endforeach; ?>
+                  </select>
+
+                </div>
+                <div class="col-md-4">
+                  
+                  <label>Estado trabajo</label>
+                  <select class="form-select form-select-sm" data-validate name="estadoTrabajo">
+                    <option value="">-- SELECCIONE --</option>
+                    <option value="1">LABORANDO</option>
+                    <option value="0">RETIRADO</option>
+                  </select>
+
                 </div>
               </div>
             </div>

@@ -3,7 +3,8 @@ function plantilla($idPersona)
 {
 	require_once("../../conexion.php");
 
-	$consultaPer = "SELECT *, CONCAT(PER_nombres, ' ', PER_apellidos ) as nombres FROM personas WHERE PER_id='$idPersona'";
+	$consultaPer = "SELECT *, CONCAT(PER_nombres, ' ', PER_apellidos ) as nombres FROM personas pe
+									INNER JOIN unidad_minera um ON pe.UNMI_id01 = um.UNMI_id WHERE PER_id='$idPersona'";
 	$resListaPersonas = mysqli_query($conexion, $consultaPer);
 	$arrayResultado = mysqli_fetch_assoc($resListaPersonas);
 
@@ -68,6 +69,10 @@ function plantilla($idPersona)
 			<tr>
 				<th class="text-start">Teléfono</th>
 				<td>: '.$arrayResultado['PER_telefono'] .'</td>
+			</tr>
+			<tr>
+				<th class="text-start">Unidad Minera</th>
+				<td>: '.$arrayResultado['UNMI_descripcion'] .'</td>
 			</tr>
 		</table>
 		<table class="border-collapse border-table w-100 mt-4">

@@ -39,6 +39,9 @@ $bancoCts = @$_POST["bancoCts"];
 $tipoAfp = @$_POST["tipoAfp"];
 $empresaIngresos5ta = @$_POST["empresaIngresos5ta"];
 $vehiculoCancelado = @$_POST["vehiculoCancelado"];
+$unidadMinera = @$_POST["unidadMinera"];
+$estadoTrabajador = @$_POST["estadoTrabajador"];
+$estadoTrabajo = @$_POST["estadoTrabajo"];
 
 //conjunto de datos
 $dataDerechoHaAct = @$_POST["dataDerechoHaAct"];
@@ -64,7 +67,7 @@ $jsonImplementos = json_encode(
   ]
   );
 
-$consulta = " UPDATE personas SET 
+$consulta = " UPDATE personas SET   UNMI_id01 = '$unidadMinera', 
                                     PER_usuario = '$numDocumento', 
                                     PER_nombres = '$nombres',	
                                     PER_apellidos = '$apellidos',	
@@ -99,7 +102,9 @@ $consulta = " UPDATE personas SET
                                     PER_5ta_empresa = '$empresaIngresos5ta', 		
                                     PER_5ta_adicional = '$quintaCategoria2', 		
                                     PER_cuenta_sueldo = '$cuentaSueldo', 	
-                                    PER_cuenta_cts = '$cuentaCts'
+                                    PER_cuenta_cts = '$cuentaCts',
+                                    PER_estado_trabajo = '$estadoTrabajo',
+                                    PER_estado = '$estadoTrabajador'
                                     WHERE PER_id = $id";
 
 $resUpdate = mysqli_query($conexion, $consulta);

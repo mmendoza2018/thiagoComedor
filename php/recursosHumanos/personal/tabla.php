@@ -17,13 +17,21 @@ require_once "modales.php";
           <th>Nombres y Apellidos</th>
           <th>Telefono</th>
           <th>Correo</th>
+          <th>Unidad minera</th>
+          <th>Estado</th>
           <th>Acciones</th>
         </tr>
       </thead>
       <?php
-      $resPersonal = mysqli_query($conexion, "SELECT * FROM personas");
+      $consulta = "SELECT * FROM personas pe INNER JOIN unidad_minera um ON pe.UNMI_id01 = um.UNMI_id WHERE PER_estado = 1";
+      $resPersonal = mysqli_query($conexion, $consulta);
       $contador = 1;
       foreach ($resPersonal as $x) { 
+        $estadoTrabajo = $x["PER_estado_trabajo"];
+        $htmlEstadoTrabajo = ($estadoTrabajo == 1) 
+        ? "<span class='badge bg-success'>Laborando</span>" 
+        : "<span class='badge bg-danger'>Retirado</span>";
+
         $idPersona = $x["PER_id"];?>
         <tr>
           <td><?php echo $contador ?></td>
@@ -31,6 +39,8 @@ require_once "modales.php";
           <td><?php echo $x["PER_nombres"] . ' ' . $x["PER_apellidos"]; ?> </td>
           <td><?php echo $x["PER_telefono"]; ?></td>
           <td><?php echo $x["PER_correo"]; ?></td>
+          <td><?php echo $x["UNMI_descripcion"]; ?></td>
+          <td><?php echo $htmlEstadoTrabajo; ?></td>
           <td>
             <a class="text-decoration-none" href="#"
             onclick="generaPdf('php/generaPDF/fichaPersonal/index.php?id=<?php echo $idPersona ?>', 'Ficha Personal')">

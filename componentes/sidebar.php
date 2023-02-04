@@ -27,7 +27,7 @@
                         <span class="menu-text">Ordenes de pedido</span>
                         <span class="badge badge-pill badge-warning">New</span>
                     </a>
-                    <div class="sidebar-submenu" style="display: block;">
+                    <div class="sidebar-submenu">
                         <ul>
                             <li><a href="#" id="btnRegistroVentas">Registro Ventas</a></li>
                             <li class="sidebar-dropdown-child">
@@ -62,7 +62,7 @@
                         <span class="menu-text">Recursos humanos</span>
                         <span class="badge badge-pill badge-warning">New</span>
                     </a>
-                    <div class="sidebar-submenu">
+                    <div class="sidebar-submenu" style="display: block;">
                         <ul>
                             <li class="sidebar-dropdown-child">
                                 <a href="#"><span class="menu-text2">personal</span> </a>
@@ -97,6 +97,18 @@
                         </ul>
                     </div>
                 </li>
+                <li class="sidebar-dropdown">
+                    <a href="#">
+                    <i class="fas fa-file-contract"></i>
+                        <span class="menu-text">Reportes</span>
+                    </a>
+                    <div class="sidebar-submenu">
+                        <ul>
+                            <li><a href="#" id="sidebarReporteDocumentosPersonal">Documentos del personal</a></li>
+                            <li><a href="#" id="sidebarReporteInfoPersonal">Información del personal</a></li>
+                        </ul>
+                    </div>
+                </li>
                 <li class="header-menu">
                     <span>Mantenimientos</span>
                 </li>
@@ -117,6 +129,7 @@
                             <li><a href="#" id="btntipoRegistros">TipoRegistros</a></li>
                             <li><a href="#" id="btnCargos">Cargos</a></li>
                             <li><a href="#" id="btnTiposDocumento">Tipos de documentos</a></li>
+                            <li><a href="#" id="btnUnidadMinera">Unidad minera</a></li>
                         </ul>
                     </div>
                 </li>

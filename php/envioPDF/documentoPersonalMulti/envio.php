@@ -55,7 +55,7 @@ $asunto= $_POST["asunto"]=="" ? "" :$_POST["asunto"];
     }
     // Content
     $mail->isHTML(true);                                  // Set email format to HTML
-    $mail->Subject = 'GYT Archivos Adjuntos';
+    $mail->Subject = 'sgthiagoaris archivos adjuntos';
     $mail->Body    = $asunto;
 
     $mail->send();
