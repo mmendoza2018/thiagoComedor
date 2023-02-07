@@ -6,12 +6,11 @@ document.addEventListener("click", (e) => {
     if (event.target.matches("#envioLogin")) {
         e.preventDefault();
         if (validar_campos("formLogin")) {
-            let select = document.getElementById("indexComedorText");
         const datos = $("#formLogin").serialize(e);
         $.ajax({
             type: "POST",
             url: "php/login.php",
-            data: datos + "&cedeNombre="+ select.options[select.selectedIndex].text,
+            data: datos,
             success: function (response) {
                 console.log(response);
                 if (response === "1") {

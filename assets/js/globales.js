@@ -341,7 +341,7 @@ function MostrarRutaStorage() {
     let primerIngresoSistema = document.getElementById("estadoIngresoSistema")
       .dataset.estado_sis;
     primerIngresoSistema == "1"
-      ? $("#contenido").load("php/home/index.php")
+      ? $("#contenido").load("php/recursosHumanos/personal/tabla.php")
       : $("#contenido").load(localStorage.getItem("rutaTh"));
   }
 }

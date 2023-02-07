@@ -94,9 +94,11 @@ const agregaPersonal = () => {
     .then((respuesta) => {
       console.log(respuesta);
       if (respuesta[0]) {
-        $("#modalAddAtencionesDelDia").modal("hide");
         alertaPersonalizada("Agregado con exito!", "success");
-        cargarContenido("php/recursosHumanos/personal/index.php", "contenido");
+        const urlActual = window.location.href;
+        const urlIndex = urlActual.split("#")[0];
+        window.location.href = urlIndex;
+        //cargarContenido("php/recursosHumanos/personal/index.php", "contenido");
       } else {
         alertaPersonalizada(respuesta[1], "error");
       }
@@ -642,8 +644,7 @@ const reporteExcelDocumentosVencidos = (formulario) => {
   }
 
   window.open(
-    `${ruta}
-    ?idUnidadMinera=${idUnidadMinera}&unidadMinera=${unidadMinera}&idTipoDocumento=${idTipoDocumento}&tipoDocumento=${tipoDocumento}&fInicio=${fechainicio}&fFinal=${fechaFin}`,
+    `${ruta}?idUnidadMinera=${idUnidadMinera}&unidadMinera=${unidadMinera}&idTipoDocumento=${idTipoDocumento}&tipoDocumento=${tipoDocumento}&fInicio=${fechainicio}&fFinal=${fechaFin}`,
     "Documentos"
   );
 };
@@ -663,8 +664,7 @@ const reporteExcelTrabajadores = (formulario) => {
   }
 
   window.open(
-    `${ruta}
-    ?idUnidadMinera=${idUnidadMinera}&unidadMinera=${unidadMinera}&estadoTrabajador=${estadoTrabajador}`,
+    `${ruta}?idUnidadMinera=${idUnidadMinera}&unidadMinera=${unidadMinera}&estadoTrabajador=${estadoTrabajador}`,
     "Trabajadores"
   );
 };

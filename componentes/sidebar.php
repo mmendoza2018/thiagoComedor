@@ -2,7 +2,6 @@
     <div class="sidebar-content">
         <!-- sidebar-brand  -->
         <div class="text-center">
-            <strong><?php echo $_SESSION["datos_trabajador"][0]["cedeNombre"] ?></strong>
             <a href="menu.php" id="index" class="my-2 text-center"><img src="assets/img/logo2.jpeg" class="mx-auto img-fluid mt-1" alt="gyt"></a>
         </div>
         <!-- sidebar-header  -->
@@ -21,7 +20,7 @@
         <div class="sidebar-item sidebar-menu">
             <ul>
                 <li class="header-menu"><span>General</span></li>
-                <li class="sidebar-dropdown active">
+                <!-- <li class="sidebar-dropdown active">
                     <a href="#">
                         <i class="fas fa-donate"></i>
                         <span class="menu-text">Ordenes de pedido</span>
@@ -52,17 +51,16 @@
                             </li>
                             <li><a href="#" id="btnlectorQr">lector</a></li>
                             <li><a href="#" id="btnTeclado">ingreso por teclado</a></li>
-                            <!-- <li><a href="#" id="btnPrueba">Prueba</a></li> -->
                         </ul>
                     </div>
-                </li>
+                </li> -->
                 <li class="sidebar-dropdown">
                     <a href="#">
                         <i class="fas fa-users"></i>
                         <span class="menu-text">Recursos humanos</span>
                         <span class="badge badge-pill badge-warning">New</span>
                     </a>
-                    <div class="sidebar-submenu" style="display: block;">
+                    <div class="sidebar-submenu active">
                         <ul>
                             <li class="sidebar-dropdown-child">
                                 <a href="#"><span class="menu-text2">personal</span> </a>
@@ -120,14 +118,14 @@
                     </a>
                     <div class="sidebar-submenu">
                         <ul>
-                            <li><a href="#" id="btnFormComensales">Comensales</a></li>
+                           <!--  <li><a href="#" id="btnFormComensales">Comensales</a></li>
                             <li><a href="#" id="btnFormComedores">Comedores</a></li>
                             <li><a href="#" id="btnFormEmpresas">Empresas</a></li>
                             <li><a href="#" id="btnFormHorarios">Horarios</a></li>
                             <li><a href="#" id="btntipoAlimentos">Alimentos</a></li>
                             <li><a href="#" id="btntipoAtenciones">TipoAtenciones</a></li>
                             <li><a href="#" id="btntipoRegistros">TipoRegistros</a></li>
-                            <li><a href="#" id="btnCargos">Cargos</a></li>
+                            <li><a href="#" id="btnCargos">Cargos</a></li> -->
                             <li><a href="#" id="btnTiposDocumento">Tipos de documentos</a></li>
                             <li><a href="#" id="btnUnidadMinera">Unidad minera</a></li>
                         </ul>

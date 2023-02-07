@@ -2,11 +2,9 @@
 session_start();
 require("conexion.php");
 
-if ($_POST['usuario'] != "" && $_POST['contrasena'] != "" && $_POST['cede'] != "") {
+if ($_POST['usuario'] != "" && $_POST['contrasena'] != "") {
     $usuario = $_POST['usuario'];
     $contrasena = $_POST['contrasena'];
-    $cede = $_POST['cede'];
-    $cedeNombre = $_POST['cedeNombre'];
     $contrasenaSql= "";
     $nombreSql = "";
     $estadoPermitido = 1;
@@ -37,8 +35,6 @@ if ($_POST['usuario'] != "" && $_POST['contrasena'] != "" && $_POST['cede'] != "
             $_SESSION['datos_trabajador'][] = [
                 "nombres"=> $nombreSql,
                 "id"=> $idUsuario,
-                "idCede"=>$cede,
-                "cedeNombre"=>$cedeNombre,
                 "estado"=>1
             ];
 
